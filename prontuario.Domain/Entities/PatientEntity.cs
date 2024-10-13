@@ -6,7 +6,7 @@ namespace prontuario.Domain.Entities
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
-        public string DateOfBirth { get; private set; } = string.Empty;
+        public DateTime DateOfBirth { get; private set; }
         public SUS Sus { get; private set; } = null!;
         public CPF Cpf { get; private set; } = null!;
         public RG Rg { get; private set; } = null!;
@@ -17,15 +17,14 @@ namespace prontuario.Domain.Entities
         public PatientEntity() { }
         public PatientEntity(
             Guid id,
-            string name, 
-            string dateOfBirth, 
+            string name,
+            DateTime dateOfBirth, 
             SUS sus, 
             CPF cpf, 
             RG rg, 
             Phone phone, 
             AddressEntity address,
-            EmergencyContactDetailsEntity emergencyContactDetails,
-            ICollection<ServiceEntity> services)
+            EmergencyContactDetailsEntity emergencyContactDetails)
         {
             this.Id = id;
             this.Name = name;
@@ -36,7 +35,25 @@ namespace prontuario.Domain.Entities
             this.Phone = phone;
             this.Address = address;
             this.EmergencyContatcDetails = emergencyContactDetails;
-            this.Services = services;
+        }
+        public PatientEntity(
+            string name,
+            DateTime dateOfBirth,
+            SUS sus,
+            CPF cpf,
+            RG rg,
+            Phone phone,
+            AddressEntity address,
+            EmergencyContactDetailsEntity emergencyContactDetails)
+        {
+            this.Name = name;
+            this.DateOfBirth = dateOfBirth;
+            this.Sus = sus;
+            this.Cpf = cpf;
+            this.Rg = rg;
+            this.Phone = phone;
+            this.Address = address;
+            this.EmergencyContatcDetails = emergencyContactDetails;
         }
     }
 }

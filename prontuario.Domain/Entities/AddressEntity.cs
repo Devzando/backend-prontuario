@@ -18,5 +18,13 @@ namespace prontuario.Domain.Entities
             this.City = city;
             this.Number = number;
         }
+
+        public AddressEntity(CEP cep, string street, string city, long number)
+        {
+            this.Cep = cep;
+            this.Street = street;
+            this.City = city;
+            this.Number = number;
+        }
     }
 }
