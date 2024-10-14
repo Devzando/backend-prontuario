@@ -4,27 +4,27 @@ namespace prontuario.Domain.Entities
 {
     public class PatientEntity
     {
-        public Guid Id { get; private set; }
+        public long Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public DateTime DateOfBirth { get; private set; }
         public SUS Sus { get; private set; } = null!;
         public CPF Cpf { get; private set; } = null!;
         public RG Rg { get; private set; } = null!;
         public Phone Phone { get; private set; } = null!;
-        public AddressEntity Address { get; private set; } = null!;
-        public EmergencyContactDetailsEntity EmergencyContatcDetails { get; private set; } = null!;
-        public ICollection<ServiceEntity> Services { get; private set; } = null!;
+        public AddressEntity AddressEntity { get; private set; } = null!;
+        public EmergencyContactDetailsEntity EmergencyContatcDetailsEntity { get; private set; } = null!;
+        public ICollection<ServiceEntity> ServicesEntity { get; private set; } = null!;
         public PatientEntity() { }
         public PatientEntity(
-            Guid id,
+            long id,
             string name,
             DateTime dateOfBirth, 
             SUS sus, 
             CPF cpf, 
             RG rg, 
             Phone phone, 
-            AddressEntity address,
-            EmergencyContactDetailsEntity emergencyContactDetails)
+            AddressEntity addressEntity,
+            EmergencyContactDetailsEntity emergencyContactDetailsEntity)
         {
             this.Id = id;
             this.Name = name;
@@ -33,8 +33,8 @@ namespace prontuario.Domain.Entities
             this.Cpf = cpf;
             this.Rg = rg;
             this.Phone = phone;
-            this.Address = address;
-            this.EmergencyContatcDetails = emergencyContactDetails;
+            this.AddressEntity = addressEntity;
+            this.EmergencyContatcDetailsEntity = emergencyContactDetailsEntity;
         }
         public PatientEntity(
             string name,
@@ -43,8 +43,8 @@ namespace prontuario.Domain.Entities
             CPF cpf,
             RG rg,
             Phone phone,
-            AddressEntity address,
-            EmergencyContactDetailsEntity emergencyContactDetails)
+            AddressEntity addressEntity,
+            EmergencyContactDetailsEntity emergencyContactDetailsEntity)
         {
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
@@ -52,8 +52,8 @@ namespace prontuario.Domain.Entities
             this.Cpf = cpf;
             this.Rg = rg;
             this.Phone = phone;
-            this.Address = address;
-            this.EmergencyContatcDetails = emergencyContactDetails;
+            this.AddressEntity = addressEntity;
+            this.EmergencyContatcDetailsEntity = emergencyContactDetailsEntity;
         }
     }
 }

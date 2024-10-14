@@ -4,13 +4,13 @@ namespace prontuario.Domain.Entities
 {
     public class EmergencyContactDetailsEntity
     {
-        public Guid Id { get; private set; }
+        public long Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public Phone Phone { get; private set; } = null!;
         public Relationship Relationship { get; private set; } = null!;
         public EmergencyContactDetailsEntity() { }
 
-        public EmergencyContactDetailsEntity(Guid id, string name, Phone phone, Relationship relationship)
+        public EmergencyContactDetailsEntity(long id, string name, Phone phone, Relationship relationship)
         {
             this.Id = id;
             this.Name = name;

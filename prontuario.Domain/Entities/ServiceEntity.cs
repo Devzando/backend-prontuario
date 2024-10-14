@@ -2,16 +2,21 @@
 {
     public class ServiceEntity
     {
-        public Guid Id { get; private set; }
+        public long Id { get; private set; }
         public PatientEntity patientEntity { get; private set; } = null!;
-        public DateTime Date { get; private set; }
+        public DateTime DateService { get; private set; }
         public ServiceEntity() { }
 
-        public ServiceEntity(Guid id, PatientEntity patientEntity, DateTime date)
+        public ServiceEntity(long id, PatientEntity patientEntity, DateTime DateService)
         {
             this.Id = id;
             this.patientEntity = patientEntity;
-            this.Date = date;
+            this.DateService = DateService;
+        }
+        public ServiceEntity(PatientEntity patientEntity, DateTime DateService)
+        {
+            this.patientEntity = patientEntity;
+            this.DateService = DateService;
         }
     }
 }
