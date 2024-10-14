@@ -9,8 +9,8 @@ namespace prontuario.WebApi.Config
         public static void AddIocDependencies(this IServiceCollection services)
         {
             // Patients
-            services.AddSingleton<IGatewayPatient, PatientRepositoryGateway>();
-            services.AddSingleton<CreatePatientUseCase>();
+            services.AddScoped<IGatewayPatient, PatientRepositoryGateway>();
+            services.AddScoped<CreatePatientUseCase>();
         }
     }
 }

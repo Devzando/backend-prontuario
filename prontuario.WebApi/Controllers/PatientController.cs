@@ -9,15 +9,9 @@ namespace prontuario.WebApi.Controllers
     public class PatientController : ControllerBase
     {
         [HttpPost]
-        public async Task<ResultPattern<string>> Create([FromBody] CreatePatientDTO data)
+        public async Task<ResultPattern<string>> Create()
         {
-            var result = await _createPatientUseCase.Execute(data);
-            if(result.IsFailure)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result);
+            return ResultPattern<string>.SuccessResult("Paciente criado com sucesso");
         }
     }
 }
