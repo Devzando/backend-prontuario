@@ -20,6 +20,10 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
 
         [Required]
         [MaxLength(15)]
+        public string Sus { get; private set; } = string.Empty;
+
+        [Required]
+        [MaxLength(15)]
         public string Cpf { get; private set; } = string.Empty;
 
         [Required]
@@ -43,24 +47,29 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
             long id,
             string name,
             DateTime birthDate,
+            string sus,
             string cpf,
             string rg,
             string phone,
             AddressModel addressModel,
-            EmergencyContactDetailsModel emergencyContactDetailsModel)
+            EmergencyContactDetailsModel emergencyContactDetailsModel,
+            ICollection<ServiceModel> servicesModel)
         {
             this.Id = id;
             this.Name = name;
             this.BirthDate = birthDate;
+            this.Sus = sus;
             this.Cpf = cpf;
             this.Rg = rg;
             this.Phone = phone;
             this.AddressModel = addressModel;
             this.EmergencyContactDetailsModel = emergencyContactDetailsModel;
+            this.ServicesModel = servicesModel;
         }
         public PatientModel(
             string name,
             DateTime birthDate,
+            string sus,
             string cpf,
             string rg,
             string phone,
@@ -69,6 +78,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
         {
             this.Name = name;
             this.BirthDate = birthDate;
+            this.Sus = sus;
             this.Cpf = cpf;
             this.Rg = rg;
             this.Phone = phone;

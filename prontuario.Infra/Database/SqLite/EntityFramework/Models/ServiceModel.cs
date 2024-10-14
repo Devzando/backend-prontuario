@@ -44,6 +44,12 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
             this.DateService = dateService;
             this.PatientModel = patientModel;
         }
+        public ServiceModel(long id, string name, DateTime dateService)
+        {
+            this.Id = 
+            this.Name = name;
+            this.DateService = dateService;
+        }
     }
     
 }

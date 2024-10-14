@@ -5,7 +5,7 @@ namespace prontuario.Domain.ValuesObjects
 {
     public class Relationship
     {
-        private string Value { get; set; } = string.Empty;
+        public string Value { get; private set; } = string.Empty;
         public Relationship(string value)
         {
             this.Value = value;
