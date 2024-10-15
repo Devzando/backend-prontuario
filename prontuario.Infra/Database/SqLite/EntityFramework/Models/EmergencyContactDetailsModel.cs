@@ -19,12 +19,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
         [MaxLength(30)]
         public string Relationship { get; private set; } = string.Empty;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; private set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; private set; }
-
         [Required]
         public long PatientId { get; set; }
 

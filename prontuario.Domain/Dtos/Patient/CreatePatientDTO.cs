@@ -2,7 +2,7 @@
 {
     public record CreatePatientDTO(
         string Name,
-        string BirthDate,
+        DateTime BirthDate,
         string Sus,
         string Cpf,
         string Rg,

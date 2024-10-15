@@ -1,6 +1,6 @@
 ﻿namespace prontuario.Domain.Errors
 {
-    public class ProblemDetails
+    public class FormatDetails
     {
         public string Type { get; set; } // O URI que identifica o tipo de problema (opcional)
         public string Title { get; set; } // Um título resumido para o tipo de problema
@@ -9,8 +9,8 @@
         public string Instance { get; set; } // Um identificador para a instância do problema (opcional)
         public Dictionary<string, object> Extensions { get; set; } = new Dictionary<string, object>(); // Permite adicionar informações personalizadas
 
-        public ProblemDetails() { }
-        public ProblemDetails(string title, int? status, string detail, string? type = null, string? instance = null)
+        public FormatDetails() { }
+        public FormatDetails(string title, int? status, string detail, string? type = null, string? instance = null)
         {
             Type = type ?? "about:blank"; // URI padrão "about:blank" se não for fornecido
             Title = title;

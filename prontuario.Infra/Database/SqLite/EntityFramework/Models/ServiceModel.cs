@@ -18,12 +18,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
         [Column(TypeName = "Date")]
         public DateTime DateService { get; private set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; private set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; private set; }
-
         [Required]
         public long PatientId { get; set; } 
 

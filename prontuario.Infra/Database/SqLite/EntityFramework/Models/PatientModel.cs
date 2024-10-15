@@ -33,12 +33,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
         [Required]
         [MaxLength(15)]
         public string Phone { get; private set; } = string.Empty;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; private set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; private set; }
         public AddressModel AddressModel { get; private set; } = null!;
         public EmergencyContactDetailsModel EmergencyContactDetailsModel { get; private set; } = null!;
         public ICollection<ServiceModel> ServicesModel { get; private set; } = null!;

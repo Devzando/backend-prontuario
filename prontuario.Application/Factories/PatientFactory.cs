@@ -10,7 +10,7 @@ namespace prontuario.Application.Factories
         {
             return new PatientEntity(
                 data.Name,
-                DateTime.Parse(data.BirthDate),
+                data.BirthDate,
                 new SUS(data.Sus),
                 new CPF(data.Cpf), 
                 new RG(data.Rg),

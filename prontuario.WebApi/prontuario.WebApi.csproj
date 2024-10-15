@@ -28,4 +28,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ResponseModels\Patient\" />
+  </ItemGroup>
+
 </Project>

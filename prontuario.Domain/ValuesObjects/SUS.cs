@@ -1,6 +1,4 @@
-﻿using prontuario.Domain.Errors;
-
-namespace prontuario.Domain.ValuesObjects
+﻿namespace prontuario.Domain.ValuesObjects
 {
     public class SUS
     {
@@ -8,21 +6,6 @@ namespace prontuario.Domain.ValuesObjects
         public SUS(string value)
         {
             this.Value = value;
-            Validate(value);
-        }
-
-        private ResultPattern<string> Validate(string sus)
-        {
-            if (string.IsNullOrWhiteSpace(sus) || sus.Length != 15 || !sus.All(char.IsDigit))
-            {
-                return ResultPattern<string>.FailureResult(
-                    detail: "O número do cartão SUS deve conter exatamente 15 dígitos.",
-                    statusCode: 400,
-                    title: "Erro de Validação"
-                );
-            }
-
-            return ResultPattern<string>.SuccessResult("SUS Válido");
         }
     }
 }

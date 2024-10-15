@@ -1,5 +1,5 @@
 ﻿using prontuario.Domain.Enums;
-using prontuario.Domain.Errors;
+using prontuario.Domain.Exceptions;
 
 namespace prontuario.Domain.ValuesObjects
 {
@@ -8,22 +8,17 @@ namespace prontuario.Domain.ValuesObjects
         public string Value { get; private set; } = string.Empty;
         public Relationship(string value)
         {
+            Validate(value);
             this.Value = value;
         }
-        private ResultPattern<string> Validate(string relationship)
+        private void Validate(string relationship)
         {
-            if (relationship != TypeRelationship.FATHER.ToString() 
-                || relationship != TypeRelationship.MOTHER.ToString() 
-                || relationship != TypeRelationship.SON.ToString())
+            if (!relationship.Equals(TypeRelationship.FATHER.ToString())  
+                && !relationship.Equals(TypeRelationship.MOTHER.ToString())
+                && !relationship.Equals(TypeRelationship.SON.ToString()))
             {
-                return ResultPattern<string>.FailureResult(
-                    detail: "O campo de relacionamento precisa ser um dos seguintes valores: FATHER, MOTHER, SON.",
-                    statusCode: 400,
-                    title: "Erro de Validação"
-                );
+                throw new DomainException("O campo de relacionamento precisa ser um dos seguintes valores: FATHER, MOTHER, SON.");
             }
-
-            return ResultPattern<string>.SuccessResult("Relacionamento Válido");
         }
     }
 }
