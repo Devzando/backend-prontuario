@@ -62,5 +62,41 @@ namespace prontuario.WebApi.Controllers
 
             return Ok(new MessageSuccessResponseModel(result.Message));
         }
+
+        /// <summary>
+        /// Retorna todos os pacientes cadastrados no sistema
+        /// </summary>
+        /// <returns>Mensagem de sucesso na operação</returns>
+        /// <response code="200">Pacientes retornados com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<List<PatientResponseModel>>> GetAll([FromServices] GetAllPatientsUseCase getAllPatientsUseCase)
+        {
+            var result = await getAllPatientsUseCase.Execute();
+            return Ok(result.Data.Select(patient => new PatientResponseModel(
+                patient.Id,
+                patient.Name,
+                patient.BirthDate,
+                patient.Sus,
+                patient.Cpf,
+                patient.Rg,
+                patient.Phone,
+                new AddressResponseModel(
+                    patient.AddressEntity.Cep,
+                    patient.AddressEntity.Street,
+                    patient.AddressEntity.City,
+                    patient.AddressEntity.Number
+                ),
+                new EmergencyContactDetailsResponseModel(
+                    patient.EmergencyContactDetailsEntity.Name,
+                    patient.EmergencyContactDetailsEntity.Phone,
+                    patient.EmergencyContactDetailsEntity.Relationship
+                )
+            )).ToList());
+        }
     }
 }

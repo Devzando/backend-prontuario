@@ -1,4 +1,5 @@
-﻿using prontuario.Application.Gateways;
+﻿using Microsoft.EntityFrameworkCore;
+using prontuario.Application.Gateways;
 using prontuario.Domain.Entities;
 using prontuario.Infra.Database;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models;
@@ -19,6 +20,17 @@ namespace prontuario.Infra.Gateways
             _context.Patients.Add(model);
             await _context.SaveChangesAsync();
             return PatientMapper.toEntity(model);
+        }
+
+        public async Task<List<PatientEntity>> GetAll()
+        {
+            var patients = await _context.Patients
+                .Include(p => p.AddressModel)
+                .Include(p => p.EmergencyContactDetailsModel)
+                .Include(p => p.ServicesModel)
+                .ToListAsync();
+
+            return PatientMapper.toEntity(patients);
         }
     }
 }
