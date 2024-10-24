@@ -35,6 +35,12 @@ namespace prontuario.Infra.Gateways.Mappers
                     service.DateService
                 )).ToList() ?? new List<ServiceEntity>());
         }
+
+        public static List<PatientEntity> toEntity(List<PatientModel> models)
+        {
+            return models.Select(model => toEntity(model)).ToList();
+        }
+
         public static PatientModel toModel(PatientEntity entity)
         {
             return new PatientModel(
