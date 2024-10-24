@@ -98,5 +98,47 @@ namespace prontuario.WebApi.Controllers
                 )
             )).ToList());
         }
+
+        /// <summary>
+        /// Retornar paciente com base em filtro de CPF ou SUS
+        /// </summary>
+        /// <response code="200">Paciente retornado com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        /// <response code="404">Paciente não encontrado</response>
+        [HttpGet("{filter}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PatientResponseModel>> GetByFilter([FromRoute] string filter, [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
+        {
+            var result = await getPatientsByFilterUseCase.Execute(filter);
+
+            if (result.IsFailure)
+            {
+                return StatusCode(result.ErrorDetails?.Status ?? 500, new { message = result.Message });
+            }
+            return Ok(new PatientResponseModel(
+                result.Data.Id,
+                result.Data.Name,
+                result.Data.BirthDate,
+                result.Data.Sus,
+                result.Data.Cpf,
+                result.Data.Rg,
+                result.Data.Phone,
+                new AddressResponseModel(
+                    result.Data.AddressEntity.Cep,
+                    result.Data.AddressEntity.Street,
+                    result.Data.AddressEntity.City,
+                    result.Data.AddressEntity.Number
+                ),
+                new EmergencyContactDetailsResponseModel(
+                    result.Data.EmergencyContactDetailsEntity.Name,
+                    result.Data.EmergencyContactDetailsEntity.Phone,
+                    result.Data.EmergencyContactDetailsEntity.Relationship
+                )
+            ));
+        }
     }
 }
