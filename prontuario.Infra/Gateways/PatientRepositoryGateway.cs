@@ -32,5 +32,16 @@ namespace prontuario.Infra.Gateways
 
             return PatientMapper.toEntity(patients);
         }
+
+        public async Task<PatientEntity?> GetByFilter(string filter)
+        {
+            var patient = await _context.Patients
+                .Include(p => p.AddressModel)
+                .Include(p => p.EmergencyContactDetailsModel)
+                .Include(p => p.ServicesModel)
+                .FirstOrDefaultAsync(p => (p.Cpf == filter || p.Sus == filter));
+
+            return patient != null ? PatientMapper.toEntity(patient) : null;
+        }
     }
 }

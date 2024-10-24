@@ -6,5 +6,6 @@ namespace prontuario.Application.Gateways
     {
         Task<PatientEntity> Create(PatientEntity patientEntity);
         Task<List<PatientEntity>> GetAll();
+        Task<PatientEntity?> GetByFilter(string filter);
     }
 }
