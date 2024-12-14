@@ -36,4 +36,5 @@ msbuild.wrn
 # Ignorar arquivos temporários do SQLite
 *.db-shm
 *.db-wal
+
 .idea
