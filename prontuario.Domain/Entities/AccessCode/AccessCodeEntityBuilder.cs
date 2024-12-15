@@ -8,7 +8,7 @@ public class AccessCodeEntityBuilder
     private bool _isUserUpdatePassword;
     private DateTime _experimentDate;
 
-    public AccessCodeEntityBuilder WithId(long id)
+    public AccessCodeEntityBuilder WithId(long? id)
     {
         _id = id;
         return this;

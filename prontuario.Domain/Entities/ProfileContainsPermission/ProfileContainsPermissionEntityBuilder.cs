@@ -1,4 +1,4 @@
-using prontuario.Domain.Entities.AccessCode;
+using prontuario.Domain.Entities.Permission;
 using prontuario.Domain.Entities.Profile;
 
 namespace prontuario.Domain.Entities.ProfileContainsPermission;
