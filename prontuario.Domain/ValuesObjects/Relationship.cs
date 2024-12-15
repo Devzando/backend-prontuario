@@ -5,7 +5,7 @@ namespace prontuario.Domain.ValuesObjects
 {
     public class Relationship
     {
-        public string Value { get; private set; } = string.Empty;
+        public string Value { get; private set; }
         public Relationship(string value)
         {
             Validate(value);
@@ -13,12 +13,8 @@ namespace prontuario.Domain.ValuesObjects
         }
         private void Validate(string relationship)
         {
-            if (!relationship.Equals(TypeRelationship.FATHER.ToString())  
-                && !relationship.Equals(TypeRelationship.MOTHER.ToString())
-                && !relationship.Equals(TypeRelationship.SON.ToString()))
-            {
+            if(!Enum.IsDefined(typeof(TypeRelationship), relationship))
                 throw new DomainException("O campo de relacionamento precisa ser um dos seguintes valores: FATHER, MOTHER, SON.");
-            }
         }
     }
 }
