@@ -1,11 +1,12 @@
 using prontuario.Domain.Entities.ProfileContainsPermission;
+using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.Permission;
 
 public class PermissionEntityBuilder
 {
     private long? _id;
-    private ValuesObjects.Permission _title = null!;
+    private Permissions _title = null!;
     private ICollection<ProfileContainsPermissionEntity> _profileContainsPermissions = null!;
 
     public PermissionEntityBuilder WithId(long? id)
@@ -14,7 +15,7 @@ public class PermissionEntityBuilder
         return this;
     }
 
-    public PermissionEntityBuilder WithTitle(ValuesObjects.Permission title)
+    public PermissionEntityBuilder WithTitle(Permissions title)
     {
         _title = title;
         return this;

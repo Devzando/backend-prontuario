@@ -3,11 +3,11 @@ using prontuario.Domain.Exceptions;
 
 namespace prontuario.Domain.ValuesObjects;
 
-public class Permission
+public class Permissions
 {
     public string Value { get; private set; }
 
-    public Permission(string value)
+    public Permissions(string value)
     {
         if(!Enum.IsDefined(typeof(PermissionType), value))
             throw new DomainException("A permissão deve ser um dos seguintes valores:" +
