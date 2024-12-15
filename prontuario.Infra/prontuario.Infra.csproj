@@ -22,4 +22,8 @@
     <ProjectReference Include="..\prontuario.Application\prontuario.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\SqLite\EntityFramework\Migrations\" />
+  </ItemGroup>
+
 </Project>

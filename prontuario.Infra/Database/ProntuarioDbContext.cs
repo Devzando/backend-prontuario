@@ -1,5 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.AccessCode;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Permission;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.ProfileContainsPermission;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.User;
 
 namespace prontuario.Infra.Database
 {
@@ -9,6 +14,11 @@ namespace prontuario.Infra.Database
         public DbSet<AddressModel> Addresses { get; set; }
         public DbSet<EmergencyContactDetailsModel> EmergencyContactDetails { get; set; }
         public DbSet<ServiceModel> Services { get; set; }
+        public DbSet<UserModel> Users { get; set; }
+        public DbSet<ProfileModel> Profiles { get; set; }
+        public DbSet<AccessCodeModel> AccessCodes { get; set; }
+        public DbSet<PermissionModel> Permissions { get; set; }
+        public DbSet<ProfileContainsPermissionModel> ProfileContainsPermissions { get; set; }
         public ProntuarioDbContext(DbContextOptions<ProntuarioDbContext> options) : base(options)
         {
         }

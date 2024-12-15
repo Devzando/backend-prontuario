@@ -5,15 +5,24 @@ using prontuario.Infra.Database.SqLite.EntityFramework.Models.ProfileContainsPer
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile;
 
 [Table("Profiles")]
-public class ProfileModel(long? id, string role, ICollection<ProfileContainsPermissionModel> profileContainsPermission)
+public class ProfileModel
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public long? Id { get; private set; } = id;
+    public long? Id { get; set; }
 
     [Required]
     [MaxLength(20)]
-    public string Role { get; private set; } = role;
+    public string Role { get; set; } = string.Empty;
 
-    public ICollection<ProfileContainsPermissionModel> ProfileContainsPermission { get; private set; } = profileContainsPermission;
+    public ICollection<ProfileContainsPermissionModel> ProfileContainsPermission { get; set; } = null!;
+    
+    public ProfileModel() {}
+
+    public ProfileModel(long? id, string role, ICollection<ProfileContainsPermissionModel> profileContainsPermission)
+    {
+        Id = id;
+        Role = role;
+        ProfileContainsPermission = profileContainsPermission;
+    }
 }
