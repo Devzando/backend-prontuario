@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="ResponseModels\Patient\" />
+    <Folder Include="ResponseModels\User\" />
   </ItemGroup>
 
 </Project>

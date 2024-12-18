@@ -154,22 +154,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.Permission.PermissionModel", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Permissions");
-                });
-
             modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile.ProfileModel", b =>
                 {
                     b.Property<long?>("Id")
@@ -184,27 +168,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.ProfileContainsPermission.ProfileContainsPermissionModel", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("PermissionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ProfileId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermissionId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Profile_Contains_Permissions");
                 });
 
             modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.ServiceModel", b =>
@@ -237,6 +200,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -246,6 +212,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("FirstAccess")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -300,25 +269,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Navigation("PatientModel");
                 });
 
-            modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.ProfileContainsPermission.ProfileContainsPermissionModel", b =>
-                {
-                    b.HasOne("prontuario.Infra.Database.SqLite.EntityFramework.Models.Permission.PermissionModel", "Permission")
-                        .WithMany("ProfileContainsPermission")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile.ProfileModel", "Profile")
-                        .WithMany("ProfileContainsPermission")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Profile");
-                });
-
             modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.ServiceModel", b =>
                 {
                     b.HasOne("prontuario.Infra.Database.SqLite.EntityFramework.Models.PatientModel", "PatientModel")
@@ -350,16 +300,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("ServicesModel");
-                });
-
-            modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.Permission.PermissionModel", b =>
-                {
-                    b.Navigation("ProfileContainsPermission");
-                });
-
-            modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile.ProfileModel", b =>
-                {
-                    b.Navigation("ProfileContainsPermission");
                 });
 
             modelBuilder.Entity("prontuario.Infra.Database.SqLite.EntityFramework.Models.User.UserModel", b =>

@@ -1,5 +1,7 @@
 ﻿using prontuario.Application.Gateways;
+using prontuario.Application.Usecases.Auth;
 using prontuario.Application.Usecases.Patient;
+using prontuario.Application.Usecases.User;
 using prontuario.Infra.Gateways;
 
 namespace prontuario.WebApi.Config
@@ -13,6 +15,17 @@ namespace prontuario.WebApi.Config
             services.AddScoped<CreatePatientUseCase>();
             services.AddScoped<GetAllPatientsUseCase>();
             services.AddScoped<GetPatientsByFilterUseCase>();
+            
+            // Users
+            services.AddScoped<IUserGateway, UserRepositoryGateway>();
+            services.AddScoped<FindUserByEmail>();
+            
+            // Auth
+            services.AddScoped<Login>();
+            
+            // Outros serviços
+            services.AddScoped<IBcryptGateway, BcryptServiceGateway>();
+            services.AddScoped<ITokenGateway, TokenGateway>();
         }
     }
 }

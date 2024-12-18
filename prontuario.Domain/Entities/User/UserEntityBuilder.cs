@@ -11,6 +11,8 @@ public class UserEntityBuilder
     private Email _email = null!;
     private CPF _cpf = null!;
     private string _password = string.Empty;
+    private bool _firstAccess = false;
+    private bool _active = true;
     private ProfileEntity _profile = null!;
     private AccessCodeEntity _accessCode = null!;
 
@@ -44,6 +46,18 @@ public class UserEntityBuilder
         return this;
     }
 
+    public UserEntityBuilder WithFirstAccess(bool firstAccess)
+    { 
+        _firstAccess = firstAccess;
+        return this;
+    }
+
+    public UserEntityBuilder WithActive(bool active)
+    {
+        _active = active;
+        return this;
+    }
+    
     public UserEntityBuilder WithProfile(ProfileEntity profile)
     {
         _profile = profile;
@@ -55,9 +69,8 @@ public class UserEntityBuilder
         _accessCode = accessCode;
         return this;
     }
-
     public UserEntity Build()
     {
-        return new UserEntity(_id, _name, _email, _cpf, _password, _profile, _accessCode);
+        return new UserEntity(_id, _name, _email, _cpf, _password, _firstAccess, _active, _profile, _accessCode);
     }
 }

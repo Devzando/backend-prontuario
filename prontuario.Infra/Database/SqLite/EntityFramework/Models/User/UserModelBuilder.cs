@@ -10,6 +10,8 @@ public class UserModelBuilder
     private string _email = string.Empty;
     private string _cpf = string.Empty;
     private string _password = string.Empty;
+    private bool _firstAccess = false;
+    private bool _active = true;
     private ProfileModel _profile = null!;
     private AccessCodeModel _accessCode = null!;
 
@@ -43,6 +45,18 @@ public class UserModelBuilder
         return this;
     }
 
+    public UserModelBuilder WithFirstAccess(bool firstAccess)
+    {
+        _firstAccess = firstAccess;
+        return this;
+    }
+
+    public UserModelBuilder WithActive(bool active)
+    {
+        _active = active;
+        return this;
+    }
+
     public UserModelBuilder WithProfile(ProfileModel profile)
     {
         _profile = profile;
@@ -57,6 +71,6 @@ public class UserModelBuilder
 
     public UserModel Build()
     {
-        return new UserModel(_id, _name, _email, _cpf, _password, _profile, _accessCode);
+        return new UserModel(_id, _name, _email, _cpf, _password, _firstAccess, _active, _profile, _accessCode);
     }
 }

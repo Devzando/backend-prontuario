@@ -27,7 +27,13 @@ public class UserModel
     [Required]
     [MaxLength(150)]
     public string Password { get; private set; } = string.Empty;
+    
+    [Required]
+    public bool FirstAccess { get; private set; } = false;
 
+    [Required]
+    public bool Active { get; private set; } = false;
+    
     [Required]
     public long ProfileId { get; private set; }
 
@@ -39,7 +45,7 @@ public class UserModel
     
     public UserModel() { }
 
-    public UserModel(long? id, string name, string email, string cpf, string password, ProfileModel profile,
+    public UserModel(long? id, string name, string email, string cpf, string password, bool firstAccess, bool active, ProfileModel profile,
         AccessCodeModel accessCode)
     {
         Id = id;
@@ -47,6 +53,8 @@ public class UserModel
         Email = email;
         Cpf = cpf;
         Password = password;
+        FirstAccess = firstAccess;
+        Active = active;
         Profile = profile;
         AccessCode = accessCode;
     }
