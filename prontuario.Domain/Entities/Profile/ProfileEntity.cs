@@ -11,6 +11,6 @@ public class ProfileEntity
     public ProfileEntity(long? id, Role role)
     {
         Id = id;
-        role = role;
+        Role = role;
     }
 }
