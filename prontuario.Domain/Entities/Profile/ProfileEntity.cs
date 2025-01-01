@@ -13,4 +13,9 @@ public class ProfileEntity
         Id = id;
         Role = role;
     }
+
+    public ProfileEntity(Role role)
+    {
+        Role = role;
+    }
 }
