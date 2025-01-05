@@ -11,6 +11,14 @@ namespace prontuario.WebApi.Controllers;
 [ApiController]
 public class AuthController(ILogger<AuthController> logger) : ControllerBase
 {
+    /// <summary>
+    /// Realiza login no sistema
+    /// </summary>
+    /// <returns>Token de acesso</returns>
+    /// <response code="200">Usuário retornado com Sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="409">Erro de conflito</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -41,4 +49,6 @@ public class AuthController(ILogger<AuthController> logger) : ControllerBase
         return Ok(new LoginResponse(useCaseResult.Data));
         
     }
+    
+    
 }

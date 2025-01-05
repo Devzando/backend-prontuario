@@ -36,25 +36,23 @@ public class UserMapper
 
     public static UserModel ToModel(UserEntity entity)
     {
-        return new UserModel(
-            entity.Id,
-            entity.Name,
-            entity.Email.Value,
-            entity.Cpf.Value,
-            entity.Password,
-            entity.FirstAccess,
-            entity.Active,
-            new ProfileModel(
-                entity.Profile.Id,
-                entity.Profile.Role.Value
-            ),
-            new AccessCodeModel(
-                entity.AccessCode.Id,
-                entity.AccessCode.Code,
-                entity.AccessCode.IsActive,
-                entity.AccessCode.IsUserUpdatePassword,
-                entity.AccessCode.ExperationDate
-            )
-        );
+        return new UserModelBuilder()
+            .WithName(entity.Name)
+            .WithEmail(entity.Email.Value)
+            .WithCpf(entity.Cpf.Value)
+            .WithPassword(entity.Password)
+            .WithFirstAccess(entity.FirstAccess)
+            .WithActive(entity.Active)
+            .WithProfile(new ProfileModelBuilder()
+                .WithId(entity.Profile.Id)
+                .WithRole(entity.Profile.Role.Value)
+                .Build())
+            .WithAccessCode(new AccessCodeModelBuilder()
+                .WithCode(entity.AccessCode.Code)
+                .WithIsActive(entity.AccessCode.IsActive)
+                .WithIsUserUpdatePassword(entity.AccessCode.IsUserUpdatePassword)
+                .WithExpirationDate(entity.AccessCode.ExperationDate)
+                .Build())
+            .Build();
     }
 }

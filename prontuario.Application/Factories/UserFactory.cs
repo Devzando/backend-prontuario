@@ -8,23 +8,43 @@ namespace prontuario.Application.Factories
 {
     public class UserFactory
     {
-        public static UserEntity CreateUser(CreateUserDTO data, string hashedPassword)
+        public static UserEntity CreateUser(UserDTO data)
         {
-            return new UserEntity(
-                data.Name,
-                new Email(data.Email),
-                new CPF(data.Cpf),
-                hashedPassword,
-                data.FirstAccess,
-                data.Active,
-                new ProfileEntity(new Role(data.Profile.Role)),
-                new AccessCodeEntity(
-                    data.AccessCode.Code,
-                    data.AccessCode.IsActive,
-                    data.AccessCode.IsUserUpdatePassword,
-                    data.AccessCode.ExperationDate
-                )
-            );
+            var genericPassword = $"{data.Email}_{data.Cpf}";
+            return new UserEntityBuilder()
+                .WithName(data.Name)
+                .WithEmail(new Email(data.Email))
+                .WithCpf(new CPF(data.Cpf))
+                .WithPassword(genericPassword)
+                .WithActive(true)
+                .WithFirstAccess(false)
+                .WithProfile(new ProfileEntityBuilder()
+                    .WithRoleType(new Role(data.Profile.Role))
+                    .Build())
+                .Build();
+        }
+
+        public static UserEntity CreateUser(UserEntity user, string password, bool firstAccess)
+        {
+            return new UserEntityBuilder()
+                .WithName(user.Name)
+                .WithEmail(new Email(user.Email.Value))
+                .WithCpf(new CPF(user.Cpf.Value))
+                .WithPassword(password)
+                .WithActive(user.Active)
+                .WithFirstAccess(firstAccess)
+                .WithProfile(new ProfileEntityBuilder()
+                    .WithId(user.Profile.Id)
+                    .WithRoleType(new Role(user.Profile.Role.Value))
+                    .Build())
+                .WithAccessCode(new AccessCodeEntityBuilder()
+                    .WithId(user.AccessCode.Id)
+                    .WithCode(user.AccessCode.Code)
+                    .WithIsActive(user.AccessCode.IsActive)
+                    .WithIsUserUpdatePassword(user.AccessCode.IsUserUpdatePassword)
+                    .WithExperimentDate(user.AccessCode.ExperationDate)
+                    .Build())
+                .Build();
         }
     }
 }

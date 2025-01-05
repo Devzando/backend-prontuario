@@ -18,12 +18,4 @@ public class AccessCodeEntity
         IsUserUpdatePassword = isUserUpdatePassword;
         ExperationDate = experationDate;
     }
-
-    public AccessCodeEntity(string code, bool isActive, bool isUserUpdatePassword, DateTime experationDate)
-    {
-        Code = code;
-        IsActive = isActive;
-        IsUserUpdatePassword = isUserUpdatePassword;
-        ExperationDate = experationDate;
-    }
 }

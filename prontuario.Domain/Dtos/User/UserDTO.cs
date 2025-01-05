@@ -1,6 +1,7 @@
 ﻿namespace prontuario.Domain.Dtos.User
 {
-    public record CreateUserDTO(
+    public record UserDTO(
+        long? Id,
         string Name,
         string Email,
         string Cpf,

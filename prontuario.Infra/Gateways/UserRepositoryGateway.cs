@@ -6,28 +6,30 @@ using prontuario.Infra.Gateways.Mappers;
 
 namespace prontuario.Infra.Gateways;
 
-public class UserRepositoryGateway : IUserGateway
+public class UserRepositoryGateway(ProntuarioDbContext context) : IUserGateway
 {
-    private readonly ProntuarioDbContext _context;
-    public UserRepositoryGateway(ProntuarioDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<UserEntity> Create(UserEntity userEntity)
     {
         var userModel = UserMapper.ToModel(userEntity);
-        _context.Users.Add(userModel);
-        await _context.SaveChangesAsync();
+        context.Users.Add(userModel);
+        await context.SaveChangesAsync();
         return UserMapper.ToDomain(userModel);
     }
 
+
     public async Task<UserEntity?> FindUserByEmail(string userEmail)
     {
-        var user = await _context.Users
+        var user = await context.Users
             .Include(u => u.Profile)
             .Include(u => u.AccessCode)
             .FirstOrDefaultAsync(u => u.Email == userEmail);
         return user is not null ? UserMapper.ToDomain(user) : null;
+    }
+    public async Task<UserEntity> Update(UserEntity userEntity)
+    {
+        var userModel = UserMapper.ToModel(userEntity);
+        context.Users.Update(userModel);
+        await context.SaveChangesAsync();
+        return UserMapper.ToDomain(userModel);
     }
 }
