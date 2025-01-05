@@ -1,4 +1,5 @@
 ﻿using prontuario.Application.Gateways;
+using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.Auth;
 using prontuario.Application.Usecases.Patient;
 using prontuario.Application.Usecases.User;
@@ -19,7 +20,9 @@ namespace prontuario.WebApi.Config
             // Users
             services.AddScoped<IUserGateway, UserRepositoryGateway>();
             services.AddScoped<FindUserByEmail>();
-            
+            services.AddScoped<CreateUserUseCase>();
+            services.AddScoped<CreateAccessCodeUseCase>();
+
             // Auth
             services.AddScoped<Login>();
             

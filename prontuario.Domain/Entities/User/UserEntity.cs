@@ -19,6 +19,18 @@ public class UserEntity
         AccessCode = accessCode;
     }
 
+    public UserEntity(string name, Email email, CPF cpf, string password, bool firstAccess, bool active, ProfileEntity profile, AccessCodeEntity accessCode)
+    {
+        Name = name;
+        Email = email;
+        Cpf = cpf;
+        Password = password;
+        FirstAccess = firstAccess;
+        Active = active;
+        Profile = profile;
+        AccessCode = accessCode;
+    }
+
     public UserEntity() { }
     public long? Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
