@@ -2,11 +2,11 @@
 
 namespace prontuario.WebApi.ResponseModels
 {
-    public class ProfileResponseModel
+    public class ProfileResponse
     {
         public Role Role { get; set; }
 
-        public ProfileResponseModel(Role role) {
+        public ProfileResponse(Role role) {
             Role = role;
         }
     }

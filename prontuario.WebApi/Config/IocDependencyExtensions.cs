@@ -22,6 +22,7 @@ namespace prontuario.WebApi.Config
             services.AddScoped<FindUserByEmail>();
             services.AddScoped<CreateUserUseCase>();
             services.AddScoped<CreateAccessCodeUseCase>();
+            services.AddScoped<UpdateUserPasswordUseCase>();
 
             // Auth
             services.AddScoped<Login>();

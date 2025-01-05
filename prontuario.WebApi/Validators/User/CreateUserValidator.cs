@@ -19,20 +19,6 @@ namespace prontuario.WebApi.Validators.User
             RuleFor(x => x.Cpf)
                 .NotEmpty().WithMessage("CPF é obrigatório");
 
-            RuleFor(x => x.Password)
-                .NotNull().WithMessage("O campo Password não pode ser nulo.")
-                .NotEmpty().WithMessage("O campo Password é obrigatório.")
-                .MinimumLength(6).WithMessage("O campo Password deve ter no mínimo 6 caracteres.")
-                .MaximumLength(50).WithMessage("O campo Password deve ter no máximo 50 caracteres.");
-
-            RuleFor(x => x.FirstAccess)
-                .NotNull().WithMessage("O campo FirstAccess não pode ser nulo.")
-                .NotEmpty().WithMessage("O campo FirstAccess é obrigatório.");
-
-            RuleFor(x => x.Active)
-                .NotNull().WithMessage("O campo Active não pode ser nulo.")
-                .NotEmpty().WithMessage("O campo Active é obrigatório.");
-
             RuleFor(x => x.Profile.Role)
                 .NotNull().WithMessage("O campo Role não pode ser nulo.")
                 .NotEmpty().WithMessage("O campo Role é obrigatório.")

@@ -1,3 +1,4 @@
+using System.Reflection;
 using prontuario.WebApi.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +16,11 @@ builder.Services.AddProblemDetails();
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddCorsExtension();    
 builder.Services.AddIocDependencies();
+builder.Services.AddSwaggerExtension();
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

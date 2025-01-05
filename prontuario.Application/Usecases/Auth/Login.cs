@@ -9,24 +9,24 @@ public class Login(IUserGateway userGateway, IBcryptGateway bcryptGateway, IToke
     {
         var user = await userGateway.FindUserByEmail(userEmail);
         if (user is null || !user.Active)
-            return ResultPattern<string>.FailureResult("Usuário não encontrado ou desativado", 404);
+            return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 404);
         if (user.FirstAccess)
         {
             var result = bcryptGateway.VerifyHashPassword(user, userPassword);
             if(!result)
-                return ResultPattern<string>.FailureResult("Email ou senha incorretos", 400);
+                return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 400);
         }
         else
         {
             if (user.Password != userPassword)
             {
-                return ResultPattern<string>.FailureResult("Email ou senha incorretos", 400);
+                return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 400);
             }
         }
 
         var accessToken = tokenGateway.CreateToken(user);
         if(accessToken is null)
-            return ResultPattern<string>.FailureResult("Erro ao gerar o token de acesso", 400);
+            return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 400);
 
         return ResultPattern<string>.SuccessResult(accessToken);
     }
