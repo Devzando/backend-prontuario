@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     Sus = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     Cpf = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     Rg = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Status = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
                     Phone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false)
                 },
                 constraints: table =>
@@ -93,8 +94,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
-                    DateService = table.Column<DateTime>(type: "Date", nullable: false),
+                    ServiceStatus = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ServiceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     PatientId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -134,6 +135,25 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MedicalRecords",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ServiceId = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicalRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MedicalRecords_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AccessCodes",
                 columns: table => new
                 {
@@ -156,6 +176,46 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Anamneses",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BloodPressure = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Glucose = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Temperature = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    RespiratoryRate = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    BloodType = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Weight = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    HeartRate = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Saturation = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Height = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    AntecPathological = table.Column<bool>(type: "INTEGER", nullable: false),
+                    NecesPsicobio = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Diabetes = table.Column<bool>(type: "INTEGER", nullable: false),
+                    MedicationsInUse = table.Column<bool>(type: "INTEGER", nullable: false),
+                    UseOfProthesis = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Allergies = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AllergiesType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    AntecPathologicalType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    MedicationInUseType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    MedicalHypothesis = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    PreviousSurgeries = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ClassificationStatus = table.Column<bool>(type: "INTEGER", nullable: false),
+                    MedicalRecordId = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Anamneses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Anamneses_MedicalRecords_MedicalRecordId",
+                        column: x => x.MedicalRecordId,
+                        principalTable: "MedicalRecords",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AccessCodes_UserId",
                 table: "AccessCodes",
@@ -169,9 +229,21 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Anamneses_MedicalRecordId",
+                table: "Anamneses",
+                column: "MedicalRecordId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmergencyContactDetails_PatientId",
                 table: "EmergencyContactDetails",
                 column: "PatientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicalRecords_ServiceId",
+                table: "MedicalRecords",
+                column: "ServiceId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -195,19 +267,25 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "EmergencyContactDetails");
+                name: "Anamneses");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "EmergencyContactDetails");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Patients");
+                name: "MedicalRecords");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
+
+            migrationBuilder.DropTable(
+                name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Patients");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using prontuario.Domain.Entities;
+using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 
 namespace prontuario.Infra.Gateways.Mappers
 {
@@ -30,9 +32,7 @@ namespace prontuario.Infra.Gateways.Mappers
                     new Relationship(model.EmergencyContactDetailsModel.Relationship)
                     ),
                 model.ServicesModel?.Select(service => new ServiceEntity(
-                    service.Id,
-                    service.Name,
-                    service.DateService
+                    
                 )).ToList() ?? new List<ServiceEntity>());
         }
 
@@ -65,9 +65,7 @@ namespace prontuario.Infra.Gateways.Mappers
                     entity.EmergencyContactDetailsEntity.Relationship.Value
                     ),
                 entity.ServicesEntity?.Select(service => new ServiceModel(
-                    service.Id,
-                    service.Name,
-                    service.DateService
+                    
                 )).ToList() ?? new List<ServiceModel>());
         }
     }

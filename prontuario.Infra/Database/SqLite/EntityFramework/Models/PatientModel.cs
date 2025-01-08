@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
 {
@@ -29,6 +30,10 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models
         [Required]
         [MaxLength(15)]
         public string Rg { get; private set; } = string.Empty;
+        
+        [Required]
+        [MaxLength(30)]
+        public string Status { get; private set; } = string.Empty;
 
         [Required]
         [MaxLength(15)]

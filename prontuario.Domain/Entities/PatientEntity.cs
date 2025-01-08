@@ -1,4 +1,5 @@
-﻿using prontuario.Domain.ValuesObjects;
+﻿using prontuario.Domain.Entities.Service;
+using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace prontuario.Domain.Entities
         public CPF Cpf { get; private set; } = null!;
         public RG Rg { get; private set; } = null!;
         public Phone Phone { get; private set; } = null!;
+        public string Status { get; private set; } = string.Empty; // trocar por enum
         public AddressEntity AddressEntity { get; private set; } = null!;
         public EmergencyContactDetailsEntity EmergencyContactDetailsEntity { get; private set; } = null!;
         public ICollection<ServiceEntity> ServicesEntity { get; private set; } = null!;
