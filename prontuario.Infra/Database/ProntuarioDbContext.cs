@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using prontuario.Infra.Database.SqLite.EntityFramework.Models;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.AccessCode;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Address;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.Anamnese;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.EmergencyContactDetails;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.MedicalRecord;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.Profile;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.User;

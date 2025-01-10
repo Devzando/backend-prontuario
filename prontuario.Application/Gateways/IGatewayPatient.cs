@@ -1,4 +1,5 @@
 ﻿using prontuario.Domain.Entities;
+using prontuario.Domain.Entities.Patient;
 
 namespace prontuario.Application.Gateways
 {

@@ -1,7 +1,13 @@
 ﻿using prontuario.Domain.Entities;
+using prontuario.Domain.Entities.Address;
+using prontuario.Domain.Entities.EmergencyContactDetails;
+using prontuario.Domain.Entities.Patient;
 using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Address;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.EmergencyContactDetails;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 
 namespace prontuario.Infra.Gateways.Mappers
@@ -10,30 +16,38 @@ namespace prontuario.Infra.Gateways.Mappers
     {
         public static PatientEntity toEntity(PatientModel model)
         {
-            return new PatientEntity(
-                model.Id,
-                model.Name,
-                model.BirthDate,
-                new SUS(model.Sus),
-                new CPF(model.Cpf),
-                new RG(model.Rg),
-                new Phone(model.Phone),
-                new AddressEntity(
-                    model.AddressModel.Id,
-                    new CEP(model.AddressModel.Cep),
-                    model.AddressModel.Street,
-                    model.AddressModel.City,
-                    model.AddressModel.Number
-                    ),
-                new EmergencyContactDetailsEntity(
-                    model.EmergencyContactDetailsModel.Id,
-                    model.EmergencyContactDetailsModel.Name,
-                    new Phone(model.EmergencyContactDetailsModel.Phone),
-                    new Relationship(model.EmergencyContactDetailsModel.Relationship)
-                    ),
-                model.ServicesModel?.Select(service => new ServiceEntity(
-                    
-                )).ToList() ?? new List<ServiceEntity>());
+            return new PatientEntityBuilder()
+                .WithId(model.Id)
+                .WithName(model.Name)
+                .WithSocialName(model.SocialName)
+                .WithBirthDate(model.BirthDate)
+                .WithSus(new SUS(model.Sus))
+                .WithCpf(new CPF(model.Cpf))
+                .WithRg(new RG(model.Rg))
+                .WithPhone(new Phone(model.Phone))
+                .WithMotherName(model.MotherName)
+                .WithStatus(new PatientStatus(model.Status))
+                .WithAddress(new AddressEntityBuilder()
+                    .WithId(model.AddressModel.Id)
+                    .WithCep(new CEP(model.AddressModel.Cep))
+                    .WithCity(model.AddressModel.City)
+                    .WithStreet(model.AddressModel.Street)
+                    .WithNumber(model.AddressModel.Number)
+                    .WithNeighborhood(model.AddressModel.Neighborhood)
+                    .Build())
+                .WithEmergencyContactDetails(new EmergencyContactDetailsEntityBuilder()
+                    .WithId(model.EmergencyContactDetailsModel.Id)
+                    .WithName(model.EmergencyContactDetailsModel.Name)
+                    .WithPhone(new Phone(model.EmergencyContactDetailsModel.Phone))
+                    .WithRelationship(new Relationship(model.EmergencyContactDetailsModel.Relationship))
+                    .Build())
+                .WithServices(model.ServicesModel.Select(service => new ServiceEntityBuilder()
+                        .WithId(service.Id)
+                        .WithServiceDate(service.ServiceDate)
+                        .WithServiceStatus(new ServiceStatus(service.ServiceStatus))
+                        .Build())
+                    .ToList())
+                .Build();
         }
 
         public static List<PatientEntity> toEntity(List<PatientModel> models)
@@ -43,30 +57,38 @@ namespace prontuario.Infra.Gateways.Mappers
 
         public static PatientModel toModel(PatientEntity entity)
         {
-            return new PatientModel(
-                entity.Id,
-                entity.Name,
-                entity.BirthDate,
-                entity.Sus.Value,
-                entity.Cpf.Value,
-                entity.Rg.Value,
-                entity.Phone.Value,
-                new AddressModel(
-                    entity.AddressEntity.Id,
-                    entity.AddressEntity.Cep.Value,
-                    entity.AddressEntity.Street,
-                    entity.AddressEntity.City,
-                    entity.AddressEntity.Number
-                    ),
-                new EmergencyContactDetailsModel(
-                    entity.EmergencyContactDetailsEntity.Id,
-                    entity.EmergencyContactDetailsEntity.Name,
-                    entity.EmergencyContactDetailsEntity.Phone.Value,
-                    entity.EmergencyContactDetailsEntity.Relationship.Value
-                    ),
-                entity.ServicesEntity?.Select(service => new ServiceModel(
-                    
-                )).ToList() ?? new List<ServiceModel>());
+            return new PatientModelBuilder()
+                .WithId(entity.Id)
+                .WithName(entity.Name)
+                .WithSocialName(entity.SocialName)
+                .WithBirthDate(entity.BirthDate)
+                .WithSus(entity.Sus.Value)
+                .WithCpf(entity.Cpf.Value)
+                .WithRg(entity.Rg.Value)
+                .WithPhone(entity.Phone.Value)
+                .WithMotherName(entity.MotherName)
+                .WithStatus(entity.Status.Value)
+                .WithAddress(new AddressModelBuilder()
+                    .WithId(entity.AddressEntity.Id)
+                    .WithCep(entity.AddressEntity.Cep.Value)
+                    .WithCity(entity.AddressEntity.City)
+                    .WithStreet(entity.AddressEntity.Street)
+                    .WithNumber(entity.AddressEntity.Number)
+                    .WithNeighborhood(entity.AddressEntity.Neighborhood)
+                    .Build())
+                .WithEmergencyContactDetails(new EmergencyContactDetailsModelBuilder()
+                    .WithId(entity.EmergencyContactDetailsEntity.Id)
+                    .WithName(entity.EmergencyContactDetailsEntity.Name)
+                    .WithPhone(entity.EmergencyContactDetailsEntity.Phone.Value)
+                    .WithRelationship(entity.EmergencyContactDetailsEntity.Relationship.Value)
+                    .Build())
+                .WithServices(entity.ServicesEntity.Select(services => new ServiceModelBuilder()
+                        .WithId(services.Id)
+                        .WithServiceDate(services.ServiceDate)
+                        .WithServiceStatus(services.ServiceStatus.Value)
+                        .Build())
+                    .ToList())
+                .Build();
         }
     }
 }

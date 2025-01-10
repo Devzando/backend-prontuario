@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using prontuario.Application.Gateways;
 using prontuario.Domain.Entities;
+using prontuario.Domain.Entities.Patient;
 using prontuario.Infra.Database;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
 using prontuario.Infra.Gateways.Mappers;
 
 namespace prontuario.Infra.Gateways

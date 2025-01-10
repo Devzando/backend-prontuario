@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using prontuario.WebApi.RequestModels.Patient;
+using prontuario.Domain.Dtos.Patient;
 
 namespace prontuario.WebApi.Validators.Patient
 {
-    public class CreatePatientValidador : AbstractValidator<CreatePatientRequest>
+    public class CreatePatientValidador : AbstractValidator<CreatePatientDTO>
     {
         public CreatePatientValidador() 
         {

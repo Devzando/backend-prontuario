@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.MedicalRecord;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Service
 {
@@ -12,7 +13,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Service
         public long? Id { get; private set; }
 
         [Required]
-        public bool ServiceStatus { get; private set; } = false;
+        [MaxLength(15)]
+        public string ServiceStatus { get; private set; } = string.Empty;
 
         [Required]
         public DateTime ServiceDate { get; private set; }
@@ -25,7 +27,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Service
         public PatientModel PatientModel { get; private set; } = null!;
         public MedicalRecordModel MedicalRecordModel { get; private set; } = null!;
         public ServiceModel() { }
-        public ServiceModel(long? id, bool serviceStatus, DateTime serviceDate, MedicalRecordModel medicalRecordModel)
+        public ServiceModel(long? id, string serviceStatus, DateTime serviceDate, MedicalRecordModel medicalRecordModel)
         {
             this.Id = id;
             this.ServiceStatus = serviceStatus;

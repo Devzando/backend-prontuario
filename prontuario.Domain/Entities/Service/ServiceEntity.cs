@@ -1,17 +1,19 @@
 ﻿using prontuario.Domain.Entities.MedicalRecord;
+using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.Service
 {
     public class ServiceEntity
     {
         public long? Id { get; private set; }
-        public bool ServiceStatus { get; private set; } = false;
+        public ServiceStatus ServiceStatus { get; private set; }
         public PatientEntity PatientEntity { get; private set; } = null!;
         public DateTime ServiceDate { get; private set; }
         public MedicalRecordEntity MedicalRecordEntity { get; private set; } = null!;
         public ServiceEntity() { }
 
-        public ServiceEntity(long? id, bool serviceStatus, PatientEntity patientEntity, DateTime serviceDate, MedicalRecordEntity medicalRecordEntity)
+        public ServiceEntity(long? id, ServiceStatus serviceStatus, PatientEntity patientEntity, DateTime serviceDate, MedicalRecordEntity medicalRecordEntity)
         {
             this.Id = id;
             this.ServiceStatus = serviceStatus;

@@ -8,7 +8,7 @@ namespace prontuario.Application.Factories
 {
     public class UserFactory
     {
-        public static UserEntity CreateUser(UserDTO data)
+        public static UserEntity CreateUser(CreateUserDTO data, AccessCodeEntity accessCode)
         {
             var genericPassword = $"{data.Email}_{data.Cpf}";
             return new UserEntityBuilder()
@@ -20,6 +20,12 @@ namespace prontuario.Application.Factories
                 .WithFirstAccess(false)
                 .WithProfile(new ProfileEntityBuilder()
                     .WithRoleType(new Role(data.Profile.Role))
+                    .Build())
+                .WithAccessCode(new AccessCodeEntityBuilder()
+                    .WithCode(accessCode.Code)
+                    .WithIsActive(accessCode.IsActive)
+                    .WithIsUserUpdatePassword(accessCode.IsUserUpdatePassword)
+                    .WithExperimentDate(accessCode.ExperationDate)
                     .Build())
                 .Build();
         }

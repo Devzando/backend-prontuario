@@ -5,7 +5,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 public class ServiceModelBuilder
 {
     private long? _id;
-    private bool _serviceStatus = false;
+    private string _serviceStatus = string.Empty;
     private DateTime _serviceDate = DateTime.MinValue;
     private MedicalRecordModel _medicalRecordModel = null!;
 
@@ -15,7 +15,7 @@ public class ServiceModelBuilder
         return this;
     }
 
-    public ServiceModelBuilder WithServiceStatus(bool serviceStatus)
+    public ServiceModelBuilder WithServiceStatus(string serviceStatus)
     {
         _serviceStatus = serviceStatus;
         return this;

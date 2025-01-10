@@ -1,13 +1,12 @@
 ﻿using prontuario.Domain.Entities.User;
-using prontuario.Domain.ValuesObjects;
 
-namespace prontuario.WebApi.ResponseModels
+namespace prontuario.WebApi.ResponseModels.User
 {
     public class UserResponseModel
     {
-        public static GetUserByEmail CreateGetUserByEmail(UserEntity user)
+        public static UserResponse CreateUserResponse(UserEntity user)
         {
-            return new GetUserByEmail(
+            return new UserResponse(
                 user.Id,
                 user.Name,
                 user.Email.Value,

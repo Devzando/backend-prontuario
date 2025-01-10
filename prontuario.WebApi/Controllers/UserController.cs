@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.User;
 using prontuario.Domain.Dtos.User;
-using prontuario.WebApi.RequestModels.User;
 using prontuario.WebApi.ResponseModels;
+using prontuario.WebApi.ResponseModels.User;
 using prontuario.WebApi.Validators;
 using prontuario.WebApi.Validators.User;
 
@@ -11,14 +10,8 @@ namespace prontuario.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(ILogger<UserController> _logger) : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-        }
-
         /// <summary>
         /// Retorna o usuário pelo seu e-mail
         /// </summary>
@@ -33,7 +26,7 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<GetUserByEmail>> GetUserByEmail([FromQuery] string email, [FromServices] FindUserByEmail findUserByEmailUseCase)
+        public async Task<ActionResult<UserResponse>> GetUserByEmail([FromQuery] string email, [FromServices] FindUserByEmail findUserByEmailUseCase)
         {
             var result = await findUserByEmailUseCase.Execute(email);
 
@@ -49,7 +42,7 @@ namespace prontuario.WebApi.Controllers
                     : BadRequest();
             }
 
-            return Ok(UserResponseModel.CreateGetUserByEmail(result.Data));
+            return Ok(UserResponseModel.CreateUserResponse(result.Data));
         }
 
         /// <summary>
@@ -65,10 +58,7 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<MessageSuccessResponseModel>> CreateUser(
-            [FromBody] CreateUserRequest data, 
-            [FromServices] CreateUserUseCase createUserUseCase, 
-            [FromServices] CreateAccessCodeUseCase createAccessCodeUseCase)
+        public async Task<ActionResult<MessageSuccessResponseModel>> CreateUser([FromBody] CreateUserDTO data, [FromServices] CreateUserUseCase createUserUseCase)
         {
             var validator = new CreateUserValidator();
             var validationResult = await validator.ValidateAsync(data);
@@ -77,20 +67,7 @@ namespace prontuario.WebApi.Controllers
                 throw new ValidationException(validationResult.ToString());
             }
             
-            var accessCodeResult = createAccessCodeUseCase.Execute();
-            
-            var result = await createUserUseCase.Execute(new UserDtoBuilder()
-                .WithName(data.Name)
-                .WithEmail(data.Email)
-                .WithCpf(data.Cpf)
-                .WithProfile(new ProfileDTO(data.Profile.Role))
-                .WithAccessCode(new AccessCodeDtoBuilder()
-                    .WithCode(accessCodeResult.Data.Code)
-                    .WithIsActive(accessCodeResult.Data.IsActive)
-                    .WithIsUserUpdatePassword(accessCodeResult.Data.IsUserUpdatePassword)
-                    .WithExpirationDate(accessCodeResult.Data.ExperationDate)
-                    .Build())
-                .Build());
+            var result = await createUserUseCase.Execute(data);
 
             if (result.IsFailure)
             {
@@ -122,7 +99,7 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<MessageSuccessResponseModel>> UpdatePassword(
-            [FromBody] UpdateUserPasswordRequest data,
+            [FromBody] UpdateUserPasswordDTO data,
             [FromServices] UpdateUserPasswordUseCase updateUserPasswordUseCase)
         {
             var validator = new UpdatePasswordUserValidator();

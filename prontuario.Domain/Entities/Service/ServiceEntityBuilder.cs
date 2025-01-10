@@ -1,11 +1,13 @@
 using prontuario.Domain.Entities.MedicalRecord;
+using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.Service;
 
 public class ServiceEntityBuilder
 {
     private long? _id;
-    private bool _serviceStatus;
+    private ServiceStatus _serviceStatus = null!;
     private PatientEntity _patient = null!;
     private DateTime _serviceDate;
     private MedicalRecordEntity _medicalRecordEntity = null!;
@@ -16,7 +18,7 @@ public class ServiceEntityBuilder
         return this;
     }
 
-    public ServiceEntityBuilder WithServiceStatus(bool serviceStatus)
+    public ServiceEntityBuilder WithServiceStatus(ServiceStatus serviceStatus)
     {
         _serviceStatus = serviceStatus;
         return this;
