@@ -1,3 +1,5 @@
+using prontuario.Domain.ValuesObjects;
+
 namespace prontuario.Domain.Entities.Anamnese;
 
 public class AnamneseEntityBuilder
@@ -23,7 +25,7 @@ public class AnamneseEntityBuilder
     private string _medicationInUseType = string.Empty;
     private string _medicalHypothesis = string.Empty;
     private string _previousSurgeries = string.Empty;
-    private bool _classificationStatus = false;
+    private ClassificationStatus _classificationStatus;
 
     public AnamneseEntityBuilder WithId(long? id)
     {
@@ -151,7 +153,7 @@ public class AnamneseEntityBuilder
         return this;
     }
 
-    public AnamneseEntityBuilder WithClassificationStatus(bool classificationStatus)
+    public AnamneseEntityBuilder WithClassificationStatus(ClassificationStatus classificationStatus)
     {
         _classificationStatus = classificationStatus;
         return this;

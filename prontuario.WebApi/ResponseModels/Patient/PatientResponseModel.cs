@@ -14,15 +14,15 @@ namespace prontuario.WebApi.ResponseModels.Patient
                 entity.Name,
                 entity.SocialName,
                 entity.BirthDate,
-                entity.Sus.Value,
+                entity.Sus?.Value,
                 entity.Cpf.Value,
-                entity.Rg.Value,
-                entity.Phone.Value,
+                entity.Rg?.Value,
+                entity.Phone?.Value,
                 entity.MotherName,
-                entity.Status.Value,
+                entity.Status?.Value,
                 new AddressResponse(
                     entity.AddressEntity.Id,
-                    entity.AddressEntity.Cep.Value,
+                    entity.AddressEntity.Cep?.Value,
                     entity.AddressEntity.City,
                     entity.AddressEntity.Street,
                     entity.AddressEntity.Number,
@@ -31,8 +31,8 @@ namespace prontuario.WebApi.ResponseModels.Patient
                 new EmergencyContactDetailsResponse(
                     entity.EmergencyContactDetailsEntity.Id,
                     entity.EmergencyContactDetailsEntity.Name,
-                    entity.EmergencyContactDetailsEntity.Phone.Value,
-                    entity.EmergencyContactDetailsEntity.Relationship.Value
+                    entity.EmergencyContactDetailsEntity.Phone?.Value,
+                    entity.EmergencyContactDetailsEntity.Relationship?.Value
                 ));
         }
     }

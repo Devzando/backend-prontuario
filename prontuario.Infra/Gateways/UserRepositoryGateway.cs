@@ -8,12 +8,11 @@ namespace prontuario.Infra.Gateways;
 
 public class UserRepositoryGateway(ProntuarioDbContext context) : IUserGateway
 {
-    public async Task<UserEntity> Create(UserEntity userEntity)
+    public async Task Create(UserEntity userEntity)
     {
         var userModel = UserMapper.ToModel(userEntity);
         context.Users.Add(userModel);
         await context.SaveChangesAsync();
-        return UserMapper.ToDomain(userModel);
     }
 
 

@@ -16,12 +16,11 @@ namespace prontuario.Infra.Gateways
         {
             _context = context;
         }
-        public async Task<PatientEntity> Create(PatientEntity patientEntity)
+        public async Task Save(PatientEntity patientEntity)
         {
-            PatientModel model = PatientMapper.toModel(patientEntity);
+            var model = PatientMapper.toModel(patientEntity);
             _context.Patients.Add(model);
             await _context.SaveChangesAsync();
-            return PatientMapper.toEntity(model);
         }
 
         public async Task<List<PatientEntity>> GetAll()
@@ -43,6 +42,12 @@ namespace prontuario.Infra.Gateways
                 .Include(p => p.ServicesModel)
                 .FirstOrDefaultAsync(p => (p.Cpf == filter || p.Sus == filter));
 
+            return patient != null ? PatientMapper.toEntity(patient) : null;
+        }
+
+        public async Task<PatientEntity?> GetById(long id)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == id);
             return patient != null ? PatientMapper.toEntity(patient) : null;
         }
     }

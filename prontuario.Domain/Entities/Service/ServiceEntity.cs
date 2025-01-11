@@ -10,10 +10,10 @@ namespace prontuario.Domain.Entities.Service
         public ServiceStatus ServiceStatus { get; private set; }
         public PatientEntity PatientEntity { get; private set; } = null!;
         public DateTime ServiceDate { get; private set; }
-        public MedicalRecordEntity MedicalRecordEntity { get; private set; } = null!;
+        public MedicalRecordEntity? MedicalRecordEntity { get; private set; }
         public ServiceEntity() { }
 
-        public ServiceEntity(long? id, ServiceStatus serviceStatus, PatientEntity patientEntity, DateTime serviceDate, MedicalRecordEntity medicalRecordEntity)
+        public ServiceEntity(long? id, ServiceStatus serviceStatus, PatientEntity patientEntity, DateTime serviceDate, MedicalRecordEntity? medicalRecordEntity)
         {
             this.Id = id;
             this.ServiceStatus = serviceStatus;

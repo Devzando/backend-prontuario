@@ -10,18 +10,18 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.EmergencyConta
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long? Id { get; private set; }
-        [Required]
+        
         [MaxLength(150)]
-        public string Name { get; private set; } = string.Empty;
-        [Required]
+        public string? Name { get; private set; }
+        
         [MaxLength(15)]
-        public string Phone { get; private set; } = string.Empty;
-        [Required]
+        public string? Phone { get; private set; }
+        
         [MaxLength(30)]
-        public string Relationship { get; private set; } = string.Empty;
+        public string? Relationship { get; private set; }
 
         [Required]
-        public long PatientId { get; set; }
+        public long PatientId { get; private set; }
 
         [ForeignKey("PatientId")]
         [Column("Patient_Id")]
@@ -30,9 +30,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.EmergencyConta
         public EmergencyContactDetailsModel() { }
         public EmergencyContactDetailsModel(
             long? id,
-            string name,
-            string phone,
-            string relationship)
+            string? name,
+            string? phone,
+            string? relationship)
         {
             this.Id = id;
             this.Name = name;

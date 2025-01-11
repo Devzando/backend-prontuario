@@ -53,6 +53,7 @@ namespace prontuario.WebApi.Controllers
         public async Task<ActionResult<List<PatientResponse>>> GetAll([FromServices] GetAllPatientsUseCase getAllPatientsUseCase)
         {
             var result = await getAllPatientsUseCase.Execute();
+            _logger.LogInformation("Pacientes recuperados com sucesso");
             return Ok(result.Data.Select(PatientResponseModel.CreateGetAllPatientResponse).ToList());
         }
 
@@ -82,7 +83,41 @@ namespace prontuario.WebApi.Controllers
                     ? NotFound(result.ErrorDetails) 
                     : BadRequest();
             }
+            _logger.LogInformation("Paciente recuperado com sucesso");
             return Ok(PatientResponseModel.CreateGetAllPatientResponse(result.Data));
+        }
+        
+        /// <summary>
+        /// Atualizar o status do paciente
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns>Mensagem de sucesso na operação</returns>
+        /// <response code="200">Status do paciente alterado com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        /// <response code="404">Erro ao alterar status do paciente</response>
+        [HttpPut("status/{patientId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<MessageSuccessResponseModel>> UpdateStatus([FromRoute] long patientId, [FromServices] UpdatePatientStatusUseCase updatePatientStatusUseCase)
+        {
+            var result = await updatePatientStatusUseCase.Execute(patientId);
+
+            if (result.IsFailure)
+            {
+                // Construindo a URL dinamicamente
+                var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+                result.ErrorDetails!.Type = endpointUrl;
+                
+                return result.ErrorDetails?.Status == 404 
+                    ? NotFound(result.ErrorDetails) 
+                    : BadRequest();
+            }
+            
+            _logger.LogInformation("Paciente atualizado com sucesso");
+            return Ok(new MessageSuccessResponseModel("Paciente atualizado com sucesso"));
         }
     }
 }

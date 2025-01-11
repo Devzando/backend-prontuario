@@ -12,15 +12,13 @@ public class MedicalRecordModel
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long? Id { get; private set; }
     
-    [Required]
     [MaxLength(20)]
     public string Status { get; private set; } = string.Empty;
 
     [MaxLength(20)]
     public string? StatusInCaseOfAdmission { get; private set; }
 
-    [Required]
-    public long ServiceId { get; private set; }
+    public long? ServiceId { get; private set; }
     
     [ForeignKey("ServiceId")]
     [Column("Service_Id")]

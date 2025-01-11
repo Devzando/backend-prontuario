@@ -2,6 +2,7 @@
 using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.Auth;
 using prontuario.Application.Usecases.Patient;
+using prontuario.Application.Usecases.Service;
 using prontuario.Application.Usecases.User;
 using prontuario.Infra.Gateways;
 
@@ -16,6 +17,7 @@ namespace prontuario.WebApi.Config
             services.AddScoped<CreatePatientUseCase>();
             services.AddScoped<GetAllPatientsUseCase>();
             services.AddScoped<GetPatientsByFilterUseCase>();
+            services.AddScoped<UpdatePatientStatusUseCase>();
             
             // Users
             services.AddScoped<IUserGateway, UserRepositoryGateway>();
@@ -24,6 +26,10 @@ namespace prontuario.WebApi.Config
             services.AddScoped<CreateAccessCodeUseCase>();
             services.AddScoped<UpdateUserPasswordUseCase>();
 
+            // Services
+            services.AddScoped<IServiceGateway, ServiceRepositoryGateway>();
+            services.AddScoped<InitializeServiceUseCase>();
+            
             // Auth
             services.AddScoped<Login>();
             

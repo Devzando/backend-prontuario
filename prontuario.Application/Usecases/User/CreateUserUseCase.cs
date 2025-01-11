@@ -18,7 +18,7 @@ namespace prontuario.Application.Usecases.User
             var accessCodeResult = createAccessCodeUseCase.Execute();
             
             var userEntity = UserFactory.CreateUser(data, accessCodeResult.Data);
-            var result = await userGateway.Create(userEntity);
+            await userGateway.Create(userEntity);
             return ResultPattern<UserEntity>.SuccessResult(userEntity);
         }
     }

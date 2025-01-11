@@ -8,17 +8,17 @@ public class PatientModelBuilder
 {
     private long? _id;
     private string _name = string.Empty;
-    private string _socialName = string.Empty;
-    private DateTime _birthDate;
-    private string _sus = null!;
+    private string? _socialName;
+    private DateTime? _birthDate;
+    private string? _sus;
     private string _cpf = null!;
-    private string _rg = null!;
-    private string _phone = null!;
-    private string _motherName = string.Empty;
-    private string _status = string.Empty;
+    private string? _rg;
+    private string? _phone;
+    private string? _motherName;
+    private string? _status;
     private AddressModel _address = null!;
     private EmergencyContactDetailsModel _emergencyContactDetails = null!;
-    private ICollection<ServiceModel> _services = new List<ServiceModel>();
+    private ICollection<ServiceModel>? _services;
 
     public PatientModelBuilder WithId(long? id)
     {
@@ -32,19 +32,19 @@ public class PatientModelBuilder
         return this;
     }
 
-    public PatientModelBuilder WithSocialName(string socialName)
+    public PatientModelBuilder WithSocialName(string? socialName)
     {
         _socialName = socialName;
         return this;
     }
 
-    public PatientModelBuilder WithBirthDate(DateTime birthDate)
+    public PatientModelBuilder WithBirthDate(DateTime? birthDate)
     {
         _birthDate = birthDate;
         return this;
     }
 
-    public PatientModelBuilder WithSus(string sus)
+    public PatientModelBuilder WithSus(string? sus)
     {
         _sus = sus;
         return this;
@@ -56,25 +56,25 @@ public class PatientModelBuilder
         return this;
     }
 
-    public PatientModelBuilder WithRg(string rg)
+    public PatientModelBuilder WithRg(string? rg)
     {
         _rg = rg;
         return this;
     }
 
-    public PatientModelBuilder WithPhone(string phone)
+    public PatientModelBuilder WithPhone(string? phone)
     {
         _phone = phone;
         return this;
     }
 
-    public PatientModelBuilder WithMotherName(string motherName)
+    public PatientModelBuilder WithMotherName(string? motherName)
     {
         _motherName = motherName;
         return this;
     }
 
-    public PatientModelBuilder WithStatus(string status)
+    public PatientModelBuilder WithStatus(string? status)
     {
         _status = status;
         return this;
@@ -92,7 +92,7 @@ public class PatientModelBuilder
         return this;
     }
 
-    public PatientModelBuilder WithServices(ICollection<ServiceModel> services)
+    public PatientModelBuilder WithServices(ICollection<ServiceModel>? services)
     {
         _services = services;
         return this;

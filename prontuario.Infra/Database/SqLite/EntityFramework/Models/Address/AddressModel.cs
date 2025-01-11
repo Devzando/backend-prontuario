@@ -11,23 +11,18 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Address
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long? Id { get; private set; }
 
-        [Required]
         [MaxLength(11)]
-        public string Cep { get; private set; } = string.Empty;
+        public string? Cep { get; private set; }
 
-        [Required]
         [MaxLength(150)]
-        public string Street { get; private set; } = string.Empty;
+        public string? Street { get; private set; }
 
-        [Required]
         [MaxLength(60)]
-        public string City { get; private set; } = string.Empty;
-        [Required]
-        public long Number { get; private set; } = 0;
+        public string? City { get; private set; }
+        public long? Number { get; private set; }
         
-        [Required]
         [MaxLength(40)]
-        public string Neighborhood { get; private set; } = string.Empty;
+        public string? Neighborhood { get; private set; }
 
         [Required]
         public long PatientId { get; private set; }
@@ -39,11 +34,11 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Address
         public AddressModel() { }
         public AddressModel(
             long? id,
-            string cep,
-            string street,
-            string city,
-            long number,
-            string neighborood)
+            string? cep,
+            string? street,
+            string? city,
+            long? number,
+            string? neighborood)
         {
             this.Id = id;
             this.Cep = cep;

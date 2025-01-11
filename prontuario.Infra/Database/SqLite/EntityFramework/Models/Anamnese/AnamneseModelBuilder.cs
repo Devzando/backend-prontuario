@@ -23,7 +23,7 @@ public class AnamneseModelBuilder
     private string _medicationInUseType = string.Empty;
     private string _medicalHypothesis = string.Empty;
     private string _previousSurgeries = string.Empty;
-    private bool _classificationStatus = false;
+    private string _classificationStatus = string.Empty;
 
     public AnamneseModelBuilder WithId(long? id)
     {
@@ -151,7 +151,7 @@ public class AnamneseModelBuilder
         return this;
     }
 
-    public AnamneseModelBuilder WithClassificationStatus(bool classificationStatus)
+    public AnamneseModelBuilder WithClassificationStatus(string classificationStatus)
     {
         _classificationStatus = classificationStatus;
         return this;

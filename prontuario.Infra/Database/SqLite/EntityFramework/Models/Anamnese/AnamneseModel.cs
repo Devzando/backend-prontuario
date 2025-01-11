@@ -84,9 +84,9 @@ public class AnamneseModel
     [Required]
     [MaxLength(100)]
     public string PreviousSurgeries { get; private set; } = string.Empty;
-    
-    [Required]
-    public bool ClassificationStatus { get; private set; } = false;
+
+    [Required] 
+    public string ClassificationStatus { get; private set; } = string.Empty;
     
     [Required]
     public long MedicalRecordId { get; private set; }
@@ -119,7 +119,7 @@ public class AnamneseModel
         string medicationInUseType,
         string medicalHypothesis,
         string previousSurgeries,
-        bool classificationStatus
+        string classificationStatus
         )
     {
         Id = id;

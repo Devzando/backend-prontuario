@@ -5,11 +5,11 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Address;
 public class AddressModelBuilder
 {
     private long? _id;
-    private string _cep = string.Empty;
-    private string _street = string.Empty;
-    private string _city = string.Empty;
-    private long _number;
-    private string _neighborhood = string.Empty;
+    private string? _cep;
+    private string? _street;
+    private string? _city;
+    private long? _number;
+    private string? _neighborhood;
 
     public AddressModelBuilder WithId(long? id)
     {
@@ -17,31 +17,31 @@ public class AddressModelBuilder
         return this;
     }
 
-    public AddressModelBuilder WithCep(string cep)
+    public AddressModelBuilder WithCep(string? cep)
     {
         _cep = cep;
         return this;
     }
 
-    public AddressModelBuilder WithStreet(string street)
+    public AddressModelBuilder WithStreet(string? street)
     {
         _street = street;
         return this;
     }
 
-    public AddressModelBuilder WithCity(string city)
+    public AddressModelBuilder WithCity(string? city)
     {
         _city = city;
         return this;
     }
 
-    public AddressModelBuilder WithNumber(long number)
+    public AddressModelBuilder WithNumber(long? number)
     {
         _number = number;
         return this;
     }
 
-    public AddressModelBuilder WithNeighborhood(string neighborhood)
+    public AddressModelBuilder WithNeighborhood(string? neighborhood)
     {
         _neighborhood = neighborhood;
         return this;

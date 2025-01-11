@@ -10,7 +10,7 @@ public class ServiceEntityBuilder
     private ServiceStatus _serviceStatus = null!;
     private PatientEntity _patient = null!;
     private DateTime _serviceDate;
-    private MedicalRecordEntity _medicalRecordEntity = null!;
+    private MedicalRecordEntity? _medicalRecordEntity;
 
     public ServiceEntityBuilder WithId(long? id)
     {
@@ -36,7 +36,7 @@ public class ServiceEntityBuilder
         return this;
     }
 
-    public ServiceEntityBuilder WithMedicalRecordEntity(MedicalRecordEntity medicalRecordEntity)
+    public ServiceEntityBuilder WithMedicalRecordEntity(MedicalRecordEntity? medicalRecordEntity)
     {
         _medicalRecordEntity = medicalRecordEntity;
         return this;

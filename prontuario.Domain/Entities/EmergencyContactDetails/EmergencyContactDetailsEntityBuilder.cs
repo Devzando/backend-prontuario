@@ -5,9 +5,9 @@ namespace prontuario.Domain.Entities.EmergencyContactDetails;
 public class EmergencyContactDetailsEntityBuilder
 {
     private long? _id;
-    private string _name = string.Empty;
-    private Phone _phone = null!;
-    private Relationship _relationship = null!;
+    private string? _name;
+    private Phone? _phone;
+    private Relationship? _relationship;
 
     public EmergencyContactDetailsEntityBuilder WithId(long? id)
     {
@@ -15,19 +15,19 @@ public class EmergencyContactDetailsEntityBuilder
         return this;
     }
 
-    public EmergencyContactDetailsEntityBuilder WithName(string name)
+    public EmergencyContactDetailsEntityBuilder WithName(string? name)
     {
         _name = name;
         return this;
     }
 
-    public EmergencyContactDetailsEntityBuilder WithPhone(Phone phone)
+    public EmergencyContactDetailsEntityBuilder WithPhone(Phone? phone)
     {
         _phone = phone;
         return this;
     }
 
-    public EmergencyContactDetailsEntityBuilder WithRelationship(Relationship relationship)
+    public EmergencyContactDetailsEntityBuilder WithRelationship(Relationship? relationship)
     {
         _relationship = relationship;
         return this;

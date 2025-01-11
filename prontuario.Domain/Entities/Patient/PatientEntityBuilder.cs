@@ -9,17 +9,17 @@ public class PatientEntityBuilder
     {
         private long? _id;
         private string _name = string.Empty;
-        private string _socialName = string.Empty;
-        private DateTime _birthDate;
-        private SUS _sus = null!;
+        private string? _socialName;
+        private DateTime? _birthDate;
+        private SUS? _sus;
         private CPF _cpf = null!;
-        private RG _rg = null!;
-        private Phone _phone = null!;
-        private string _motherName = string.Empty;
-        private PatientStatus _status = null!;
+        private RG? _rg;
+        private Phone? _phone;
+        private string? _motherName;
+        private PatientStatus? _status;
         private AddressEntity _address = null!;
         private EmergencyContactDetailsEntity _emergencyContactDetails = null!;
-        private ICollection<ServiceEntity> _services = new List<ServiceEntity>();
+        private ICollection<ServiceEntity>? _services;
 
         public PatientEntityBuilder WithId(long? id)
         {
@@ -33,19 +33,19 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithSocialName(string socialName)
+        public PatientEntityBuilder WithSocialName(string? socialName)
         {
             _socialName = socialName;
             return this;
         }
 
-        public PatientEntityBuilder WithBirthDate(DateTime birthDate)
+        public PatientEntityBuilder WithBirthDate(DateTime? birthDate)
         {
             _birthDate = birthDate;
             return this;
         }
 
-        public PatientEntityBuilder WithSus(SUS sus)
+        public PatientEntityBuilder WithSus(SUS? sus)
         {
             _sus = sus;
             return this;
@@ -57,25 +57,25 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithRg(RG rg)
+        public PatientEntityBuilder WithRg(RG? rg)
         {
             _rg = rg;
             return this;
         }
 
-        public PatientEntityBuilder WithPhone(Phone phone)
+        public PatientEntityBuilder WithPhone(Phone? phone)
         {
             _phone = phone;
             return this;
         }
 
-        public PatientEntityBuilder WithMotherName(string motherName)
+        public PatientEntityBuilder WithMotherName(string? motherName)
         {
             _motherName = motherName;
             return this;
         }
 
-        public PatientEntityBuilder WithStatus(PatientStatus status)
+        public PatientEntityBuilder WithStatus(PatientStatus? status)
         {
             _status = status;
             return this;
@@ -93,7 +93,7 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithServices(ICollection<ServiceEntity> services)
+        public PatientEntityBuilder WithServices(ICollection<ServiceEntity>? services)
         {
             _services = services;
             return this;

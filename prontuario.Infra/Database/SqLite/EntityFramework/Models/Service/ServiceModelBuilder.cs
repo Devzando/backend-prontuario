@@ -1,4 +1,5 @@
 using prontuario.Infra.Database.SqLite.EntityFramework.Models.MedicalRecord;
+using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.Service;
 
@@ -6,8 +7,9 @@ public class ServiceModelBuilder
 {
     private long? _id;
     private string _serviceStatus = string.Empty;
-    private DateTime _serviceDate = DateTime.MinValue;
-    private MedicalRecordModel _medicalRecordModel = null!;
+    private DateTime _serviceDate;
+    private PatientModel _patient = null!;
+    private MedicalRecordModel? _medicalRecordModel;
 
     public ServiceModelBuilder WithId(long? id)
     {
@@ -27,9 +29,15 @@ public class ServiceModelBuilder
         return this;
     }
 
-    public ServiceModelBuilder WithMedicalRecordModel(MedicalRecordModel medicalRecordModel)
+    public ServiceModelBuilder WithMedicalRecordModel(MedicalRecordModel? medicalRecordModel)
     {
         _medicalRecordModel = medicalRecordModel;
+        return this;
+    }
+
+    public ServiceModelBuilder WithPatient(PatientModel patient)
+    {
+        _patient = patient;
         return this;
     }
 
@@ -39,6 +47,7 @@ public class ServiceModelBuilder
             _id,
             _serviceStatus,
             _serviceDate,
+            _patient,
             _medicalRecordModel
         );
     }

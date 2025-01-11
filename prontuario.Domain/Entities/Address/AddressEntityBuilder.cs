@@ -5,11 +5,11 @@ namespace prontuario.Domain.Entities.Address;
 public class AddressEntityBuilder
 {
     private long? _id;
-    private CEP _cep = null!;
-    private string _street = string.Empty;
-    private string _city = string.Empty;
-    private long _number = 0;
-    private string _neighborhood = string.Empty;
+    private CEP? _cep;
+    private string? _street;
+    private string? _city;
+    private long? _number;
+    private string? _neighborhood;
 
     public AddressEntityBuilder WithId(long? id)
     {
@@ -17,31 +17,31 @@ public class AddressEntityBuilder
         return this;
     }
 
-    public AddressEntityBuilder WithCep(CEP cep)
+    public AddressEntityBuilder WithCep(CEP? cep)
     {
         _cep = cep;
         return this;
     }
 
-    public AddressEntityBuilder WithStreet(string street)
+    public AddressEntityBuilder WithStreet(string? street)
     {
         _street = street;
         return this;
     }
 
-    public AddressEntityBuilder WithCity(string city)
+    public AddressEntityBuilder WithCity(string? city)
     {
         _city = city;
         return this;
     }
 
-    public AddressEntityBuilder WithNumber(long number)
+    public AddressEntityBuilder WithNumber(long? number)
     {
         _number = number;
         return this;
     }
 
-    public AddressEntityBuilder WithNeighborhood(string neighborhood)
+    public AddressEntityBuilder WithNeighborhood(string? neighborhood)
     {
         _neighborhood = neighborhood;
         return this;

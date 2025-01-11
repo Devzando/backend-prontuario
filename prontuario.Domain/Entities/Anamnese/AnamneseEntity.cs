@@ -1,3 +1,5 @@
+using prontuario.Domain.ValuesObjects;
+
 namespace prontuario.Domain.Entities.Anamnese;
 
 public class AnamneseEntity
@@ -23,7 +25,7 @@ public class AnamneseEntity
     public string MedicationInUseType { get; private set; } = string.Empty;
     public string MedicalHypothesis { get; private set; } = string.Empty;
     public string PreviousSurgeries { get; private set; } = string.Empty;
-    public bool ClassificationStatus { get; private set; } = false;
+    public ClassificationStatus ClassificationStatus { get; private set; }
     
     public AnamneseEntity() { }
     
@@ -49,7 +51,7 @@ public class AnamneseEntity
         string medicationInUseType,
         string medicalHypothesis,
         string previousSurgeries,
-        bool classificationStatus)
+        ClassificationStatus classificationStatus)
     {
         Id = id;
         BloodPressure = bloodPressure;

@@ -3,9 +3,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Models.EmergencyConta
 public class EmergencyContactDetailsModelBuilder
 {
     private long? _id;
-    private string _name = string.Empty;
-    private string _phone = string.Empty;
-    private string _relationship = string.Empty;
+    private string? _name;
+    private string? _phone;
+    private string? _relationship;
 
     public EmergencyContactDetailsModelBuilder WithId(long? id)
     {
@@ -13,19 +13,19 @@ public class EmergencyContactDetailsModelBuilder
         return this;
     }
 
-    public EmergencyContactDetailsModelBuilder WithName(string name)
+    public EmergencyContactDetailsModelBuilder WithName(string? name)
     {
         _name = name;
         return this;
     }
 
-    public EmergencyContactDetailsModelBuilder WithPhone(string phone)
+    public EmergencyContactDetailsModelBuilder WithPhone(string? phone)
     {
         _phone = phone;
         return this;
     }
 
-    public EmergencyContactDetailsModelBuilder WithRelationship(string relationship)
+    public EmergencyContactDetailsModelBuilder WithRelationship(string? relationship)
     {
         _relationship = relationship;
         return this;
