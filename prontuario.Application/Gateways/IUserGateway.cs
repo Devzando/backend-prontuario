@@ -5,6 +5,6 @@ namespace prontuario.Application.Gateways;
 public interface IUserGateway
 {
     Task<UserEntity?> FindUserByEmail(string userEmail);
-    Task<UserEntity> Create(UserEntity userEntity);
+    Task Create(UserEntity userEntity);
     Task<UserEntity> Update(UserEntity userEntity);
 }

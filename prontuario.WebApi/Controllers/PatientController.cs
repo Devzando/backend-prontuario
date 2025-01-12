@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using prontuario.Application.Usecases.Patient;
 using prontuario.Domain.Dtos.Patient;
-using prontuario.Domain.Errors;
-using prontuario.WebApi.RequestModels.Patient;
 using prontuario.WebApi.ResponseModels;
+using prontuario.WebApi.ResponseModels.Patient;
+using prontuario.WebApi.ResponseModels.Utils;
 using prontuario.WebApi.Validators;
 using prontuario.WebApi.Validators.Patient;
 
@@ -11,14 +11,8 @@ namespace prontuario.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientController : ControllerBase
+    public class PatientController(ILogger<PatientController> _logger) : ControllerBase
     {
-        private readonly ILogger<PatientController> _logger;
-        public PatientController(ILogger<PatientController> logger)
-        {
-            _logger = logger;
-        }
-
         /// <summary>
         /// Adiciona um novo paciente no sistema
         /// </summary>
@@ -30,33 +24,16 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<MessageSuccessResponseModel>> Create([FromBody] CreatePatientRequest data, [FromServices] CreatePatientUseCase createPatientUseCase)
+        public async Task<ActionResult<MessageSuccessResponseModel>> Create([FromBody] CreatePatientDTO data, [FromServices] CreatePatientUseCase createPatientUseCase)
         {
             var validator = new CreatePatientValidador();
-            var validationResult = validator.Validate(data);
+            var validationResult = await validator.ValidateAsync(data);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.ToString());
             }
-            var result = await createPatientUseCase.Execute(new CreatePatientDTO(
-                    data.Name,
-                    data.BirthDate,
-                    data.Sus,
-                    data.Cpf,
-                    data.Rg,
-                    data.Phone,
-                    new AddressDTO(
-                            data.Address.Cep,
-                            data.Address.Street,
-                            data.Address.City,
-                            data.Address.Number
-                        ),
-                    new EmergencyContactDetailsDTO(
-                            data.EmergencyContactDetails.Name,
-                            data.EmergencyContactDetails.Phone,
-                            data.EmergencyContactDetails.Relationship
-                        )
-                ));
+
+            var result = await createPatientUseCase.Execute(data);
 
             _logger.LogInformation("Paciente criado com sucesso");
 
@@ -74,29 +51,14 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<List<PatientResponseModel>>> GetAll([FromServices] GetAllPatientsUseCase getAllPatientsUseCase)
+        public async Task<ActionResult<PagedResponse<List<PatientResponse>>>> GetAll(
+            [FromServices] GetAllPatientsUseCase getAllPatientsUseCase,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var result = await getAllPatientsUseCase.Execute();
-            return Ok(result.Data.Select(patient => new PatientResponseModel(
-                patient.Id,
-                patient.Name,
-                patient.BirthDate,
-                patient.Sus,
-                patient.Cpf,
-                patient.Rg,
-                patient.Phone,
-                new AddressResponseModel(
-                    patient.AddressEntity.Cep,
-                    patient.AddressEntity.Street,
-                    patient.AddressEntity.City,
-                    patient.AddressEntity.Number
-                ),
-                new EmergencyContactDetailsResponseModel(
-                    patient.EmergencyContactDetailsEntity.Name,
-                    patient.EmergencyContactDetailsEntity.Phone,
-                    patient.EmergencyContactDetailsEntity.Relationship
-                )
-            )).ToList());
+            var result = await getAllPatientsUseCase.Execute(pageNumber, pageSize);
+            _logger.LogInformation("Pacientes recuperados com sucesso");
+            return Ok(UtilsResponseModel.CreateListPatientPagedResponse(result.Data, pageNumber, pageSize));
         }
 
         /// <summary>
@@ -106,39 +68,63 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// <response code="404">Paciente não encontrado</response>
-        [HttpGet("{filter}")]
+        [HttpGet("filter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PatientResponseModel>> GetByFilter([FromRoute] string filter, [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
+        public async Task<ActionResult<PatientResponse>> GetByFilter(
+            [FromQuery] string filter,
+            [FromQuery] string status,
+            [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
         {
-            var result = await getPatientsByFilterUseCase.Execute(filter);
+            var result = await getPatientsByFilterUseCase.Execute(filter, status);
 
             if (result.IsFailure)
             {
-                return StatusCode(result.ErrorDetails?.Status ?? 500, new { message = result.Message });
+                // Construindo a URL dinamicamente
+                var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+                result.ErrorDetails!.Type = endpointUrl;
+                
+                return result.ErrorDetails?.Status == 404 
+                    ? NotFound(result.ErrorDetails) 
+                    : BadRequest();
             }
-            return Ok(new PatientResponseModel(
-                result.Data.Id,
-                result.Data.Name,
-                result.Data.BirthDate,
-                result.Data.Sus,
-                result.Data.Cpf,
-                result.Data.Rg,
-                result.Data.Phone,
-                new AddressResponseModel(
-                    result.Data.AddressEntity.Cep,
-                    result.Data.AddressEntity.Street,
-                    result.Data.AddressEntity.City,
-                    result.Data.AddressEntity.Number
-                ),
-                new EmergencyContactDetailsResponseModel(
-                    result.Data.EmergencyContactDetailsEntity.Name,
-                    result.Data.EmergencyContactDetailsEntity.Phone,
-                    result.Data.EmergencyContactDetailsEntity.Relationship
-                )
-            ));
+            _logger.LogInformation("Paciente recuperado com sucesso");
+            return Ok(PatientResponseModel.CreateGetAllPatientResponse(result.Data));
+        }
+        
+        /// <summary>
+        /// Atualizar o status do paciente
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns>Mensagem de sucesso na operação</returns>
+        /// <response code="200">Status do paciente alterado com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        /// <response code="404">Erro ao alterar status do paciente</response>
+        [HttpPut("status/{patientId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<MessageSuccessResponseModel>> UpdateStatus([FromRoute] long patientId, [FromServices] UpdatePatientStatusUseCase updatePatientStatusUseCase)
+        {
+            var result = await updatePatientStatusUseCase.Execute(patientId);
+
+            if (result.IsFailure)
+            {
+                // Construindo a URL dinamicamente
+                var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+                result.ErrorDetails!.Type = endpointUrl;
+                
+                return result.ErrorDetails?.Status == 404 
+                    ? NotFound(result.ErrorDetails) 
+                    : BadRequest();
+            }
+            
+            _logger.LogInformation("Paciente atualizado com sucesso");
+            return Ok(new MessageSuccessResponseModel("Paciente atualizado com sucesso"));
         }
     }
 }

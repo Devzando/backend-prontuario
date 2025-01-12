@@ -2,13 +2,13 @@ namespace prontuario.Domain.Entities.AccessCode;
 
 public class AccessCodeEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private string _code = string.Empty;
     private bool _isActive;
     private bool _isUserUpdatePassword;
     private DateTime _experimentDate;
 
-    public AccessCodeEntityBuilder WithId(long? id)
+    public AccessCodeEntityBuilder WithId(long id)
     {
         _id = id;
         return this;

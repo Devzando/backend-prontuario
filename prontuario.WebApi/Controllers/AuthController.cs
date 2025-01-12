@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using prontuario.Application.Usecases.Auth;
-using prontuario.WebApi.RequestModels.Auth;
+using prontuario.Domain.Dtos.Auth;
 using prontuario.WebApi.ResponseModels.Auth;
 using prontuario.WebApi.Validators;
 using prontuario.WebApi.Validators.Auth;
@@ -24,7 +24,7 @@ public class AuthController(ILogger<AuthController> logger) : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<LoginResponse>> Login([FromBody] AuthRequest request, [FromServices] Login loginUseCase)
+    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginDTO request, [FromServices] Login loginUseCase)
     {
         var validator = new AuthValidator();
         var validationResult = await validator.ValidateAsync(request);

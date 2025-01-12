@@ -1,9 +1,9 @@
 using FluentValidation;
-using prontuario.WebApi.RequestModels.User;
+using prontuario.Domain.Dtos.User;
 
 namespace prontuario.WebApi.Validators.User;
 
-public class UpdatePasswordUserValidator : AbstractValidator<UpdateUserPasswordRequest>
+public class UpdatePasswordUserValidator : AbstractValidator<UpdateUserPasswordDTO>
 {
     public UpdatePasswordUserValidator()
     {

@@ -6,7 +6,7 @@ namespace prontuario.Domain.Entities.User;
 
 public class UserEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private string _name = string.Empty;
     private Email _email = null!;
     private CPF _cpf = null!;
@@ -16,7 +16,7 @@ public class UserEntityBuilder
     private ProfileEntity _profile = null!;
     private AccessCodeEntity _accessCode = null!;
 
-    public UserEntityBuilder WithId(long? id)
+    public UserEntityBuilder WithId(long id)
     {
         _id = id;
         return this;

@@ -1,26 +1,14 @@
 ﻿using prontuario.Application.Gateways;
-using prontuario.Domain.Entities;
 using prontuario.Domain.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using prontuario.Domain.Entities.Patient;
 
 namespace prontuario.Application.Usecases.Patient
 {
-    public class GetPatientsByFilterUseCase
+    public class GetPatientsByFilterUseCase(IGatewayPatient gatewayPatient)
     {
-        private readonly IGatewayPatient _gatewayPatient;
-
-        public GetPatientsByFilterUseCase(IGatewayPatient gatewayPatient)
+        public async Task<ResultPattern<PatientEntity>> Execute(string filter, string status)
         {
-            _gatewayPatient = gatewayPatient;
-        }
-
-        public async Task<ResultPattern<PatientEntity>> Execute(string filter)
-        {
-            var result = await _gatewayPatient.GetByFilter(filter);
+            var result = await gatewayPatient.GetByFilter(filter, status);
             return result != null 
                 ? ResultPattern<PatientEntity>.SuccessResult(result) 
                 : ResultPattern<PatientEntity>.FailureResult("Paciente não encontrado!", 404);

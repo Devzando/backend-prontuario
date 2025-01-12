@@ -1,47 +1,58 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using prontuario.Application.Gateways;
 using prontuario.Domain.Entities;
+using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.Utils;
 using prontuario.Infra.Database;
-using prontuario.Infra.Database.SqLite.EntityFramework.Models;
-using prontuario.Infra.Gateways.Mappers;
 
 namespace prontuario.Infra.Gateways
 {
-    public class PatientRepositoryGateway : IGatewayPatient
+    public class PatientRepositoryGateway(ProntuarioDbContext context) : IGatewayPatient
     {
-        private readonly ProntuarioDbContext _context;
-        public PatientRepositoryGateway(ProntuarioDbContext context)
+        public async Task Save(PatientEntity patientEntity)
         {
-            _context = context;
-        }
-        public async Task<PatientEntity> Create(PatientEntity patientEntity)
-        {
-            PatientModel model = PatientMapper.toModel(patientEntity);
-            _context.Patients.Add(model);
-            await _context.SaveChangesAsync();
-            return PatientMapper.toEntity(model);
+            context.Patients.Add(patientEntity);
+            await context.SaveChangesAsync();
         }
 
-        public async Task<List<PatientEntity>> GetAll()
+        public async Task<PagedResult<List<PatientEntity>>> GetAll(int pageNumber, int pageSize)
         {
-            var patients = await _context.Patients
-                .Include(p => p.AddressModel)
-                .Include(p => p.EmergencyContactDetailsModel)
-                .Include(p => p.ServicesModel)
+            var totalRecords = await context.Patients.CountAsync();
+            
+            var patients = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return PatientMapper.toEntity(patients);
+            return new PagedResult<List<PatientEntity>>
+            {
+                Pages = patients,
+                TotalRecords = totalRecords
+            };
         }
 
-        public async Task<PatientEntity?> GetByFilter(string filter)
+        public async Task<PatientEntity?> GetByFilter(string filter, string status)
         {
-            var patient = await _context.Patients
-                .Include(p => p.AddressModel)
-                .Include(p => p.EmergencyContactDetailsModel)
-                .Include(p => p.ServicesModel)
-                .FirstOrDefaultAsync(p => (p.Cpf == filter || p.Sus == filter));
+            var patient = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
+                .FirstOrDefaultAsync(p => (p.Cpf.Value == filter || p.Sus.Value == filter) && p.Status.Value == status);
 
-            return patient != null ? PatientMapper.toEntity(patient) : null;
+            return patient;
+        }
+
+        public async Task<PatientEntity?> GetById(long id)
+        {
+            var patient = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            return patient;
         }
     }
 }

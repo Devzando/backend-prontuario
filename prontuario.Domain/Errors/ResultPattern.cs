@@ -20,14 +20,16 @@
         }
 
         // Método estático para sucesso (sem dados de retorno)
-        public static ResultPattern<T> SuccessResult(string message = "Operação realizada com sucesso.")
+        public static ResultPattern<T> SuccessResult()
         {
+            var message = "Operação realizada com sucesso.";
             return new ResultPattern<T>(true, message);
         }
 
         // Método estático para sucesso (com dados de retorno)
-        public static ResultPattern<T> SuccessResult(T data, string message = "Operação realizada com sucesso.")
+        public static ResultPattern<T> SuccessResult(T data)
         {
+            var message = "Operação realizada com sucesso.";
             return new ResultPattern<T>(true, message, data);
         }
 

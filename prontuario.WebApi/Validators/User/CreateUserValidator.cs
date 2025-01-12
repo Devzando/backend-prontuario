@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using prontuario.WebApi.RequestModels.User;
+using prontuario.Domain.Dtos.User;
 
 namespace prontuario.WebApi.Validators.User
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserRequest>
+    public class CreateUserValidator : AbstractValidator<CreateUserDTO>
     {
         public CreateUserValidator()
         {

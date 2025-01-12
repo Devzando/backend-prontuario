@@ -1,9 +1,9 @@
 using FluentValidation;
-using prontuario.WebApi.RequestModels.Auth;
+using prontuario.Domain.Dtos.Auth;
 
 namespace prontuario.WebApi.Validators.Auth;
 
-public class AuthValidator : AbstractValidator<AuthRequest>
+public class AuthValidator : AbstractValidator<LoginDTO>
 {
     public AuthValidator()
     {
