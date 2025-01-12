@@ -25,7 +25,6 @@ public class Login(IUserGateway userGateway, IBcryptGateway bcryptGateway, IToke
                 return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 400);
             }
         }
-
         
         var accessToken = tokenGateway.CreateToken(user);
         if(accessToken is null)

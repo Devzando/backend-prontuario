@@ -12,7 +12,7 @@ public class InitializeScreeningUseCase(IServiceGateway serviceGateway)
         if (service is null)
             return ResultPattern<string>.FailureResult("Erro ao iniciar a triagem", 404);
 
-        var medicalRecord = MedicalRecordFactory.CreateMedicalRecord();
+        var medicalRecord = MedicalRecordFactory.CreateMedicalRecordToInitScreening();
         var newService = ServiceFactory.CreateServiceToInitializeScreening(service, medicalRecord);
         await serviceGateway.Init(newService);
 

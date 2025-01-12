@@ -68,14 +68,17 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// <response code="404">Paciente não encontrado</response>
-        [HttpGet("{filter}")]
+        [HttpGet("filter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PatientResponse>> GetByFilter([FromRoute] string filter, [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
+        public async Task<ActionResult<PatientResponse>> GetByFilter(
+            [FromQuery] string filter,
+            [FromQuery] string status,
+            [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
         {
-            var result = await getPatientsByFilterUseCase.Execute(filter);
+            var result = await getPatientsByFilterUseCase.Execute(filter, status);
 
             if (result.IsFailure)
             {

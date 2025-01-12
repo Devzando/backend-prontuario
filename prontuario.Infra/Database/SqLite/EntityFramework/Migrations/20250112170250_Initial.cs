@@ -242,8 +242,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EmergencyContactDetails_PatientId",
                 table: "EmergencyContactDetails",
-                column: "PatientId",
-                unique: true);
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicalRecords_ServiceId",

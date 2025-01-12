@@ -1,7 +1,7 @@
 ﻿using prontuario.Domain.Entities.Patient;
-using prontuario.Domain.ValuesObjects;
 using prontuario.WebApi.ResponseModels.Address;
 using prontuario.WebApi.ResponseModels.EmergencyContactDetails;
+using prontuario.WebApi.ResponseModels.Service;
 
 namespace prontuario.WebApi.ResponseModels.Patient
 {
@@ -28,12 +28,18 @@ namespace prontuario.WebApi.ResponseModels.Patient
                     entity.AddressEntity.Number,
                     entity.AddressEntity.Neighborhood
                 ),
-                new EmergencyContactDetailsResponse(
-                    entity.EmergencyContactDetailsEntity.Id,
-                    entity.EmergencyContactDetailsEntity.Name,
-                    entity.EmergencyContactDetailsEntity.Phone?.Value,
-                    entity.EmergencyContactDetailsEntity.Relationship?.Value
-                ));
+                entity.EmergencyContactDetailsEntity.Select(em => new EmergencyContactDetailsResponse(
+                    em.Id,
+                    em.Name,
+                    em.Phone?.Value,
+                    em.Relationship?.Value
+                )).ToList(),
+                entity.ServicesEntity?.Where(service => service.PatientId == entity.Id).Select(service => new ServiceResponseBuilder()
+                    .WithId(service.Id)
+                    .WithServiceDate(service.ServiceDate)
+                    .WithServiceStatus(service.ServiceStatus.Value)
+                    .Build())
+                    .ToList());
         }
     }
 }

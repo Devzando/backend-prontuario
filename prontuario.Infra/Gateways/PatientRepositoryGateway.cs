@@ -34,13 +34,13 @@ namespace prontuario.Infra.Gateways
             };
         }
 
-        public async Task<PatientEntity?> GetByFilter(string filter)
+        public async Task<PatientEntity?> GetByFilter(string filter, string status)
         {
             var patient = await context.Patients
                 .Include(p => p.AddressEntity)
                 .Include(p => p.EmergencyContactDetailsEntity)
                 .Include(p => p.ServicesEntity)
-                .FirstOrDefaultAsync(p => (p.Cpf.Value == filter || p.Sus.Value == filter));
+                .FirstOrDefaultAsync(p => (p.Cpf.Value == filter || p.Sus.Value == filter) && p.Status.Value == status);
 
             return patient;
         }
@@ -50,7 +50,7 @@ namespace prontuario.Infra.Gateways
             var patient = await context.Patients
                 .Include(p => p.AddressEntity)
                 .Include(p => p.EmergencyContactDetailsEntity)
-                .AsNoTracking()
+                .Include(p => p.ServicesEntity)
                 .FirstOrDefaultAsync(p => p.Id == id);
             return patient;
         }

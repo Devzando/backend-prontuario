@@ -12,7 +12,7 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    [Migration("20250112043349_Initial")]
+    [Migration("20250112170250_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -240,8 +240,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId")
-                        .IsUnique();
+                    b.HasIndex("PatientId");
 
                     b.ToTable("EmergencyContactDetails", (string)null);
                 });
@@ -490,8 +489,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
             modelBuilder.Entity("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", b =>
                 {
                     b.HasOne("prontuario.Domain.Entities.Patient.PatientEntity", "Patient")
-                        .WithOne("EmergencyContactDetailsEntity")
-                        .HasForeignKey("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", "PatientId")
+                        .WithMany("EmergencyContactDetailsEntity")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -540,8 +539,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Navigation("AddressEntity")
                         .IsRequired();
 
-                    b.Navigation("EmergencyContactDetailsEntity")
-                        .IsRequired();
+                    b.Navigation("EmergencyContactDetailsEntity");
 
                     b.Navigation("ServicesEntity");
                 });

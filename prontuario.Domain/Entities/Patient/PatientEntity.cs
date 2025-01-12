@@ -16,9 +16,9 @@ namespace prontuario.Domain.Entities.Patient
         public RG Rg { get; private set; } = null!;
         public Phone Phone { get; private set; } = null!;
         public string? MotherName { get; private set; }
-        public PatientStatus Status { get; private set; } = null!;
+        public PatientStatus Status { get; set; } = null!;
         public AddressEntity AddressEntity { get; private set; } = null!;
-        public EmergencyContactDetailsEntity EmergencyContactDetailsEntity { get; private set; } = null!;
+        public ICollection<EmergencyContactDetailsEntity> EmergencyContactDetailsEntity { get; private set; } = null!;
         public ICollection<ServiceEntity>? ServicesEntity { get; private set; }
         public PatientEntity() { }
         public PatientEntity(
@@ -31,9 +31,9 @@ namespace prontuario.Domain.Entities.Patient
             RG rg, 
             Phone phone,
             string? motherName,
-            PatientStatus? status,
+            PatientStatus status,
             AddressEntity addressEntity,
-            EmergencyContactDetailsEntity emergencyContactDetailsEntity,
+            ICollection<EmergencyContactDetailsEntity> emergencyContactDetailsEntity,
             ICollection<ServiceEntity>? serviceEntities)
         {
             this.Id = id;

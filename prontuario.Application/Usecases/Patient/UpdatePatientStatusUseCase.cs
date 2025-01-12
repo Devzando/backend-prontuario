@@ -12,7 +12,7 @@ public class UpdatePatientStatusUseCase(IGatewayPatient gatewayPatient)
         if(patient is null)
             return ResultPattern<string>.FailureResult("Erro ao alterar status do paciente", 404);
 
-        var updatedPatient = PatientFactory.CreatePatient(patient);
+        var updatedPatient = PatientFactory.CreatePatientToUpdateStatus(patient);
         await gatewayPatient.Save(updatedPatient);
         return ResultPattern<string>.SuccessResult();
     }

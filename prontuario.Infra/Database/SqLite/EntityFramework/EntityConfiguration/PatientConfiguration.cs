@@ -59,7 +59,7 @@ public class PatientConfiguration : IEntityTypeConfiguration<PatientEntity>
             .WithOne(p => p.Patient)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(p => p.EmergencyContactDetailsEntity)
+        builder.HasMany(p => p.EmergencyContactDetailsEntity)
             .WithOne(p => p.Patient)
             .OnDelete(DeleteBehavior.Cascade);
 

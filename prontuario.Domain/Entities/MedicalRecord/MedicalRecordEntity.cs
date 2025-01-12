@@ -7,9 +7,9 @@ namespace prontuario.Domain.Entities.MedicalRecord;
 public class MedicalRecordEntity
 {
     public long Id { get; private set; }
-    public MedicalRecordStatus Status { get; private set; } = null!;
+    public MedicalRecordStatus Status { get; set; } = null!;
     public MedicalRecordStatus StatusInCaseOfAdmission { get; private set; }
-    public AnamneseEntity? Anamnese { get; private set; }
+    public AnamneseEntity? Anamnese { get; set; }
     public long ServiceId { get; private set; }
     public ServiceEntity Service { get; private set; } = null!;
     

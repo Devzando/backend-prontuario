@@ -18,7 +18,7 @@ public class PatientEntityBuilder
         private string? _motherName;
         private PatientStatus _status = null!;
         private AddressEntity _address = null!;
-        private EmergencyContactDetailsEntity _emergencyContactDetails = null!;
+        private ICollection<EmergencyContactDetailsEntity> _emergencyContactDetails = null!;
         private ICollection<ServiceEntity>? _services;
 
         public PatientEntityBuilder WithId(long id)
@@ -87,7 +87,7 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithEmergencyContactDetails(EmergencyContactDetailsEntity emergencyContactDetails)
+        public PatientEntityBuilder WithEmergencyContactDetails(ICollection<EmergencyContactDetailsEntity> emergencyContactDetails)
         {
             _emergencyContactDetails = emergencyContactDetails;
             return this;

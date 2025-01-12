@@ -29,42 +29,22 @@ namespace prontuario.Application.Factories
                     .WithNumber(data.Address?.Number)
                     .WithNeighborhood(data.Address?.Neighborhood)
                     .Build())
-                .WithEmergencyContactDetails(new EmergencyContactDetailsEntityBuilder()
-                    .WithName(data.EmergencyContactDetails?.Name)
-                    .WithPhone(new Phone(data.EmergencyContactDetails?.Phone))
-                    .WithRelationship(new Relationship(data.EmergencyContactDetails?.Relationship))
-                    .Build())
+                .WithEmergencyContactDetails(data.EmergencyContactDetails.Select(em => new EmergencyContactDetailsEntityBuilder()
+                        .WithName(em.Name)
+                        .WithPhone(new Phone(em.Phone))
+                        .WithRelationship(new Relationship(em.Relationship))
+                        .Build())
+                    .ToList())
                 .Build();
         }
 
-        public static PatientEntity CreatePatient(PatientEntity patient)
+        public static PatientEntity CreatePatientToUpdateStatus(PatientEntity patient)
         {
-            return new PatientEntityBuilder()
-                .WithId(patient.Id)
-                .WithName(patient.Name)
-                .WithSocialName(patient.SocialName)
-                .WithBirthDate(patient.BirthDate)
-                .WithSus(patient.Sus)
-                .WithCpf(patient.Cpf)
-                .WithRg(patient.Rg)
-                .WithPhone(patient.Phone)
-                .WithMotherName(patient.MotherName)
-                .WithStatus(new PatientStatus(PatientStatusType.IN_SERVICE.ToString()))
-                .WithAddress(new AddressEntityBuilder()
-                    .WithId(patient.AddressEntity.Id)
-                    .WithCep(patient.AddressEntity.Cep)
-                    .WithCity(patient.AddressEntity.City)
-                    .WithStreet(patient.AddressEntity.Street)
-                    .WithNumber(patient.AddressEntity.Number)
-                    .WithNeighborhood(patient.AddressEntity.Neighborhood)
-                    .Build())
-                .WithEmergencyContactDetails(new EmergencyContactDetailsEntityBuilder()
-                    .WithId(patient.EmergencyContactDetailsEntity.Id)
-                    .WithName(patient.EmergencyContactDetailsEntity.Name)
-                    .WithPhone(patient.EmergencyContactDetailsEntity.Phone)
-                    .WithRelationship(patient.EmergencyContactDetailsEntity.Relationship)
-                    .Build())
-                .Build();
+            patient.Status = patient.Status.Value == PatientStatusType.NO_SERVICE.ToString()
+                ? new PatientStatus(PatientStatusType.IN_SERVICE.ToString()) 
+                : new PatientStatus(PatientStatusType.NO_SERVICE.ToString());
+
+            return patient;
         }
         
         public static PatientEntity CreatePatient(UpdatePatientDTO data)
@@ -86,11 +66,12 @@ namespace prontuario.Application.Factories
                     .WithNumber(data.Address.Number)
                     .WithNeighborhood(data.Address.Neighborhood)
                     .Build())
-                .WithEmergencyContactDetails(new EmergencyContactDetailsEntityBuilder()
-                    .WithName(data.EmergencyContactDetails.Name)
-                    .WithPhone(new Phone(data.EmergencyContactDetails.Phone))
-                    .WithRelationship(new Relationship(data.EmergencyContactDetails.Relationship))
-                    .Build())
+                .WithEmergencyContactDetails(data.EmergencyContactDetails.Select(em => new EmergencyContactDetailsEntityBuilder()
+                        .WithName(em.Name)
+                        .WithPhone(new Phone(em.Phone))
+                        .WithRelationship(new Relationship(em.Relationship))
+                        .Build())
+                    .ToList())
                 .Build();
         }
     }

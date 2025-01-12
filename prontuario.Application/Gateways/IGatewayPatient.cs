@@ -8,7 +8,7 @@ namespace prontuario.Application.Gateways
     {
         Task Save(PatientEntity patientEntity);
         Task<PagedResult<List<PatientEntity>>> GetAll(int pageNumber, int pageSize);
-        Task<PatientEntity?> GetByFilter(string filter);
+        Task<PatientEntity?> GetByFilter(string filter, string status);
         Task<PatientEntity?> GetById(long id);
     }
 }

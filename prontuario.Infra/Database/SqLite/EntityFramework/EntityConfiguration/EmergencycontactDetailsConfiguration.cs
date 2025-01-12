@@ -32,8 +32,8 @@ public class EmergencycontactDetailsConfiguration : IEntityTypeConfiguration<Eme
 
         // Configuração da chave estrangeira
         builder.HasOne<PatientEntity>()
-            .WithOne(ec => ec.EmergencyContactDetailsEntity) // Caso você tenha o relacionamento reverso no PatientModel
-            .HasForeignKey<EmergencyContactDetailsEntity>(ec => ec.PatientId)
+            .WithMany(ec => ec.EmergencyContactDetailsEntity) // Caso você tenha o relacionamento reverso no PatientModel
+            .HasForeignKey(ec => ec.PatientId)
             .OnDelete(DeleteBehavior.Cascade); // Cascata para deletar os contatos de emergência quando o paciente for deletado
     }
 }

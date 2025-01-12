@@ -12,5 +12,5 @@ public record UpdatePatientDTO(
     string MotherName,
     string Status,
     AddressDTO Address,
-    EmergencyContactDetailsDTO EmergencyContactDetails
+    ICollection<EmergencyContactDetailsDTO> EmergencyContactDetails
     );

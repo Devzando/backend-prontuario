@@ -10,7 +10,7 @@
         string? Phone,
         string? MotherName,
         AddressDTO Address,
-        EmergencyContactDetailsDTO EmergencyContactDetails
+        ICollection<EmergencyContactDetailsDTO> EmergencyContactDetails
         )
     {
     }

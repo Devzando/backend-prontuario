@@ -11,6 +11,8 @@ public class ServiceFactory
 {
     public static ServiceEntity CreateServiceToInitializeService(PatientEntity patient)
     {
+        patient.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
+        
         return new ServiceEntityBuilder()
             .WithServiceDate(DateTime.Now)
             .WithPatient(patient)
