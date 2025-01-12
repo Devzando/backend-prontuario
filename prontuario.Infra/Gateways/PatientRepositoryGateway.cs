@@ -3,52 +3,47 @@ using prontuario.Application.Gateways;
 using prontuario.Domain.Entities;
 using prontuario.Domain.Entities.Patient;
 using prontuario.Infra.Database;
-using prontuario.Infra.Database.SqLite.EntityFramework.Models;
-using prontuario.Infra.Database.SqLite.EntityFramework.Models.Patient;
-using prontuario.Infra.Gateways.Mappers;
 
 namespace prontuario.Infra.Gateways
 {
-    public class PatientRepositoryGateway : IGatewayPatient
+    public class PatientRepositoryGateway(ProntuarioDbContext context) : IGatewayPatient
     {
-        private readonly ProntuarioDbContext _context;
-        public PatientRepositoryGateway(ProntuarioDbContext context)
-        {
-            _context = context;
-        }
         public async Task Save(PatientEntity patientEntity)
         {
-            var model = PatientMapper.toModel(patientEntity);
-            _context.Patients.Add(model);
-            await _context.SaveChangesAsync();
+            context.Patients.Add(patientEntity);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<PatientEntity>> GetAll()
         {
-            var patients = await _context.Patients
-                .Include(p => p.AddressModel)
-                .Include(p => p.EmergencyContactDetailsModel)
-                .Include(p => p.ServicesModel)
+            var patients = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
                 .ToListAsync();
 
-            return PatientMapper.toEntity(patients);
+            return patients;
         }
 
         public async Task<PatientEntity?> GetByFilter(string filter)
         {
-            var patient = await _context.Patients
-                .Include(p => p.AddressModel)
-                .Include(p => p.EmergencyContactDetailsModel)
-                .Include(p => p.ServicesModel)
-                .FirstOrDefaultAsync(p => (p.Cpf == filter || p.Sus == filter));
+            var patient = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
+                .FirstOrDefaultAsync(p => (p.Cpf.Value == filter || p.Sus.Value == filter));
 
-            return patient != null ? PatientMapper.toEntity(patient) : null;
+            return patient;
         }
 
         public async Task<PatientEntity?> GetById(long id)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == id);
-            return patient != null ? PatientMapper.toEntity(patient) : null;
+            var patient = await context.Patients
+                .Include(p => p.AddressEntity)
+                .Include(p => p.EmergencyContactDetailsEntity)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+            return patient;
         }
     }
 }

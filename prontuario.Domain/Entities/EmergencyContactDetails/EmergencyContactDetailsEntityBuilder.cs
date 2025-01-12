@@ -4,12 +4,12 @@ namespace prontuario.Domain.Entities.EmergencyContactDetails;
 
 public class EmergencyContactDetailsEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private string? _name;
-    private Phone? _phone;
+    private Phone _phone;
     private Relationship? _relationship;
 
-    public EmergencyContactDetailsEntityBuilder WithId(long? id)
+    public EmergencyContactDetailsEntityBuilder WithId(long id)
     {
         _id = id;
         return this;
@@ -21,7 +21,7 @@ public class EmergencyContactDetailsEntityBuilder
         return this;
     }
 
-    public EmergencyContactDetailsEntityBuilder WithPhone(Phone? phone)
+    public EmergencyContactDetailsEntityBuilder WithPhone(Phone phone)
     {
         _phone = phone;
         return this;

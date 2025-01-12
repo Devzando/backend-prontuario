@@ -29,6 +29,7 @@ namespace prontuario.WebApi.Config
             // Services
             services.AddScoped<IServiceGateway, ServiceRepositoryGateway>();
             services.AddScoped<InitializeServiceUseCase>();
+            services.AddScoped<InitializeScreeningUseCase>();
             
             // Auth
             services.AddScoped<Login>();

@@ -4,7 +4,7 @@ namespace prontuario.Domain.Entities.Anamnese;
 
 public class AnamneseEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private string _bloodPressure = string.Empty;
     private string _glucose = string.Empty;
     private string _temperature = string.Empty;
@@ -27,7 +27,7 @@ public class AnamneseEntityBuilder
     private string _previousSurgeries = string.Empty;
     private ClassificationStatus _classificationStatus;
 
-    public AnamneseEntityBuilder WithId(long? id)
+    public AnamneseEntityBuilder WithId(long id)
     {
         _id = id;
         return this;

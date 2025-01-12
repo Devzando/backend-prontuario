@@ -6,12 +6,12 @@ namespace prontuario.Domain.Entities.MedicalRecord;
 
 public class MedicalRecordEntityBuilder
 {
-    private long? _id;
-    private MedicalRecordStatus _status;
-    private MedicalRecordStatus? _statusInCaseOfAdmission;
-    private AnamneseEntity _anamnese = null!;
+    private long _id;
+    private MedicalRecordStatus _status = null!;
+    private MedicalRecordStatus _statusInCaseOfAdmission = null!;
+    private AnamneseEntity? _anamnese;
 
-    public MedicalRecordEntityBuilder WithId(long? id)
+    public MedicalRecordEntityBuilder WithId(long id)
     {
         _id = id;
         return this;
@@ -29,7 +29,7 @@ public class MedicalRecordEntityBuilder
         return this;
     }
     
-    public MedicalRecordEntityBuilder WithAnamnese(AnamneseEntity anamnese)
+    public MedicalRecordEntityBuilder WithAnamnese(AnamneseEntity? anamnese)
     {
         _anamnese = anamnese;
         return this;

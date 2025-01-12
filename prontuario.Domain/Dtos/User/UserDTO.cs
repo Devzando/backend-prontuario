@@ -4,7 +4,7 @@ using prontuario.Domain.Dtos.Profile;
 namespace prontuario.Domain.Dtos.User
 {
     public record UserDTO(
-        long? Id,
+        long Id,
         string Name,
         string Email,
         string Cpf,

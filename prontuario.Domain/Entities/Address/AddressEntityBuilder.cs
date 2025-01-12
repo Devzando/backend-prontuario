@@ -4,14 +4,14 @@ namespace prontuario.Domain.Entities.Address;
 
 public class AddressEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private CEP? _cep;
     private string? _street;
     private string? _city;
     private long? _number;
     private string? _neighborhood;
 
-    public AddressEntityBuilder WithId(long? id)
+    public AddressEntityBuilder WithId(long id)
     {
         _id = id;
         return this;

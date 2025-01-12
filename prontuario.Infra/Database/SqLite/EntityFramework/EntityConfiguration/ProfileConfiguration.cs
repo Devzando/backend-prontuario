@@ -1,0 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using prontuario.Domain.Entities.Profile;
+
+namespace prontuario.Infra.Database.SqLite.EntityFramework.EntityConfiguration;
+
+public class ProfileConfiguration : IEntityTypeConfiguration<ProfileEntity>
+{
+    public void Configure(EntityTypeBuilder<ProfileEntity> builder)
+    {
+        // Configuração da chave primária
+        builder.HasKey(p => p.Id);
+
+        // Configuração da propriedade Role
+        builder.ComplexProperty(p => p.Role)
+            .Property(p=> p.Value)
+            .IsRequired(); // Assumindo que a propriedade Role é obrigatória
+
+        // Relacionamento com User (um para muitos)
+        builder.HasMany(p => p.Users)
+            .WithOne(u => u.Profile) // Um Profile tem muitos Users
+            .OnDelete(DeleteBehavior.Restrict); // Comportamento de exclusão restrito
+    }
+}

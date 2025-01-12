@@ -4,16 +4,17 @@ namespace prontuario.Domain.ValuesObjects;
 
 public class ServiceStatus
 {
-    public string Value { get; private set; }
+    public string? Value { get; private set; }
 
-    public ServiceStatus(string value)
+    public ServiceStatus(string? value)
     {
-        if (!Enum.IsDefined(typeof(Enums.ServiceStatusType), value))
-            throw new DomainException("O status do paciente tem que ser um dos seguintes valores: " +
-                                      "NO_SERVICE, " +
-                                      "SORTING_QUEUE, " +
-                                      "SCREENING, " +
-                                      "MEDICAL_CARE, ");
+        if(!string.IsNullOrEmpty(value))
+            if (!Enum.IsDefined(typeof(Enums.ServiceStatusType), value))
+                throw new DomainException("O status do paciente tem que ser um dos seguintes valores: " +
+                                        "NO_SERVICE, " +
+                                        "SORTING_QUEUE, " +
+                                        "SCREENING, " +
+                                        "MEDICAL_CARE, ");
         this.Value = value;
     }
 }

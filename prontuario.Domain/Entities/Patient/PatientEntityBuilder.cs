@@ -7,21 +7,21 @@ namespace prontuario.Domain.Entities.Patient;
 
 public class PatientEntityBuilder
     {
-        private long? _id;
+        private long _id;
         private string _name = string.Empty;
         private string? _socialName;
         private DateTime? _birthDate;
-        private SUS? _sus;
+        private SUS _sus = null!;
         private CPF _cpf = null!;
-        private RG? _rg;
-        private Phone? _phone;
+        private RG _rg = null!;
+        private Phone _phone = null!;
         private string? _motherName;
-        private PatientStatus? _status;
+        private PatientStatus _status = null!;
         private AddressEntity _address = null!;
         private EmergencyContactDetailsEntity _emergencyContactDetails = null!;
         private ICollection<ServiceEntity>? _services;
 
-        public PatientEntityBuilder WithId(long? id)
+        public PatientEntityBuilder WithId(long id)
         {
             _id = id;
             return this;
@@ -45,7 +45,7 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithSus(SUS? sus)
+        public PatientEntityBuilder WithSus(SUS sus)
         {
             _sus = sus;
             return this;
@@ -57,13 +57,13 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithRg(RG? rg)
+        public PatientEntityBuilder WithRg(RG rg)
         {
             _rg = rg;
             return this;
         }
 
-        public PatientEntityBuilder WithPhone(Phone? phone)
+        public PatientEntityBuilder WithPhone(Phone phone)
         {
             _phone = phone;
             return this;
@@ -75,7 +75,7 @@ public class PatientEntityBuilder
             return this;
         }
 
-        public PatientEntityBuilder WithStatus(PatientStatus? status)
+        public PatientEntityBuilder WithStatus(PatientStatus status)
         {
             _status = status;
             return this;

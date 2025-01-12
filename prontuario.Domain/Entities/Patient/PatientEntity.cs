@@ -7,29 +7,29 @@ namespace prontuario.Domain.Entities.Patient
 {
     public class PatientEntity
     {
-        public long? Id { get; private set; }
+        public long Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public string? SocialName { get; private set; }
         public DateTime? BirthDate { get; private set; }
-        public SUS? Sus { get; private set; }
+        public SUS Sus { get; private set; } = null!;
         public CPF Cpf { get; private set; } = null!;
-        public RG? Rg { get; private set; }
-        public Phone? Phone { get; private set; }
+        public RG Rg { get; private set; } = null!;
+        public Phone Phone { get; private set; } = null!;
         public string? MotherName { get; private set; }
-        public PatientStatus? Status { get; private set; }
+        public PatientStatus Status { get; private set; } = null!;
         public AddressEntity AddressEntity { get; private set; } = null!;
         public EmergencyContactDetailsEntity EmergencyContactDetailsEntity { get; private set; } = null!;
         public ICollection<ServiceEntity>? ServicesEntity { get; private set; }
         public PatientEntity() { }
         public PatientEntity(
-            long? id,
+            long id,
             string name,
             string? socialName,
             DateTime? dateBirth, 
-            SUS? sus, 
+            SUS sus, 
             CPF cpf, 
-            RG? rg, 
-            Phone? phone,
+            RG rg, 
+            Phone phone,
             string? motherName,
             PatientStatus? status,
             AddressEntity addressEntity,

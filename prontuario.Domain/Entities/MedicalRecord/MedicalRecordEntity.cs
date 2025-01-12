@@ -6,14 +6,16 @@ namespace prontuario.Domain.Entities.MedicalRecord;
 
 public class MedicalRecordEntity
 {
-    public long? Id { get; private set; }
-    public MedicalRecordStatus Status { get; private set; }
-    public MedicalRecordStatus? StatusInCaseOfAdmission { get; private set; }
-    public AnamneseEntity Anamnese { get; private set; }
+    public long Id { get; private set; }
+    public MedicalRecordStatus Status { get; private set; } = null!;
+    public MedicalRecordStatus StatusInCaseOfAdmission { get; private set; }
+    public AnamneseEntity? Anamnese { get; private set; }
+    public long ServiceId { get; private set; }
+    public ServiceEntity Service { get; private set; } = null!;
     
     public MedicalRecordEntity() { }
 
-    public MedicalRecordEntity(long? id, MedicalRecordStatus status, MedicalRecordStatus? statusInCaseOfAdmission, AnamneseEntity anamnese)
+    public MedicalRecordEntity(long id, MedicalRecordStatus status, MedicalRecordStatus statusInCaseOfAdmission, AnamneseEntity? anamnese)
     {
         this.Id = id;
         this.Status = status;

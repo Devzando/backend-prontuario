@@ -1,10 +1,11 @@
+using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.Anamnese;
 
 public class AnamneseEntity
 {
-    public long? Id { get; private set; }
+    public long Id { get; private set; }
     public string BloodPressure { get; private set; } = string.Empty;
     public string Glucose { get; private set; } = string.Empty;
     public string Temperature { get; private set; } = string.Empty;
@@ -26,11 +27,13 @@ public class AnamneseEntity
     public string MedicalHypothesis { get; private set; } = string.Empty;
     public string PreviousSurgeries { get; private set; } = string.Empty;
     public ClassificationStatus ClassificationStatus { get; private set; }
+    public long MedicalRecordId { get; private set; }
+    public MedicalRecordEntity MedicalRecord { get; private set; }
     
     public AnamneseEntity() { }
     
     public AnamneseEntity(
-        long? id,
+        long id,
         string bloodPressure,
         string glucose,
         string temperature,

@@ -19,13 +19,13 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
                     SocialName = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Sus = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
-                    Cpf = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
-                    Rg = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
-                    Status = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
-                    MotherName = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true)
+                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    MotherName = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
+                    Cpf_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Phone_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
+                    Rg_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
+                    Status_Value = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
+                    Sus_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,7 +38,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Role = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    Role_Value = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,12 +51,12 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Cep = table.Column<string>(type: "TEXT", maxLength: 11, nullable: true),
                     Street = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
                     City = table.Column<string>(type: "TEXT", maxLength: 60, nullable: true),
                     Number = table.Column<long>(type: "INTEGER", nullable: true),
                     Neighborhood = table.Column<string>(type: "TEXT", maxLength: 40, nullable: true),
-                    PatientId = table.Column<long>(type: "INTEGER", nullable: false)
+                    PatientId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Cep_Value = table.Column<string>(type: "TEXT", maxLength: 11, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,9 +76,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
-                    Relationship = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
-                    PatientId = table.Column<long>(type: "INTEGER", nullable: false)
+                    PatientId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Phone_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
+                    Relationship_Value = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,9 +97,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ServiceStatus = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     ServiceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PatientId = table.Column<long>(type: "INTEGER", nullable: true)
+                    PatientId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ServiceStatus_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -108,7 +108,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         name: "FK_Services_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,12 +119,12 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Cpf = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     Password = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
                     FirstAccess = table.Column<bool>(type: "INTEGER", nullable: false),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ProfileId = table.Column<long>(type: "INTEGER", nullable: false)
+                    ProfileId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Cpf_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Email_Value = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,7 +134,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,9 +143,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    StatusInCaseOfAdmission = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    ServiceId = table.Column<long>(type: "INTEGER", nullable: true)
+                    ServiceId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Status_Value = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    StatusInCaseOfAdmission_Value = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,7 +154,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         name: "FK_MedicalRecords_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,7 +164,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Code = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Code = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsUserUpdatePassword = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExperationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -205,8 +207,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     MedicationInUseType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     MedicalHypothesis = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     PreviousSurgeries = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    ClassificationStatus = table.Column<string>(type: "TEXT", nullable: false),
-                    MedicalRecordId = table.Column<long>(type: "INTEGER", nullable: false)
+                    MedicalRecordId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ClassificationStatus_Value = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

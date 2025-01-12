@@ -4,10 +4,10 @@ namespace prontuario.Domain.Entities.Profile;
 
 public class ProfileEntityBuilder
 {
-    private long? _id;
+    private long _id;
     private Role _role = null!;
 
-    public ProfileEntityBuilder WithId(long? id)
+    public ProfileEntityBuilder WithId(long id)
     {
         _id = id;
         return this;
