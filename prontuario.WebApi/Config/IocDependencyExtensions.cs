@@ -16,9 +16,8 @@ namespace prontuario.WebApi.Config
             // Patients
             services.AddScoped<IGatewayPatient, PatientRepositoryGateway>();
             services.AddScoped<CreatePatientUseCase>();
-            services.AddScoped<GetAllPatientsUseCase>();
-            services.AddScoped<GetPatientsByFilterUseCase>();
             services.AddScoped<UpdatePatientStatusUseCase>();
+            services.AddScoped<FindAllPatientUseCase>();
             
             // Users
             services.AddScoped<IUserGateway, UserRepositoryGateway>();

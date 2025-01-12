@@ -39,46 +39,29 @@ namespace prontuario.WebApi.Controllers
 
             return Ok(new MessageSuccessResponseModel(result.Message));
         }
-
+        
         /// <summary>
-        /// Retorna todos os pacientes cadastrados no sistema
+        /// Retorna pacientes com base nos filtros
         /// </summary>
-        /// <returns>Mensagem de sucesso na operação</returns>
+        /// <remarks>É um filtro por vez</remarks>
         /// <response code="200">Pacientes retornados com Sucesso</response>
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PagedResponse<List<PatientResponse>>>> GetAll(
-            [FromServices] GetAllPatientsUseCase getAllPatientsUseCase,
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10)
-        {
-            var result = await getAllPatientsUseCase.Execute(pageNumber, pageSize);
-            _logger.LogInformation("Pacientes recuperados com sucesso");
-            return Ok(UtilsResponseModel.CreateListPatientPagedResponse(result.Data, pageNumber, pageSize));
-        }
-
-        /// <summary>
-        /// Retornar paciente com base em filtro de CPF ou SUS
-        /// </summary>
-        /// <response code="200">Paciente retornado com Sucesso</response>
-        /// <response code="400">Erro na operação</response>
-        /// <response code="401">Acesso não autorizado</response>
-        /// <response code="404">Paciente não encontrado</response>
+        /// <response code="404">Pacientes não encontrados</response>
         [HttpGet("filter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PatientResponse>> GetByFilter(
-            [FromQuery] string filter,
-            [FromQuery] string status,
-            [FromServices] GetPatientsByFilterUseCase getPatientsByFilterUseCase)
+        public async Task<ActionResult<PagedResponse<List<PatientResponse>>>> GetByFilterList(
+            [FromServices] FindAllPatientUseCase getAllPatientUseCase,
+            [FromQuery] string? filter = "",
+            [FromQuery] string? status = "",
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10
+            )
         {
-            var result = await getPatientsByFilterUseCase.Execute(filter, status);
+            var result = await getAllPatientUseCase.Execute(filter, status, pageNumber, pageSize);
 
             if (result.IsFailure)
             {
@@ -90,8 +73,8 @@ namespace prontuario.WebApi.Controllers
                     ? NotFound(result.ErrorDetails) 
                     : BadRequest();
             }
-            _logger.LogInformation("Paciente recuperado com sucesso");
-            return Ok(PatientResponseModel.CreateGetAllPatientResponse(result.Data));
+            _logger.LogInformation("Pacientes recuperados com sucesso");
+            return Ok(UtilsResponseModel.CreateFindAllListPatientPagedResponse(result.Data, pageNumber, pageSize));
         }
         
         /// <summary>

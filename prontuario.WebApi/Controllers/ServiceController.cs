@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using prontuario.Application.Usecases.Service;
 using prontuario.WebApi.ResponseModels;
+using prontuario.WebApi.ResponseModels.Service;
+using prontuario.WebApi.ResponseModels.Utils;
 
 namespace prontuario.WebApi.Controllers;
 
