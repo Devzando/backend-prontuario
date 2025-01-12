@@ -1,10 +1,14 @@
+using prontuario.WebApi.ResponseModels.Anamnese;
+using prontuario.WebApi.ResponseModels.MedicalRecord;
+
 namespace prontuario.WebApi.ResponseModels.Service;
 
 public class ServiceResponseBuilder
 {
     private long _id { get; set; }
     private DateTime _serviceDate { get; set; }
-    private string? _serviceStatus { get; set; } = String.Empty;
+    private string? _serviceStatus { get; set; }
+    private MedicalRecordResponse? _medicalRecordResponse { get; set; }
 
     public ServiceResponseBuilder WithId(long id)
     {
@@ -24,8 +28,14 @@ public class ServiceResponseBuilder
         return this;
     }
 
+    public ServiceResponseBuilder WithMedicalRecordResponse(MedicalRecordResponse? medicalRecordResponse)
+    {
+        _medicalRecordResponse = medicalRecordResponse;
+        return this;
+    }
+
     public ServiceResponse Build()
     {
-        return new ServiceResponse(_id, _serviceDate, _serviceStatus);
+        return new ServiceResponse(_id, _serviceDate, _serviceStatus, _medicalRecordResponse);
     }
 }

@@ -14,8 +14,8 @@ namespace prontuario.Infra.Gateways
             context.Patients.Add(patientEntity);
             await context.SaveChangesAsync();
         }
-
-        public async Task<PagedResult<List<PatientEntity>>> GetAll(int pageNumber, int pageSize)
+        
+        public async Task<PagedResult<List<PatientEntity>?>> GetByFilterList(string filter, string status, int pageNumber, int pageSize)
         {
             var totalRecords = await context.Patients.CountAsync();
             
@@ -23,26 +23,31 @@ namespace prontuario.Infra.Gateways
                 .Include(p => p.AddressEntity)
                 .Include(p => p.EmergencyContactDetailsEntity)
                 .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(m => m!.Anamnese)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
+                .Where(p =>
+                    (p.Cpf.Value == filter) || 
+                    (p.Sus.Value == filter) ||
+                    (p.Status.Value == status) ||
+                    (p.ServicesEntity != null && 
+                     p.ServicesEntity.Any(s => 
+                         s.MedicalRecordEntity != null && 
+                         (
+                             s.MedicalRecordEntity.Status.Value == status ||
+                             (s.MedicalRecordEntity.Anamnese != null && s.MedicalRecordEntity.Anamnese.ClassificationStatus.Value == status)
+                         )
+                     )
+                    )
+                )
                 .ToListAsync();
 
-            return new PagedResult<List<PatientEntity>>
+            return new PagedResult<List<PatientEntity>?>
             {
                 Pages = patients,
                 TotalRecords = totalRecords
             };
-        }
-
-        public async Task<PatientEntity?> GetByFilter(string filter, string status)
-        {
-            var patient = await context.Patients
-                .Include(p => p.AddressEntity)
-                .Include(p => p.EmergencyContactDetailsEntity)
-                .Include(p => p.ServicesEntity)
-                .FirstOrDefaultAsync(p => (p.Cpf.Value == filter || p.Sus.Value == filter) && p.Status.Value == status);
-
-            return patient;
         }
 
         public async Task<PatientEntity?> GetById(long id)
