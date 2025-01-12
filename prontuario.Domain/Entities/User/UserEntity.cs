@@ -36,8 +36,8 @@ public class UserEntity
     public string Name { get; private set; } = string.Empty;
     public Email Email { get; private set; } = null!;
     public CPF Cpf { get; private set; } = null!;
-    public string Password { get; private set; } = string.Empty;
-    public bool FirstAccess { get; private set; } = false;
+    public string Password { get; set; } = string.Empty;
+    public bool FirstAccess { get; set; } = false;
     public bool Active { get; private set; } = true;
     public ProfileEntity Profile { get; private set; } = null!;
     public AccessCodeEntity AccessCode { get; private set; } = null!;

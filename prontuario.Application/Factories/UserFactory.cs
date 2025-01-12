@@ -8,9 +8,11 @@ namespace prontuario.Application.Factories
 {
     public class UserFactory
     {
-        public static UserEntity CreateUser(CreateUserDTO data, AccessCodeEntity accessCode)
+        public static UserEntity CreateUser(CreateUserDTO data, AccessCodeEntity accessCode, List<ProfileEntity> profiles)
         {
             var genericPassword = $"{data.Email}_{data.Cpf}";
+            var profile = profiles.Find(p => p.Role.Value == data.Profile.Role);
+            
             return new UserEntityBuilder()
                 .WithName(data.Name)
                 .WithEmail(new Email(data.Email))
@@ -18,9 +20,7 @@ namespace prontuario.Application.Factories
                 .WithPassword(genericPassword)
                 .WithActive(true)
                 .WithFirstAccess(false)
-                .WithProfile(new ProfileEntityBuilder()
-                    .WithRoleType(new Role(data.Profile.Role))
-                    .Build())
+                .WithProfile(profile!)
                 .WithAccessCode(new AccessCodeEntityBuilder()
                     .WithCode(accessCode.Code)
                     .WithIsActive(accessCode.IsActive)
@@ -32,13 +32,20 @@ namespace prontuario.Application.Factories
 
         public static UserEntity CreateUser(UserEntity user, string password, bool firstAccess)
         {
+            user.Password = password;
+            user.FirstAccess = firstAccess;
+            return user;
+        }
+        public static UserEntity CreateUser(UserEntity user)
+        {
             return new UserEntityBuilder()
+                .WithId(user.Id)
                 .WithName(user.Name)
                 .WithEmail(new Email(user.Email.Value))
                 .WithCpf(new CPF(user.Cpf.Value))
-                .WithPassword(password)
+                .WithPassword(user.Password)
                 .WithActive(user.Active)
-                .WithFirstAccess(firstAccess)
+                .WithFirstAccess(true)
                 .WithProfile(new ProfileEntityBuilder()
                     .WithId(user.Profile.Id)
                     .WithRoleType(new Role(user.Profile.Role.Value))

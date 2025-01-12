@@ -3,6 +3,7 @@ using prontuario.Application.Usecases.Patient;
 using prontuario.Domain.Dtos.Patient;
 using prontuario.WebApi.ResponseModels;
 using prontuario.WebApi.ResponseModels.Patient;
+using prontuario.WebApi.ResponseModels.Utils;
 using prontuario.WebApi.Validators;
 using prontuario.WebApi.Validators.Patient;
 
@@ -50,11 +51,14 @@ namespace prontuario.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<List<PatientResponse>>> GetAll([FromServices] GetAllPatientsUseCase getAllPatientsUseCase)
+        public async Task<ActionResult<PagedResponse<List<PatientResponse>>>> GetAll(
+            [FromServices] GetAllPatientsUseCase getAllPatientsUseCase,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var result = await getAllPatientsUseCase.Execute();
+            var result = await getAllPatientsUseCase.Execute(pageNumber, pageSize);
             _logger.LogInformation("Pacientes recuperados com sucesso");
-            return Ok(result.Data.Select(PatientResponseModel.CreateGetAllPatientResponse).ToList());
+            return Ok(UtilsResponseModel.CreateListPatientPagedResponse(result.Data, pageNumber, pageSize));
         }
 
         /// <summary>

@@ -1,28 +1,16 @@
 ﻿using prontuario.Application.Gateways;
-using prontuario.Domain.Entities;
 using prontuario.Domain.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.Utils;
 
 namespace prontuario.Application.Usecases.Patient
 {
-    public class GetAllPatientsUseCase
+    public class GetAllPatientsUseCase(IGatewayPatient gatewayPatient)
     {
-        private readonly IGatewayPatient _gatewayPatient;
-
-        public GetAllPatientsUseCase(IGatewayPatient gatewayPatient)
+        public async Task<ResultPattern<PagedResult<List<PatientEntity>>>> Execute(int pageNumber, int pageSize)
         {
-            _gatewayPatient = gatewayPatient;
-        }
-
-        public async Task<ResultPattern<List<PatientEntity>>> Execute()
-        {
-            var result = await _gatewayPatient.GetAll();
-            return ResultPattern<List<PatientEntity>>.SuccessResult(result);
+            var result = await gatewayPatient.GetAll(pageNumber, pageSize);
+            return ResultPattern<PagedResult<List<PatientEntity>>>.SuccessResult(result);
         }
     }
 }

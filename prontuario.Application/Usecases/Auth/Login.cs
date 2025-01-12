@@ -1,3 +1,4 @@
+using prontuario.Application.Factories;
 using prontuario.Application.Gateways;
 using prontuario.Domain.Errors;
 
@@ -10,6 +11,7 @@ public class Login(IUserGateway userGateway, IBcryptGateway bcryptGateway, IToke
         var user = await userGateway.FindUserByEmail(userEmail);
         if (user is null || !user.Active)
             return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 404);
+        
         if (user.FirstAccess)
         {
             var result = bcryptGateway.VerifyHashPassword(user, userPassword);
@@ -24,6 +26,7 @@ public class Login(IUserGateway userGateway, IBcryptGateway bcryptGateway, IToke
             }
         }
 
+        
         var accessToken = tokenGateway.CreateToken(user);
         if(accessToken is null)
             return ResultPattern<string>.FailureResult("Erro ao realizar login, verifique os dados e tente novamente", 400);

@@ -9,7 +9,7 @@ public class UpdateUserPasswordUseCase(IUserGateway userGateway, IBcryptGateway 
     public async Task<ResultPattern<string>> Execute(string email, string password, string accessCode)
     {
         var user = await userGateway.FindUserByEmail(email);
-        if(user is not null)
+        if(user is null)
             return ResultPattern<string>.FailureResult("Não foi possível atualizar a senha do usuário.", 409);
         
         if(user?.AccessCode.Code != accessCode)
