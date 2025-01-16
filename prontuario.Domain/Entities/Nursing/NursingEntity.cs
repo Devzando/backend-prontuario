@@ -6,6 +6,7 @@ public class NursingEntity
 {
     public long Id { get; private set; }
     public string? NursingNote { get; private set; }
+    public long? AnamneseId { get; private set; }
     public AnamneseEntity? Anamnese { get; set; }
     public NursingEntity() { }
     
@@ -14,5 +15,6 @@ public class NursingEntity
         this.Id = id;
         this.NursingNote = nursingNote;
         this.Anamnese = anamnese;
+        this.AnamneseId = anamnese?.Id;
     }
 }

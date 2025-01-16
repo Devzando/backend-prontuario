@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using prontuario.Domain.Entities.Anamnese;
 using prontuario.Domain.Entities.Nursing;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.EntityConfiguration;
@@ -17,7 +18,8 @@ public class NursingConfiguration : IEntityTypeConfiguration<NursingEntity>
             .IsRequired(false);
 
         builder.HasOne(n => n.Anamnese)
-            .WithOne(n => n.NursingEntity) 
+            .WithOne()
+            .HasForeignKey<NursingEntity>(n => n.AnamneseId) 
             .IsRequired(false);
     }
 }
