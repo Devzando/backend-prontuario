@@ -1,4 +1,5 @@
 using prontuario.Domain.Entities.Anamnese;
+using prontuario.Domain.Entities.Patient;
 
 namespace prontuario.Domain.Entities.Nursing;
 
@@ -6,7 +7,7 @@ public class NursingEntityBuilder
 {
     private long _id;
     private string? _nursingNote;
-    private AnamneseEntity? _anamnese;
+    private PatientEntity? _patient;
 
     public NursingEntityBuilder WithId(long id){
         _id = id;
@@ -19,14 +20,14 @@ public class NursingEntityBuilder
         return this;
     }
 
-    public NursingEntityBuilder WithAnamnese(AnamneseEntity? anamnese)
+    public NursingEntityBuilder WithPatient(PatientEntity? patient)
     {
-        _anamnese = anamnese;
+        _patient = patient;
         return this;
     }
 
     public NursingEntity Build() 
     {
-        return new NursingEntity(_id, _nursingNote, _anamnese);
+        return new NursingEntity(_id, _nursingNote, _patient);
     }
 }

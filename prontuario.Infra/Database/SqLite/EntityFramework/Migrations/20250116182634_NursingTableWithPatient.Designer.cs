@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prontuario.Infra.Database;
 
@@ -11,9 +12,11 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    partial class ProntuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250116182634_NursingTableWithPatient")]
+    partial class NursingTableWithPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");

@@ -1,5 +1,6 @@
 using prontuario.Domain.Entities.Address;
 using prontuario.Domain.Entities.EmergencyContactDetails;
+using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
 
@@ -20,6 +21,7 @@ public class PatientEntityBuilder
         private AddressEntity _address = null!;
         private ICollection<EmergencyContactDetailsEntity> _emergencyContactDetails = null!;
         private ICollection<ServiceEntity>? _services;
+        private NursingEntity _nursingEntity = null!;
 
         public PatientEntityBuilder WithId(long id)
         {
@@ -99,6 +101,12 @@ public class PatientEntityBuilder
             return this;
         }
 
+        public PatientEntityBuilder WithNursing(NursingEntity nursingEntity)
+        {
+            _nursingEntity = nursingEntity;
+            return this;
+        }
+
         public PatientEntity Build()
         {
             return new PatientEntity(
@@ -114,7 +122,8 @@ public class PatientEntityBuilder
                 _status,
                 _address,
                 _emergencyContactDetails,
-                _services
+                _services,
+                _nursingEntity
             );
         }
     }
