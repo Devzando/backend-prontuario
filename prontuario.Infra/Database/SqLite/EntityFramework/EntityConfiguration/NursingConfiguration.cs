@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using prontuario.Domain.Entities.Nursing;
@@ -15,11 +16,9 @@ public class NursingConfiguration : IEntityTypeConfiguration<NursingEntity>
 
         builder.Property(n => n.NursingNote)
             .HasMaxLength(200)
-            .IsRequired(false);
+            .IsRequired(true);
 
-        builder.HasOne(n => n.Patient)
-            .WithOne(p => p.NursingEntity)
-            .HasForeignKey<NursingEntity>(n => n.PatientId) 
-            .IsRequired(false);
+        builder.Property(n => n.PatientId)
+            .IsRequired(true);
     }
 }

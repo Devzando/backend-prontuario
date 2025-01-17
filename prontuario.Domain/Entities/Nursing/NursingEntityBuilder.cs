@@ -7,7 +7,7 @@ public class NursingEntityBuilder
 {
     private long _id;
     private string? _nursingNote;
-    private PatientEntity? _patient;
+    private long _patientId;
 
     public NursingEntityBuilder WithId(long id){
         _id = id;
@@ -20,14 +20,14 @@ public class NursingEntityBuilder
         return this;
     }
 
-    public NursingEntityBuilder WithPatient(PatientEntity? patient)
+    public NursingEntityBuilder WithPatientId(long patientId)
     {
-        _patient = patient;
+        _patientId = patientId;
         return this;
     }
 
     public NursingEntity Build() 
     {
-        return new NursingEntity(_id, _nursingNote, _patient);
+        return new NursingEntity(_id, _nursingNote, _patientId);
     }
 }

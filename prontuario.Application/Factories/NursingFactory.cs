@@ -9,7 +9,7 @@ namespace prontuario.Application.Factories
         {
             return new NursingEntityBuilder()
                 .WithNursingNote(data.NursingNote)
-                .WithPatient(data.PatientEntity)
+                .WithPatientId(data.PatientId)
                 .Build();
         }
     }

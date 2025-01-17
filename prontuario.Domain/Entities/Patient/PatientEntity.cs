@@ -21,7 +21,6 @@ namespace prontuario.Domain.Entities.Patient
         public AddressEntity AddressEntity { get; private set; } = null!;
         public ICollection<EmergencyContactDetailsEntity> EmergencyContactDetailsEntity { get; private set; } = null!;
         public ICollection<ServiceEntity>? ServicesEntity { get; private set; }
-        public NursingEntity NursingEntity { get; private set; } = null!; 
 
         public PatientEntity() { }
         public PatientEntity(
@@ -37,8 +36,7 @@ namespace prontuario.Domain.Entities.Patient
             PatientStatus status,
             AddressEntity addressEntity,
             ICollection<EmergencyContactDetailsEntity> emergencyContactDetailsEntity,
-            ICollection<ServiceEntity>? serviceEntities,
-            NursingEntity nursingEntity)
+            ICollection<ServiceEntity>? serviceEntities)
         {
             this.Id = id;
             this.Name = name;
@@ -53,7 +51,6 @@ namespace prontuario.Domain.Entities.Patient
             this.AddressEntity = addressEntity;
             this.EmergencyContactDetailsEntity = emergencyContactDetailsEntity;
             this.ServicesEntity = serviceEntities;
-            this.NursingEntity = nursingEntity; 
         }
     }
 }
