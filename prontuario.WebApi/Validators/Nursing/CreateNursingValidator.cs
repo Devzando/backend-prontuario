@@ -12,8 +12,8 @@ namespace prontuario.WebApi.Validators.Nursing
                 .MinimumLength(2).WithMessage("Anotação deve ter pelo menos 2 caracteres")
                 .MaximumLength(200).WithMessage("Anotação deve ter no máximo 200 caracteres");
 
-            RuleFor(x => x.PatientEntity)
-                .NotEmpty().WithMessage("Você deve informar para qual o paciente é anotação!");
+            RuleFor(x => x.PatientId)
+                .NotEmpty().WithMessage("Você deve informar qual é o Id do paciente!");
         }
     }
 }
