@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using prontuario.Domain.Entities.Anamnese;
 using prontuario.Domain.Entities.MedicalRecord;
+using prontuario.Domain.Entities.PatientMonitoring;
 using prontuario.Domain.Entities.Service;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.EntityConfiguration;
@@ -37,5 +38,10 @@ public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord
         builder.HasOne(m => m.Anamnese) // Relacionamento com AnamneseEntity
             .WithOne(m => m.MedicalRecord) // Caso o modelo AnamneseEntity tenha um relacionamento reverso
             .IsRequired(false); // Opcional, pois a Anamnese pode ser nula
+
+        // Configuração da chave estrangeira com PatientMonitoring
+        builder.HasOne(m => m.PatientMonitoring) // Relacionamento com PatientMonitoring
+            .WithOne(m => m.MedicalRecord) // Caso o modelo PatientMonitoring tenha um relacionamento reverso
+            .IsRequired(false); // Opcional, pois a PatientMonitoring pode ser nula
     }
 }

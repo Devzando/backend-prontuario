@@ -46,7 +46,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("AccessCodes");
+                    b.ToTable("AccessCodes", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Address.AddressEntity", b =>
@@ -201,7 +201,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("MedicalRecordId")
                         .IsUnique();
 
-                    b.ToTable("Anamneses");
+                    b.ToTable("Anamneses", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", b =>
@@ -387,7 +387,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>
@@ -467,7 +467,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.AccessCode.AccessCodeEntity", b =>
