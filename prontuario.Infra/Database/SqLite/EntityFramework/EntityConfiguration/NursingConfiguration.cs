@@ -1,6 +1,8 @@
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using prontuario.Domain.Entities.Nursing;
+using prontuario.Domain.Entities.Patient;
 
 namespace prontuario.Infra.Database.SqLite.EntityFramework.EntityConfiguration;
 
@@ -14,10 +16,9 @@ public class NursingConfiguration : IEntityTypeConfiguration<NursingEntity>
 
         builder.Property(n => n.NursingNote)
             .HasMaxLength(200)
-            .IsRequired(false);
+            .IsRequired(true);
 
-        builder.HasOne(n => n.Anamnese)
-            .WithOne(n => n.NursingEntity) 
-            .IsRequired(false);
+        builder.Property(n => n.PatientId)
+            .IsRequired(true);
     }
 }

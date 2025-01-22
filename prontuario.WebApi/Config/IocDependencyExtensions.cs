@@ -41,6 +41,11 @@ namespace prontuario.WebApi.Config
             // Auth
             services.AddScoped<Login>();
             
+            // Nursing 
+            services.AddScoped<INursingGateway, NursingRepositoryGateway>();
+            services.AddScoped<CreateNursingNoteUseCase>();
+            services.AddScoped<FindAllNursingNoteUseCase>();
+
             // Outros serviços
             services.AddScoped<IBcryptGateway, BcryptServiceGateway>();
             services.AddScoped<ITokenGateway, TokenGateway>();

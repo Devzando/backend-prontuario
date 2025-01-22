@@ -1,5 +1,4 @@
 using prontuario.Domain.Entities.MedicalRecord;
-using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.Anamnese;
@@ -30,7 +29,6 @@ public class AnamneseEntity
     public ClassificationStatus ClassificationStatus { get; private set; }
     public long MedicalRecordId { get; private set; }
     public MedicalRecordEntity MedicalRecord { get; private set; }
-    public NursingEntity NursingEntity { get; private set; }
     
     public AnamneseEntity() { }
     

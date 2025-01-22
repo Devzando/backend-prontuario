@@ -1,7 +1,9 @@
+using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Patient;
 using prontuario.Domain.Enums;
 using prontuario.Domain.Utils;
 using prontuario.Domain.ValuesObjects;
+using prontuario.WebApi.ResponseModels.Nursing;
 using prontuario.WebApi.ResponseModels.Patient;
 
 namespace prontuario.WebApi.ResponseModels.Utils;
@@ -47,5 +49,22 @@ public class UtilsResponseModel
             data.TotalRecords,
             pageNumber,
             pageSize);
+    }
+
+    public static PagedResponse<List<NursingResponse>> CreateFindAllListNursingPagedResponse(
+        PagedResult<List<NursingEntity>?> data, int pageNumber, int pageSize)
+    {
+        var NursingResponses = data.Pages
+        .Select(nursing => new NursingResponse(
+            nursing.Id,
+            nursing.NursingNote,
+            nursing.PatientId))
+        .ToList();
+
+        return new PagedResponse<List<NursingResponse>>(
+        NursingResponses,
+        data.TotalRecords,
+        pageNumber,
+        pageSize);
     }
 }

@@ -1,5 +1,6 @@
 using prontuario.Domain.Entities.Address;
 using prontuario.Domain.Entities.EmergencyContactDetails;
+using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
 
