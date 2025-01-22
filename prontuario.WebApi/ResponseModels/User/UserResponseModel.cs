@@ -11,6 +11,7 @@ namespace prontuario.WebApi.ResponseModels.User
                 user.Name,
                 user.Email.Value,
                 user.Cpf.Value,
+                user.Position.Value,
                 new ProfileResponse(
                     user.Profile.Role
                 ),

@@ -6,12 +6,13 @@ namespace prontuario.Domain.Entities.User;
 
 public class UserEntity
 {
-    public UserEntity(long id, string name, Email email, CPF cpf, string password, bool firstAccess, bool active, ProfileEntity profile, AccessCodeEntity accessCode)
+    public UserEntity(long id, string name, Email email, CPF cpf, Positions position, string password, bool firstAccess, bool active, ProfileEntity profile, AccessCodeEntity accessCode)
     {
         Id = id;
         Name = name;
         Email = email;
         Cpf = cpf;
+        Position = position;
         Password = password;
         FirstAccess = firstAccess;
         Active = active;
@@ -19,11 +20,12 @@ public class UserEntity
         AccessCode = accessCode;
     }
 
-    public UserEntity(string name, Email email, CPF cpf, string password, bool firstAccess, bool active, ProfileEntity profile, AccessCodeEntity accessCode)
+    public UserEntity(string name, Email email, CPF cpf, Positions position, string password, bool firstAccess, bool active, ProfileEntity profile, AccessCodeEntity accessCode)
     {
         Name = name;
         Email = email;
         Cpf = cpf;
+        Position = position;
         Password = password;
         FirstAccess = firstAccess;
         Active = active;
@@ -36,6 +38,7 @@ public class UserEntity
     public string Name { get; private set; } = string.Empty;
     public Email Email { get; private set; } = null!;
     public CPF Cpf { get; private set; } = null!;
+    public Positions Position { get; private set; } = null!;
     public string Password { get; set; } = string.Empty;
     public bool FirstAccess { get; set; } = false;
     public bool Active { get; private set; } = true;
