@@ -16,7 +16,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
         {
         }
 
-        public PatientMonitoringEntity(long id, string bloodPressure, string glucose, string temperature, string saturation, string respiratoryRate)
+        public PatientMonitoringEntity(long id, string bloodPressure, string glucose, string temperature, string saturation, string respiratoryRate, long medicalRecordId)
         {
             Id = id;
             BloodPressure = bloodPressure;
@@ -24,6 +24,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
             Temperature = temperature;
             Saturation = saturation;
             RespiratoryRate = respiratoryRate;
+            MedicalRecordId = medicalRecordId;
         }
 
     }

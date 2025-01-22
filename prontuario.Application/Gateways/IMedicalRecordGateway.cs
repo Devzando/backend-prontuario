@@ -5,4 +5,6 @@ namespace prontuario.Application.Gateways;
 public interface IMedicalRecordGateway
 {
     Task Save(MedicalRecordEntity medicalRecord);
+
+    Task<MedicalRecordEntity?> GetById(long id);
 }
