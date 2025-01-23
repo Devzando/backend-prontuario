@@ -25,6 +25,9 @@ namespace prontuario.Infra.Gateways
                 .Include(p => p.ServicesEntity)
                     !.ThenInclude(s => s.MedicalRecordEntity)
                     .ThenInclude(m => m!.Anamnese)
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(mr => mr!.PatientMonitoring)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .Where(p =>

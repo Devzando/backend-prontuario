@@ -3,6 +3,7 @@ using prontuario.WebApi.ResponseModels.Address;
 using prontuario.WebApi.ResponseModels.Anamnese;
 using prontuario.WebApi.ResponseModels.EmergencyContactDetails;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
+using prontuario.WebApi.ResponseModels.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.Service;
 
 namespace prontuario.WebApi.ResponseModels.Patient
@@ -41,12 +42,18 @@ namespace prontuario.WebApi.ResponseModels.Patient
                     .WithServiceDate(service.ServiceDate)
                     .WithServiceStatus(service.ServiceStatus.Value)
                     .WithMedicalRecordResponse(service.MedicalRecordEntity != null ?
-                        new MedicalRecordResponse(
-                            service.MedicalRecordEntity.Id, 
+                         new MedicalRecordResponse(
+                            service.MedicalRecordEntity.Id,
                             service.MedicalRecordEntity.Status.Value,
-                            service.MedicalRecordEntity.Anamnese != null ? new AnamneseResponse(
-                                service.MedicalRecordEntity.Anamnese.Id, 
-                                service.MedicalRecordEntity.Anamnese.ClassificationStatus.Value) : null) : null)
+                            service.MedicalRecordEntity.Anamnese != null ?
+                                new AnamneseResponse(
+                                    service.MedicalRecordEntity.Anamnese.Id,
+                                    service.MedicalRecordEntity.Anamnese.ClassificationStatus.Value)
+                                : null,
+                            service.MedicalRecordEntity.PatientMonitoring != null ?
+                                new PatientMonitoringResponse(service.MedicalRecordEntity.PatientMonitoring.Id)
+                                : null)
+                        : null)
                     .Build())
                     .ToList());
         }
@@ -90,10 +97,15 @@ namespace prontuario.WebApi.ResponseModels.Patient
                                         ? new AnamneseResponse(
                                             service.MedicalRecordEntity.Anamnese.Id,
                                             service.MedicalRecordEntity.Anamnese.ClassificationStatus.Value)
+                                        : null,
+                                    service.MedicalRecordEntity.PatientMonitoring != null
+                                        ? new PatientMonitoringResponse(
+                                            service.MedicalRecordEntity.PatientMonitoring.Id)
                                         : null)
                                 : null)
                             .Build())
                     .ToList())).ToList();
         }
+
     }
 }
