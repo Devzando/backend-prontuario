@@ -16,6 +16,7 @@ namespace prontuario.Application.Usecases.PatientMonitoring
                 return ResultPattern<string>.FailureResult("Erro ao adicionar monitoramento", 404);
 
             var patienMonitoring = PatientMonitoringFactory.CreatePatientMonitoringEntity(data);
+            patienMonitoring.MedicalRecord = medicalRecord;
             medicalRecord.PatientMonitoring = patienMonitoring;
 
             await medicalRecordGateway.Save(medicalRecord);

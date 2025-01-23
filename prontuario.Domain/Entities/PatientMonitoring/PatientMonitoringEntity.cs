@@ -11,7 +11,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
         public string Saturation { get; private set; } = string.Empty;
         public string RespiratoryRate { get; private set; } = string.Empty;
         public long MedicalRecordId { get; private set; }
-        public MedicalRecordEntity MedicalRecord { get; private set; } = null!;
+        public MedicalRecordEntity MedicalRecord { get; set; } = null!;
         public PatientMonitoringEntity()
         {
         }

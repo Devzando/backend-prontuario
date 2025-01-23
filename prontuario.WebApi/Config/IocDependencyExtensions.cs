@@ -3,6 +3,7 @@ using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.Auth;
 using prontuario.Application.Usecases.MedicalRecord;
 using prontuario.Application.Usecases.Patient;
+using prontuario.Application.Usecases.PatientMonitoring;
 using prontuario.Application.Usecases.Service;
 using prontuario.Application.Usecases.User;
 using prontuario.Infra.Gateways;
@@ -37,6 +38,7 @@ namespace prontuario.WebApi.Config
             // MedicalRecord
             services.AddScoped<IMedicalRecordGateway, MedicalRecordRepositoryGateway>();
             services.AddScoped<CreateAnamneseUseCase>();
+            services.AddScoped<AddPatientMonitoringUseCase>();
             
             // Auth
             services.AddScoped<Login>();
