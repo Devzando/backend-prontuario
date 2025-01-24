@@ -46,7 +46,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("AccessCodes");
+                    b.ToTable("AccessCodes", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Address.AddressEntity", b =>
@@ -174,6 +174,10 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("SignsAndSymptoms")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Temperature")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -201,7 +205,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("MedicalRecordId")
                         .IsUnique();
 
-                    b.ToTable("Anamneses");
+                    b.ToTable("Anamneses", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", b =>
@@ -387,7 +391,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>
@@ -402,14 +406,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Value")
-                                .HasMaxLength(15)
-                                .HasColumnType("TEXT");
-                        });
+                    b.Property<string>("ServiceStatus")
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -467,7 +466,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.AccessCode.AccessCodeEntity", b =>

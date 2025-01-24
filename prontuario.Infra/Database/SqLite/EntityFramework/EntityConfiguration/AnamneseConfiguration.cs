@@ -68,6 +68,9 @@ public class AnamneseConfiguration : IEntityTypeConfiguration<AnamneseEntity>
             builder.Property(a => a.PreviousSurgeries)
                 .HasMaxLength(100)
                 .IsRequired();
+
+            builder.Property(a => a.SignsAndSymptoms)
+                .IsRequired();
             
             builder.ComplexProperty(a => a.ClassificationStatus)
                 .Property(a => a.Value)

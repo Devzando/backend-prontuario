@@ -1,46 +1,21 @@
 using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.Entities.Service;
 using prontuario.Domain.Enums;
 using prontuario.Domain.Utils;
 using prontuario.Domain.ValuesObjects;
 using prontuario.WebApi.ResponseModels.Nursing;
 using prontuario.WebApi.ResponseModels.Patient;
+using prontuario.WebApi.ResponseModels.Service;
 
 namespace prontuario.WebApi.ResponseModels.Utils;
 
 public class UtilsResponseModel
 {
-    public static PagedResponse<List<PatientResponse>> CreateListPatientWithoutServicePagedResponse(
-        PagedResult<List<PatientEntity>> data, int pageNumber, int pageSize)
-    {
-        return new PagedResponse<List<PatientResponse>>(
-            data.Pages.Where(s => s.Status.Value == PatientStatusType.NO_SERVICE.ToString())
-                .Select(PatientResponseModel.CreateGetAllPatientResponse).ToList(),
-            data.TotalRecords,
-            pageNumber,
-            pageSize);
-    }
-    public static PagedResponse<List<PatientResponse>> CreateListPatientToScreeningPagedResponse(
-        PagedResult<List<PatientEntity>> data, int pageNumber, int pageSize)
-    {
-        var patientResponses = data.Pages
-            .Where(patient => patient.ServicesEntity != null && patient.ServicesEntity
-                .Any(service => service.MedicalRecordEntity != null &&
-                                service.MedicalRecordEntity.Status.Value == MedicalRecordStatusType.SCREENING.ToString()))
-            .Select(PatientResponseModel.CreateGetAllPatientResponse)
-            .ToList();
-
-        return new PagedResponse<List<PatientResponse>>(
-            patientResponses,
-            data.TotalRecords,
-            pageNumber,
-            pageSize);
-    }
-    
     public static PagedResponse<List<PatientResponse>> CreateFindAllListPatientPagedResponse(
         PagedResult<List<PatientEntity>?> data, int pageNumber, int pageSize)
     {
-        var patientResponses = data.Pages
+        var patientResponses = data.Pages!
             .Select(PatientResponseModel.CreateGetAllPatientResponse)
             .ToList();
 
@@ -66,5 +41,28 @@ public class UtilsResponseModel
         data.TotalRecords,
         pageNumber,
         pageSize);
+    }
+
+    public static PagedResponse<List<ServiceResponse>> CreateFindAllServicesByPatientId(
+        PagedResult<List<ServiceEntity>?> data, int pageNumber, int pageSize)
+    {
+        if (data.Pages!.Count == 0)
+            return new PagedResponse<List<ServiceResponse>>(
+                [],
+                0,
+                pageNumber,
+                pageSize
+            );
+        
+        var serviceResponses = data.Pages!
+            .Select(ServiceResponseModel.CreateFindAllServiceByPatientId)
+            .ToList();
+
+        return new PagedResponse<List<ServiceResponse>>(
+            serviceResponses,
+            data.TotalRecords,
+            pageNumber,
+            pageSize
+            );
     }
 }

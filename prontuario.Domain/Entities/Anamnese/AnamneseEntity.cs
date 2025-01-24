@@ -26,6 +26,7 @@ public class AnamneseEntity
     public string MedicationInUseType { get; private set; } = string.Empty;
     public string MedicalHypothesis { get; private set; } = string.Empty;
     public string PreviousSurgeries { get; private set; } = string.Empty;
+    public string SignsAndSymptoms { get; private set; } = string.Empty;
     public ClassificationStatus ClassificationStatus { get; private set; }
     public long MedicalRecordId { get; private set; }
     public MedicalRecordEntity MedicalRecord { get; private set; }
@@ -54,6 +55,7 @@ public class AnamneseEntity
         string medicationInUseType,
         string medicalHypothesis,
         string previousSurgeries,
+        string SignsAndSymptoms,
         ClassificationStatus classificationStatus)
     {
         Id = id;
@@ -77,6 +79,7 @@ public class AnamneseEntity
         MedicationInUseType = medicationInUseType;
         MedicalHypothesis = medicalHypothesis;
         PreviousSurgeries = previousSurgeries;
+        SignsAndSymptoms = SignsAndSymptoms;
         ClassificationStatus = classificationStatus;
     }
 }

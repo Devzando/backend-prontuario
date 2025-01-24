@@ -12,8 +12,8 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    [Migration("20250116182634_NursingTableWithPatient")]
-    partial class NursingTableWithPatient
+    [Migration("20250122034747_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,16 +288,14 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NursingNote")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("PatientId")
+                    b.Property<long>("PatientId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId")
-                        .IsUnique();
 
                     b.ToTable("Nursing", (string)null);
                 });
@@ -407,14 +405,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Value")
-                                .HasMaxLength(15)
-                                .HasColumnType("TEXT");
-                        });
+                    b.Property<string>("ServiceStatus")
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -528,15 +521,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("prontuario.Domain.Entities.Nursing.NursingEntity", b =>
-                {
-                    b.HasOne("prontuario.Domain.Entities.Patient.PatientEntity", "Patient")
-                        .WithOne("NursingEntity")
-                        .HasForeignKey("prontuario.Domain.Entities.Nursing.NursingEntity", "PatientId");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>
                 {
                     b.HasOne("prontuario.Domain.Entities.Patient.PatientEntity", "PatientEntity")
@@ -570,9 +554,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("EmergencyContactDetailsEntity");
-
-                    b.Navigation("NursingEntity")
-                        .IsRequired();
 
                     b.Navigation("ServicesEntity");
                 });

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using prontuario.Application.Gateways;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Infra.Database;
@@ -10,5 +11,15 @@ public class MedicalRecordRepositoryGateway(ProntuarioDbContext context) : IMedi
     {
         context.Update(medicalRecord);
         await context.SaveChangesAsync();
+    }
+
+    public async Task<MedicalRecordEntity?> FindById(long medicalRecordId)
+    {
+        var medicalRecord = await context.MedicalRecords
+            .Include(m => m.Anamnese)
+            .Where(m => m.Id == medicalRecordId)
+            .FirstOrDefaultAsync();
+        
+        return medicalRecord;
     }
 }

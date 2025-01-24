@@ -18,6 +18,8 @@ namespace prontuario.WebApi.Config
             services.AddScoped<CreatePatientUseCase>();
             services.AddScoped<UpdatePatientStatusUseCase>();
             services.AddScoped<FindAllPatientUseCase>();
+            services.AddScoped<UpdatePatientUseCase>();
+            services.AddScoped<FindPatientByIdUseCase>();
             
             // Users
             services.AddScoped<IUserGateway, UserRepositoryGateway>();
@@ -30,6 +32,7 @@ namespace prontuario.WebApi.Config
             services.AddScoped<IServiceGateway, ServiceRepositoryGateway>();
             services.AddScoped<InitializeServiceUseCase>();
             services.AddScoped<InitializeScreeningUseCase>();
+            services.AddScoped<FindAllServicesByPatientIdUseCase>();
             
             // Profiles
             services.AddScoped<IProfileGateway, ProfileRepositoryGateway>();
@@ -37,6 +40,7 @@ namespace prontuario.WebApi.Config
             // MedicalRecord
             services.AddScoped<IMedicalRecordGateway, MedicalRecordRepositoryGateway>();
             services.AddScoped<CreateAnamneseUseCase>();
+            services.AddScoped<FindMedicalRecordByIdUseCase>();
             
             // Auth
             services.AddScoped<Login>();

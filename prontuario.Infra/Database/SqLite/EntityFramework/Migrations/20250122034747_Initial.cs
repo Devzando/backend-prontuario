@@ -12,6 +12,20 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Nursing",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NursingNote = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    PatientId = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Nursing", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -97,9 +111,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    ServiceStatus = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
                     ServiceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PatientId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ServiceStatus_Value = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true)
+                    PatientId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,6 +289,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmergencyContactDetails");
+
+            migrationBuilder.DropTable(
+                name: "Nursing");
 
             migrationBuilder.DropTable(
                 name: "Users");
