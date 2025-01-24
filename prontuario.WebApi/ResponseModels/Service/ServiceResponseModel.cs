@@ -11,7 +11,9 @@ public class ServiceResponseModel
             .WithId(serviceEntity.Id)
             .WithServiceDate(serviceEntity.ServiceDate)
             .WithServiceStatus(serviceEntity.ServiceStatus)
-            .WithMedicalRecordResponse(MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(serviceEntity.MedicalRecordEntity!))
+            .WithMedicalRecordResponse(serviceEntity.MedicalRecordEntity == null 
+                ? null 
+                : MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(serviceEntity.MedicalRecordEntity!))
             .Build();
 
         return service;
@@ -23,7 +25,9 @@ public class ServiceResponseModel
             .WithId(serviceEntity.Id)
             .WithServiceDate(serviceEntity.ServiceDate)
             .WithServiceStatus(serviceEntity.ServiceStatus)
-            .WithMedicalRecordResponse(MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(serviceEntity.MedicalRecordEntity!))
+            .WithMedicalRecordResponse(serviceEntity.MedicalRecordEntity == null 
+                ? null 
+                : MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(serviceEntity.MedicalRecordEntity!))
             .Build();
 
         return service;
