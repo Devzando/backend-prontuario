@@ -48,6 +48,9 @@ namespace prontuario.WebApi.Controllers
         /// <summary>
         /// Adiciona um novo usuário no sistema
         /// </summary>
+        /// <remarks>
+        /// Para o campo Role, pode ser as seguintes opções: ADMIN, RECEPTIONTEAM, DOCTOR, NURSE, INTITUATIONMANAGEMENT
+        /// </remarks>
         /// <returns>Mensagem de sucesso na operação</returns>
         /// <response code="200">Usuário adicionado com Sucesso</response>
         /// <response code="400">Erro na operação</response>

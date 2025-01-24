@@ -5,12 +5,12 @@ namespace prontuario.Domain.Entities.EmergencyContactDetails
 {
     public class EmergencyContactDetailsEntity
     {
-        public long Id { get; private set; }
-        public string? Name { get; private set; }
-        public Phone Phone { get; private set; }
-        public Relationship Relationship { get; private set; }
-        public long PatientId { get; private set; }
-        public PatientEntity Patient { get; private set; }
+        public long Id { get;  set; }
+        public string? Name { get;  set; }
+        public Phone Phone { get;  set; }
+        public Relationship Relationship { get;  set; }
+        public long PatientId { get;  set; }
+        public PatientEntity Patient { get;  set; }
         public EmergencyContactDetailsEntity() { }
 
         public EmergencyContactDetailsEntity(long id, string? name, Phone phone, Relationship relationship)

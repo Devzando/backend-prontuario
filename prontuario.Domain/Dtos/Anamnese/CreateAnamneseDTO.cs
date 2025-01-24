@@ -22,5 +22,6 @@ public record CreateAnamneseDTO(
     string MedicationInUseType,
     string MedicalHypothesis,
     string PreviousSurgeries,
+    string SignsAndSymptoms,
     string ClassificationStatus
     );

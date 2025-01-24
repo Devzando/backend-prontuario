@@ -16,7 +16,7 @@ public class ServiceFactory
         return new ServiceEntityBuilder()
             .WithServiceDate(DateTime.Now)
             .WithPatient(patient)
-            .WithServiceStatus(new ServiceStatus(null))
+            .WithServiceStatus(null)
             .Build();
     }
 
