@@ -81,7 +81,7 @@ public class ServiceController(ILogger<ServiceController> _logger) : ControllerB
     /// Buscar todos os atendimentos por paciente
     /// </summary>
     /// <returns>Atendimentos retornados com sucesso</returns>
-    /// <remarks>Enviar no corpo o id do paciente</remarks>
+    /// <remarks>Obs: Retorna apenas atendimentos finalizados</remarks>
     /// <response code="200">Atendimentos retornados com Sucesso</response>
     /// <response code="400">Erro na operação</response>
     /// <response code="401">Acesso não autorizado</response>

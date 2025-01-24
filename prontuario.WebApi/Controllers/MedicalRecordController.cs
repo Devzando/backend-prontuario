@@ -46,6 +46,7 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     /// <summary>
     /// Buscar um prontuário pelo id
     /// </summary>
+    /// <remarks>Obs: Precisa-se ter informação no banco</remarks>
     /// <returns>Prontuário retornado com sucesso</returns>
     /// <response code="200">Prontuário retornado com Sucesso</response>
     /// <response code="400">Erro na operação</response>

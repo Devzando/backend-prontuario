@@ -119,6 +119,7 @@ namespace prontuario.WebApi.Controllers
         /// <summary>
         /// Atualizar o paciente
         /// </summary>
+        /// <remarks>Obs: Precisa-se reenviar os dados mesmo que o mesmo não esteja sendo alterado</remarks>
         /// <returns>Mensagem de sucesso na operação</returns>
         /// <response code="200">Paciente atualizado com Sucesso</response>
         /// <response code="400">Erro na operação</response>
