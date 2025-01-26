@@ -11,7 +11,7 @@ namespace prontuario.Application.Usecases.PatientMonitoring
     {
         public async Task<ResultPattern<string>> Execute(CreatePatientMonitoringDTO data)
         {
-            var medicalRecord = await medicalRecordGateway.GetById(data.MedidacalRecordId);
+            var medicalRecord = await medicalRecordGateway.GetById(data.MedicalRecordId);
             if (medicalRecord is null)
                 return ResultPattern<string>.FailureResult("Erro ao adicionar monitoramento", 404);
 

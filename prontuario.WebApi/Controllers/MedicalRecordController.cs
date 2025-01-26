@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using prontuario.Application.Usecases.MedicalRecord;
+using prontuario.Application.Usecases.PatientExam;
 using prontuario.Application.Usecases.PatientMonitoring;
 using prontuario.Domain.Dtos.Anamnese;
+using prontuario.Domain.Dtos.PatientExam;
 using prontuario.Domain.Dtos.PatientMonitoring;
 using prontuario.WebApi.ResponseModels;
 
@@ -75,5 +77,38 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
 
         _logger.LogInformation("Monitoramento adicionado com sucesso");
         return Ok(new MessageSuccessResponseModel("Monitoramento adicionado com sucesso"));
+    }
+
+    /// <summary>
+    /// Adicionar Exame a paciente
+    /// </summary>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <remarks>Enviar no corpo o id do atendimento</remarks>
+    /// <response code="200">Exame iniciada com Sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Erro ao adicionar Exame</response>
+    [HttpPost("PatientExam")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> AddExamToPatient([FromBody] CreatePatientExamDTO data, [FromServices] AddPatientExamUseCase addPatientExamUseCase)
+    {
+        var result = await addPatientExamUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Exame adicionado com sucesso");
+        return Ok(new MessageSuccessResponseModel("Exame adicionado com sucesso"));
     }
 }

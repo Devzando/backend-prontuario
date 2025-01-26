@@ -6,6 +6,7 @@ using prontuario.Domain.Entities.EmergencyContactDetails;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Patient;
+using prontuario.Domain.Entities.PatientExams;
 using prontuario.Domain.Entities.PatientMonitoring;
 using prontuario.Domain.Entities.Profile;
 using prontuario.Domain.Entities.Service;
@@ -27,7 +28,8 @@ namespace prontuario.Infra.Database
         public DbSet<ProfileEntity> Profiles { get; private set; }
         public DbSet<AccessCodeEntity> AccessCodes { get; private set; }
         public DbSet<NursingEntity> Nursing { get; private set; }
-        public DbSet<PatientMonitoringEntity> PatientMonitorings { get; private set; } 
+        public DbSet<PatientMonitoringEntity> PatientMonitorings { get; private set; }
+        public DbSet<PatientExamsEntity> PatientExams { get; private set; }
 
         public ProntuarioDbContext(DbContextOptions<ProntuarioDbContext> options) : base(options)
         {

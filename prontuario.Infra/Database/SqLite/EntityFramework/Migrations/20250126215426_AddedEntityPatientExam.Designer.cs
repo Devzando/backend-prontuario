@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prontuario.Infra.Database;
 
@@ -11,9 +12,11 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    partial class ProntuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250126215426_AddedEntityPatientExam")]
+    partial class AddedEntityPatientExam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -46,7 +49,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("AccessCodes", (string)null);
+                    b.ToTable("AccessCodes");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Address.AddressEntity", b =>
@@ -201,7 +204,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasIndex("MedicalRecordId")
                         .IsUnique();
 
-                    b.ToTable("Anamneses", (string)null);
+                    b.ToTable("Anamneses");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", b =>
@@ -394,7 +397,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("MedicalRecordId");
 
-                    b.ToTable("PatientExams", (string)null);
+                    b.ToTable("PatientExams");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.PatientMonitoring.PatientMonitoringEntity", b =>
@@ -443,7 +446,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("MedicalRecordId1");
 
-                    b.ToTable("PatientMonitorings", (string)null);
+                    b.ToTable("PatientMonitorings");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Profile.ProfileEntity", b =>
@@ -463,7 +466,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profiles", (string)null);
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>
@@ -543,7 +546,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.AccessCode.AccessCodeEntity", b =>

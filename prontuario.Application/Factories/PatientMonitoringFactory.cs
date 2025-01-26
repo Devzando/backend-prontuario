@@ -13,7 +13,7 @@ namespace prontuario.Application.Factories
                 .WithTemperature(data.Temperature)
                 .WithSaturation(data.Saturation)
                 .WithRespiratoryRate(data.RespiratoryRate)
-                .WithMedicalRecordId(data.MedidacalRecordId)
+                .WithMedicalRecordId(data.MedicalRecordId)
                 .Build();
         }   
     }

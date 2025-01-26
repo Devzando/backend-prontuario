@@ -44,5 +44,11 @@ public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord
             .WithOne(p => p.MedicalRecord) // Cada PatientMonitoring está associado a um único MedicalRecord
             .HasForeignKey(p => p.MedicalRecordId) // Define a chave estrangeira
             .OnDelete(DeleteBehavior.Cascade); // Cascata para deletar os monitoramentos se o prontuário for excluído
+
+        // Configuração do relacionamento com PatientExams
+        builder.HasMany(mr => mr.PatientExams)  // Um MedicalRecord pode ter muitos PatientExams
+            .WithOne(pe => pe.MedicalRecord)    // Cada PatientExam pertence a um MedicalRecord
+            .HasForeignKey(pe => pe.MedicalRecordId)
+            .OnDelete(DeleteBehavior.Cascade);  // Cascade delete para manter a integridade dos dados
     }
 }
