@@ -15,6 +15,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
         private string _saturation = string.Empty;
         private string _respiratoryRate = string.Empty;
         private long _medicalRecordId;
+        private DateTime _monitoringDate = DateTime.Now;
 
         public PatientMonitoringEntityBuilder WithId(long id)
         {
@@ -60,7 +61,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
 
         public PatientMonitoringEntity Build()
         {
-            return new PatientMonitoringEntity(_id, _bloodPressure, _glucose, _temperature, _saturation, _respiratoryRate, _medicalRecordId);
+            return new PatientMonitoringEntity(_id, _bloodPressure, _glucose, _temperature, _saturation, _respiratoryRate, _medicalRecordId, _monitoringDate);
         }
     }
 

@@ -35,8 +35,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.EntityConfiguration
 
             // Configuração do relacionamento com MedicalRecord
             builder.HasOne<MedicalRecordEntity>()
-                .WithOne(m => m.PatientMonitoring) // assuming a MedicalRecord can have many PatientMonitoringEntities
-                .HasForeignKey<PatientMonitoringEntity>(p => p.MedicalRecordId)
+                .WithMany(m => m.PatientMonitoring) // assuming a MedicalRecord can have many PatientMonitoringEntities
+                .HasForeignKey(p => p.MedicalRecordId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

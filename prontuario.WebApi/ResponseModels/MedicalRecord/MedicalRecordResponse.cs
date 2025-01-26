@@ -7,5 +7,5 @@ public record MedicalRecordResponse(
     long Id,
     string? status,
     AnamneseResponse? Anamnese,
-    PatientMonitoringResponse? PatienteMonitoring
+    List<PatientMonitoringResponse>? PatientMonitorings
     );

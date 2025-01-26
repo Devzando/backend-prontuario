@@ -40,8 +40,9 @@ public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord
             .IsRequired(false); // Opcional, pois a Anamnese pode ser nula
 
         // Configuração da chave estrangeira com PatientMonitoring
-        builder.HasOne(m => m.PatientMonitoring) // Relacionamento com PatientMonitoring
-            .WithOne(m => m.MedicalRecord) // Caso o modelo PatientMonitoring tenha um relacionamento reverso
-            .IsRequired(false); // Opcional, pois a PatientMonitoring pode ser nula
+        builder.HasMany(m => m.PatientMonitoring) // Relacionamento 1:N
+            .WithOne(p => p.MedicalRecord) // Cada PatientMonitoring está associado a um único MedicalRecord
+            .HasForeignKey(p => p.MedicalRecordId) // Define a chave estrangeira
+            .OnDelete(DeleteBehavior.Cascade); // Cascata para deletar os monitoramentos se o prontuário for excluído
     }
 }

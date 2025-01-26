@@ -15,10 +15,17 @@ namespace prontuario.Application.Usecases.PatientMonitoring
             if (medicalRecord is null)
                 return ResultPattern<string>.FailureResult("Erro ao adicionar monitoramento", 404);
 
-            var patienMonitoring = PatientMonitoringFactory.CreatePatientMonitoringEntity(data);
-            patienMonitoring.MedicalRecord = medicalRecord;
-            medicalRecord.PatientMonitoring = patienMonitoring;
+            // Criar a entidade de monitoramento do paciente
+            var patientMonitoring = PatientMonitoringFactory.CreatePatientMonitoringEntity(data);
+            patientMonitoring.MedicalRecord = medicalRecord;
 
+            // Inicializar a lista se for nula
+            medicalRecord.PatientMonitoring ??= new List<PatientMonitoringEntity>();
+
+            // Adicionar o monitoramento à coleção
+            medicalRecord.PatientMonitoring.Add(patientMonitoring);
+
+            // Salvar as alterações no banco
             await medicalRecordGateway.Save(medicalRecord);
 
             return ResultPattern<string>.SuccessResult();

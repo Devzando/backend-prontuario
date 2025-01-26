@@ -50,9 +50,13 @@ namespace prontuario.WebApi.ResponseModels.Patient
                                     service.MedicalRecordEntity.Anamnese.Id,
                                     service.MedicalRecordEntity.Anamnese.ClassificationStatus.Value)
                                 : null,
-                            service.MedicalRecordEntity.PatientMonitoring != null ?
-                                new PatientMonitoringResponse(service.MedicalRecordEntity.PatientMonitoring.Id)
-                                : null)
+                                service.MedicalRecordEntity.PatientMonitoring != null
+                                    ? service.MedicalRecordEntity.PatientMonitoring.Select(pm =>
+                                        new PatientMonitoringResponse(
+                                            pm.Id,
+                                            pm.MonitoringDate
+                                        )).ToList()
+                                    : null)
                         : null)
                     .Build())
                     .ToList());
@@ -98,10 +102,13 @@ namespace prontuario.WebApi.ResponseModels.Patient
                                             service.MedicalRecordEntity.Anamnese.Id,
                                             service.MedicalRecordEntity.Anamnese.ClassificationStatus.Value)
                                         : null,
-                                    service.MedicalRecordEntity.PatientMonitoring != null
-                                        ? new PatientMonitoringResponse(
-                                            service.MedicalRecordEntity.PatientMonitoring.Id)
-                                        : null)
+                                        service.MedicalRecordEntity.PatientMonitoring != null
+                                            ? service.MedicalRecordEntity.PatientMonitoring.Select(pm =>
+                                                new PatientMonitoringResponse(
+                                                    pm.Id,
+                                                    pm.MonitoringDate
+                                                )).ToList()
+                                            : null)
                                 : null)
                             .Build())
                     .ToList())).ToList();
