@@ -6,6 +6,10 @@ using prontuario.Domain.Dtos.Anamnese;
 using prontuario.Domain.Dtos.PatientExam;
 using prontuario.Domain.Dtos.PatientMonitoring;
 using prontuario.WebApi.ResponseModels;
+using prontuario.WebApi.Validators;
+using prontuario.WebApi.Validators.Nursing;
+using prontuario.WebApi.Validators.PatientExam;
+using prontuario.WebApi.Validators.PatientMonitoring;
 
 namespace prontuario.WebApi.Controllers;
 
@@ -62,6 +66,13 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MessageSuccessResponseModel>> AddPatientMonitoring([FromBody] CreatePatientMonitoringDTO data, [FromServices] AddPatientMonitoringUseCase addPatientMonitoringUseCase)
     {
+        var validator = new AddPatientMonitoringValidator();
+        var validationResult = await validator.ValidateAsync(data);
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.ToString());
+        }
+
         var result = await addPatientMonitoringUseCase.Execute(data);
 
         if (result.IsFailure)
@@ -95,6 +106,13 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MessageSuccessResponseModel>> AddExamToPatient([FromBody] CreatePatientExamDTO data, [FromServices] AddPatientExamUseCase addPatientExamUseCase)
     {
+        var validator = new CreatePatientExamValidator();
+        var validationResult = await validator.ValidateAsync(data);
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.ToString());
+        }
+
         var result = await addPatientExamUseCase.Execute(data);
 
         if (result.IsFailure)
@@ -128,6 +146,13 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MessageSuccessResponseModel>> FinalizePatientExam([FromBody] FinalizePatientExamDTO data, [FromServices] FinalizePatientExamUseCase finalizePatientExamUseCase)
     {
+        var validator = new FinalizePatientExamValidator();
+        var validationResult = await validator.ValidateAsync(data);
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.ToString());
+        }
+
         var result = await finalizePatientExamUseCase.Execute(data);
 
         if (result.IsFailure)
