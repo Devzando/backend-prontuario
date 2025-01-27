@@ -11,6 +11,7 @@ namespace prontuario.Application.Factories
                 .WithMedicalRecordId(data.MedicalRecordId)
                 .WithDescription(data.Description)
                 .WithPrescriptionDate(data.PrescriptionDate)
+                .WithExecutionDate(data.ExecutionDate)
                 .Build();
         }
 

@@ -41,6 +41,7 @@ namespace prontuario.WebApi.Config
             services.AddScoped<CreateAnamneseUseCase>();
             services.AddScoped<AddPatientMonitoringUseCase>();
             services.AddScoped<AddPatientExamUseCase>();
+            services.AddScoped<FinalizePatientExamUseCase>();
             
             // Auth
             services.AddScoped<Login>();
@@ -53,6 +54,9 @@ namespace prontuario.WebApi.Config
             // Outros serviços
             services.AddScoped<IBcryptGateway, BcryptServiceGateway>();
             services.AddScoped<ITokenGateway, TokenGateway>();
+
+            //PatientExams
+            services.AddScoped<IPatientExamGateway, PatientExamRepositoryGateway>();
         }
     }
 }

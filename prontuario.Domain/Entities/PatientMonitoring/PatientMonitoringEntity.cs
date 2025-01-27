@@ -13,13 +13,12 @@ namespace prontuario.Domain.Entities.PatientMonitoring
         public long MedicalRecordId { get; private set; }
         public DateTime MonitoringDate { get; private set; }
         public MedicalRecordEntity MedicalRecord { get; set; } = null!;
-        public object MedicalRecordId_ { get; }
 
         public PatientMonitoringEntity()
         {
         }
 
-        public PatientMonitoringEntity(long id, string bloodPressure, string glucose, string temperature, string saturation, string respiratoryRate, object medicalRecordId_, DateTime monitoringDate)
+        public PatientMonitoringEntity(long id, string bloodPressure, string glucose, string temperature, string saturation, string respiratoryRate, long medicalRecordId_, DateTime monitoringDate)
         {
             Id = id;
             BloodPressure = bloodPressure;
@@ -27,7 +26,7 @@ namespace prontuario.Domain.Entities.PatientMonitoring
             Temperature = temperature;
             Saturation = saturation;
             RespiratoryRate = respiratoryRate;
-            MedicalRecordId_ = medicalRecordId_;
+            MedicalRecordId = medicalRecordId_;
             MonitoringDate = monitoringDate;
         }
     }

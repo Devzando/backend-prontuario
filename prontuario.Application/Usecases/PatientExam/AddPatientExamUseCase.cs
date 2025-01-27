@@ -19,7 +19,7 @@ namespace prontuario.Application.Usecases.PatientExam
         {
             var medicalRecord = await medicalRecordGateway.GetById(data.MedicalRecordId);
             if (medicalRecord is null)
-                return ResultPattern<string>.FailureResult("Erro ao adicionar monitoramento", 404);
+                return ResultPattern<string>.FailureResult("Erro ao adicionar exame, ficha medica não encontrada", 404);
 
             // Criar a entidade de exame do paciente
             var exam = PatientExamsFactory.CreatePatientExamsEntity(data);

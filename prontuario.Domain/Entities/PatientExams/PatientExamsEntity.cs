@@ -23,5 +23,13 @@ namespace prontuario.Domain.Entities.PatientExams
             Description = description;
             MedicalRecordId = medicalRecordId;
         }
+
+        public void FinalizeExam(DateTime executionDate)
+        {
+            if (ExecutionDate.HasValue)
+                throw new InvalidOperationException("Exame ja esta finalizado.");
+
+            ExecutionDate = executionDate;
+        }
     }
 }
