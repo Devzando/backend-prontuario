@@ -1,5 +1,6 @@
 ﻿using prontuario.Domain.Entities.Address;
 using prontuario.Domain.Entities.EmergencyContactDetails;
+using prontuario.Domain.Entities.Notes;
 using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
@@ -21,6 +22,7 @@ namespace prontuario.Domain.Entities.Patient
         public AddressEntity AddressEntity { get; private set; } = null!;
         public ICollection<EmergencyContactDetailsEntity> EmergencyContactDetailsEntity { get; private set; } = null!;
         public ICollection<ServiceEntity>? ServicesEntity { get; private set; }
+        public ICollection<NotesEntity>? NotesEntity { get; private set; }
 
         public PatientEntity() { }
         public PatientEntity(

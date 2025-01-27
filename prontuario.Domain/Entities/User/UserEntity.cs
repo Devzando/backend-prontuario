@@ -1,4 +1,5 @@
 using prontuario.Domain.Entities.AccessCode;
+using prontuario.Domain.Entities.Notes;
 using prontuario.Domain.Entities.Profile;
 using prontuario.Domain.ValuesObjects;
 
@@ -43,6 +44,7 @@ public class UserEntity
     public bool FirstAccess { get; set; } = false;
     public bool Active { get; private set; } = true;
     public ProfileEntity Profile { get; private set; } = null!;
-    public AccessCodeEntity AccessCode { get; private set; } = null!;
     public long ProfileId { get; private set; }
+    public AccessCodeEntity AccessCode { get; private set; } = null!;
+    public ICollection<NotesEntity> NotesEntity { get; private set; }
 }
