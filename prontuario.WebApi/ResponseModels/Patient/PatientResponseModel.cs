@@ -3,6 +3,8 @@ using prontuario.WebApi.ResponseModels.Address;
 using prontuario.WebApi.ResponseModels.Anamnese;
 using prontuario.WebApi.ResponseModels.EmergencyContactDetails;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
+using prontuario.WebApi.ResponseModels.PatientExams;
+using prontuario.WebApi.ResponseModels.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.Service;
 
 namespace prontuario.WebApi.ResponseModels.Patient

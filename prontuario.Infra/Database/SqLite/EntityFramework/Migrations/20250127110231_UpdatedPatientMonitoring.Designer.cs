@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prontuario.Infra.Database;
 
@@ -11,9 +12,11 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    partial class ProntuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127110231_UpdatedPatientMonitoring")]
+    partial class UpdatedPatientMonitoring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -172,10 +175,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<string>("Saturation")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SignsAndSymptoms")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Temperature")
@@ -477,9 +476,14 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ServiceStatus")
-                        .HasMaxLength(15)
-                        .HasColumnType("TEXT");
+                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .HasMaxLength(15)
+                                .HasColumnType("TEXT");
+                        });
 
                     b.HasKey("Id");
 

@@ -25,10 +25,19 @@ namespace prontuario.Infra.Gateways
         public async Task<PagedResult<List<PatientEntity>?>> GetByFilterList(string filter, string status, int pageNumber, int pageSize)
         {
             var totalRecords = await context.Patients.CountAsync();
-            
+
             var patients = await context.Patients
                 .Include(p => p.AddressEntity)
                 .Include(p => p.EmergencyContactDetailsEntity)
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(m => m!.Anamnese)
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(mr => mr!.PatientMonitoring.OrderBy(pm => pm.MonitoringDate))
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(mr => mr!.PatientExams.OrderBy(pe => pe.PrescriptionDate))
                 .Where(p =>
                     (p.Cpf.Value == filter) ||
                     (p.Sus.Value == filter) ||

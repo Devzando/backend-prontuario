@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prontuario.Infra.Database;
 
@@ -11,9 +12,11 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    partial class ProntuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250126215426_AddedEntityPatientExam")]
+    partial class AddedEntityPatientExam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -172,10 +175,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<string>("Saturation")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SignsAndSymptoms")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Temperature")
@@ -420,6 +419,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<long>("MedicalRecordId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long>("MedicalRecordId1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("MonitoringDate")
                         .HasColumnType("TEXT");
 
@@ -441,6 +443,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MedicalRecordId");
+
+                    b.HasIndex("MedicalRecordId1");
 
                     b.ToTable("PatientMonitorings");
                 });
@@ -477,9 +481,14 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ServiceStatus")
-                        .HasMaxLength(15)
-                        .HasColumnType("TEXT");
+                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .HasMaxLength(15)
+                                .HasColumnType("TEXT");
+                        });
 
                     b.HasKey("Id");
 
@@ -606,9 +615,15 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
             modelBuilder.Entity("prontuario.Domain.Entities.PatientMonitoring.PatientMonitoringEntity", b =>
                 {
-                    b.HasOne("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", "MedicalRecord")
+                    b.HasOne("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", null)
                         .WithMany("PatientMonitoring")
                         .HasForeignKey("MedicalRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", "MedicalRecord")
+                        .WithMany()
+                        .HasForeignKey("MedicalRecordId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
