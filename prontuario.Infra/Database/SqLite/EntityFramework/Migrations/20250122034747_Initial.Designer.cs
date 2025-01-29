@@ -12,8 +12,8 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    [Migration("20250116173609_NursingTable")]
-    partial class NursingTable
+    [Migration("20250122034747_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,9 +162,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<bool>("NecesPsicobio")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("NursingEntityId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("PreviousSurgeries")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -206,8 +203,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
                     b.HasIndex("MedicalRecordId")
                         .IsUnique();
-
-                    b.HasIndex("NursingEntityId");
 
                     b.ToTable("Anamneses");
                 });
@@ -292,17 +287,15 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("AnamneseId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("NursingNote")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<long>("PatientId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("AnamneseId")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("Nursing", (string)null);
                 });
@@ -412,14 +405,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Value")
-                                .HasMaxLength(15)
-                                .HasColumnType("TEXT");
-                        });
+                    b.Property<string>("ServiceStatus")
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -509,15 +497,7 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .HasForeignKey("prontuario.Domain.Entities.Anamnese.AnamneseEntity", "MedicalRecordId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("prontuario.Domain.Entities.Nursing.NursingEntity", "NursingEntity")
-                        .WithMany()
-                        .HasForeignKey("NursingEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("MedicalRecord");
-
-                    b.Navigation("NursingEntity");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.EmergencyContactDetails.EmergencyContactDetailsEntity", b =>
@@ -539,15 +519,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("prontuario.Domain.Entities.Nursing.NursingEntity", b =>
-                {
-                    b.HasOne("prontuario.Domain.Entities.Anamnese.AnamneseEntity", "Anamnese")
-                        .WithOne()
-                        .HasForeignKey("prontuario.Domain.Entities.Nursing.NursingEntity", "AnamneseId");
-
-                    b.Navigation("Anamnese");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>

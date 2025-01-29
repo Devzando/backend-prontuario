@@ -25,6 +25,7 @@ public class AnamneseEntityBuilder
     private string _medicationInUseType = string.Empty;
     private string _medicalHypothesis = string.Empty;
     private string _previousSurgeries = string.Empty;
+    private string _signsAndSymptoms = string.Empty;
     private ClassificationStatus _classificationStatus;
 
     public AnamneseEntityBuilder WithId(long id)
@@ -153,6 +154,12 @@ public class AnamneseEntityBuilder
         return this;
     }
 
+    public AnamneseEntityBuilder WithSignsAndSymptoms(string signsAndSymptoms)
+    {
+        _signsAndSymptoms = signsAndSymptoms;
+        return this;
+    }
+
     public AnamneseEntityBuilder WithClassificationStatus(ClassificationStatus classificationStatus)
     {
         _classificationStatus = classificationStatus;
@@ -183,6 +190,7 @@ public class AnamneseEntityBuilder
             _medicationInUseType,
             _medicalHypothesis,
             _previousSurgeries,
+            _signsAndSymptoms,
             _classificationStatus
         );
     }

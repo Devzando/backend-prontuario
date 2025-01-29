@@ -30,6 +30,7 @@ public class AnamneseFactory
             .WithMedicationInUseType(data.MedicationInUseType)
             .WithMedicalHypothesis(data.MedicalHypothesis)
             .WithPreviousSurgeries(data.PreviousSurgeries)
+            .WithSignsAndSymptoms(data.SignsAndSymptoms)
             .WithClassificationStatus(new ClassificationStatus(data.ClassificationStatus))
             .Build();
     }

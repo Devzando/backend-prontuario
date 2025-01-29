@@ -10,19 +10,19 @@ namespace prontuario.Domain.Entities.Patient
     public class PatientEntity
     {
         public long Id { get; private set; }
-        public string Name { get; private set; } = string.Empty;
-        public string? SocialName { get; private set; }
-        public DateTime? BirthDate { get; private set; }
-        public SUS Sus { get; private set; } = null!;
-        public CPF Cpf { get; private set; } = null!;
-        public RG Rg { get; private set; } = null!;
-        public Phone Phone { get; private set; } = null!;
-        public string? MotherName { get; private set; }
+        public string Name { get;  set; } = string.Empty;
+        public string? SocialName { get; set; }
+        public DateTime? BirthDate { get;  set; }
+        public SUS Sus { get;  set; } = null!;
+        public CPF Cpf { get;  set; } = null!;
+        public RG Rg { get;  set; } = null!;
+        public Phone Phone { get;  set; } = null!;
+        public string? MotherName { get;  set; }
         public PatientStatus Status { get; set; } = null!;
-        public AddressEntity AddressEntity { get; private set; } = null!;
-        public ICollection<EmergencyContactDetailsEntity> EmergencyContactDetailsEntity { get; private set; } = null!;
-        public ICollection<ServiceEntity>? ServicesEntity { get; private set; }
-        public ICollection<NotesEntity>? NotesEntity { get; private set; }
+        public AddressEntity AddressEntity { get; set; } = null!;
+        public ICollection<EmergencyContactDetailsEntity> EmergencyContactDetailsEntity { get; set; } = null!;
+        public ICollection<ServiceEntity>? ServicesEntity { get; set; }
+        public ICollection<NotesEntity>? NotesEntity { get; set; }
 
         public PatientEntity() { }
         public PatientEntity(

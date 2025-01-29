@@ -12,8 +12,8 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    [Migration("20250112170250_Initial")]
-    partial class Initial
+    [Migration("20250124003139_AddColunmSignsAndSymptomsToAnamneseTable")]
+    partial class AddColunmSignsAndSymptomsToAnamneseTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,6 +177,10 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("SignsAndSymptoms")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Temperature")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -279,6 +283,25 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                         .IsUnique();
 
                     b.ToTable("MedicalRecords", (string)null);
+                });
+
+            modelBuilder.Entity("prontuario.Domain.Entities.Nursing.NursingEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NursingNote")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("PatientId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Nursing", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.Patient.PatientEntity", b =>
@@ -386,14 +409,9 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("TEXT");
 
-                    b.ComplexProperty<Dictionary<string, object>>("ServiceStatus", "prontuario.Domain.Entities.Service.ServiceEntity.ServiceStatus#ServiceStatus", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Value")
-                                .HasMaxLength(15)
-                                .HasColumnType("TEXT");
-                        });
+                    b.Property<string>("ServiceStatus")
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

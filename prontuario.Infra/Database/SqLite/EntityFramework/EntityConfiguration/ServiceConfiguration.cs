@@ -16,10 +16,8 @@ public class ServiceConfiguration : IEntityTypeConfiguration<ServiceEntity>
         builder.HasKey(s => s.Id);
 
         // Configuração das propriedades
-        builder.ComplexProperty(s => s.ServiceStatus)
-            .Property(s => s.Value)
-            .HasMaxLength(15)
-            .IsRequired(false); // Pode ser nulo, conforme o modelo
+        builder.Property(s => s.ServiceStatus)
+            .HasMaxLength(15);
 
         builder.Property(s => s.ServiceDate)
             .IsRequired(); // Data obrigatória

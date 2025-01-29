@@ -7,7 +7,7 @@ namespace prontuario.Domain.Entities.Service;
 public class ServiceEntityBuilder
 {
     private long _id;
-    private ServiceStatus _serviceStatus = null!;
+    private string? _serviceStatus;
     private DateTime _serviceDate;
     private PatientEntity _patient = null!;
     private MedicalRecordEntity? _medicalRecordEntity;
@@ -18,7 +18,7 @@ public class ServiceEntityBuilder
         return this;
     }
 
-    public ServiceEntityBuilder WithServiceStatus(ServiceStatus serviceStatus)
+    public ServiceEntityBuilder WithServiceStatus(string? serviceStatus)
     {
         _serviceStatus = serviceStatus;
         return this;

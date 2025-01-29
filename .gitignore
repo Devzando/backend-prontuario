@@ -38,4 +38,3 @@ msbuild.wrn
 *.db-wal
 
 .idea
-/prontuario.WebApi/prontuario.db

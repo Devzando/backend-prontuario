@@ -43,7 +43,13 @@ namespace prontuario.WebApi.Controllers
         /// <summary>
         /// Retorna pacientes com base nos filtros
         /// </summary>
-        /// <remarks>É um filtro por vez</remarks>
+        /// <remarks>
+        /// É um filtro por vez.
+        /// Para o paciente pode ser os seguintes Status: NO_SERVICE, IN_SERVICE
+        /// Para o prontuário pode ser os seguintes Status: SCREENING, MEDICAL_CARE, NURSING, ADMISSION, OBSERVATION, MEDICAL_DISCHARGE
+        /// Para as Classificações pode ser os seguintes Status: EMERGENCY, VERY_URGENT, URGENCY, LESS_SERIOUS, LIGHTWEIGHT
+        /// Para o filter pode ser o seguinte: Cpf e Sus
+        /// </remarks>
         /// <response code="200">Pacientes retornados com Sucesso</response>
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
@@ -108,6 +114,71 @@ namespace prontuario.WebApi.Controllers
             
             _logger.LogInformation("Paciente atualizado com sucesso");
             return Ok(new MessageSuccessResponseModel("Paciente atualizado com sucesso"));
+        }
+
+        /// <summary>
+        /// Atualizar o paciente
+        /// </summary>
+        /// <remarks>Obs: Precisa-se reenviar os dados mesmo que o mesmo não esteja sendo alterado</remarks>
+        /// <returns>Mensagem de sucesso na operação</returns>
+        /// <response code="200">Paciente atualizado com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        /// <response code="404">Erro ao atualizar paciente</response>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<MessageSuccessResponseModel>> Update([FromBody] UpdatePatientDTO data, [FromServices] UpdatePatientUseCase updatePatientUseCase)
+        {
+            var result = await updatePatientUseCase.Execute(data);
+
+            if (result.IsFailure)
+            {
+                // Construindo a URL dinamicamente
+                var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+                result.ErrorDetails!.Type = endpointUrl;
+                
+                return result.ErrorDetails?.Status == 404 
+                    ? NotFound(result.ErrorDetails) 
+                    : BadRequest();
+            }
+            
+            _logger.LogInformation("Paciente atualizado com sucesso");
+            return Ok(new MessageSuccessResponseModel("Paciente atualizado com sucesso"));
+        }
+        
+        /// <summary>
+        /// Retorna um paciente baseando-se no id dele
+        /// </summary>
+        /// <returns>Paciente retornado com sucesso</returns>
+        /// <response code="200">Paciente retornado com Sucesso</response>
+        /// <response code="400">Erro na operação</response>
+        /// <response code="401">Acesso não autorizado</response>
+        /// <response code="404">Erro ao buscar paciente</response>
+        [HttpGet("{patientId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PatientResponse>> FindById([FromRoute] long patientId, [FromServices] FindPatientByIdUseCase findPatientByIdUseCase)
+        {
+            var result = await findPatientByIdUseCase.Execute(patientId);
+
+            if (result.IsFailure)
+            {
+                // Construindo a URL dinamicamente
+                var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+                result.ErrorDetails!.Type = endpointUrl;
+                
+                return result.ErrorDetails?.Status == 404 
+                    ? NotFound(result.ErrorDetails) 
+                    : BadRequest();
+            }
+            
+            _logger.LogInformation("Paciente retornado com sucesso");
+            return Ok(PatientResponseModel.CreateFindPatientById(result.Data!));
         }
     }
 }
