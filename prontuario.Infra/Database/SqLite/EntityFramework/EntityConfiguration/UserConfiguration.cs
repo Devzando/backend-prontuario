@@ -27,6 +27,11 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .HasMaxLength(15)
             .IsRequired();
 
+        builder.ComplexProperty(u => u.Position)
+            .Property(u => u.Value)
+            .HasMaxLength(50)
+            .IsRequired();
+
         builder.Property(u => u.Password)
             .HasMaxLength(150)
             .IsRequired();
@@ -48,6 +53,12 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .WithOne(u => u.User)
             .HasForeignKey<AccessCodeEntity>(u => u.UserId)// Um usuário tem um código de acesso
             .OnDelete(DeleteBehavior.Cascade); // Quando um usuário for deletado, seu AccessCode também será deletado
+
+        // Relacionamento com Notes (um para muitos)
+        builder.HasMany(u => u.NotesEntity)
+            .WithOne(n => n.User)
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade); // Quando um usuário for deletado, suas notas também serão deletadas
     }
-    
+
 }

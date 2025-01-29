@@ -67,6 +67,10 @@ public class PatientConfiguration : IEntityTypeConfiguration<PatientEntity>
             .WithOne(p => p.PatientEntity)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(p => p.NotesEntity)
+            .WithOne(p => p.Patient)
+            .OnDelete(DeleteBehavior.Cascade);
+
         // Configurar as restrições adicionais, se necessário
     }
 }

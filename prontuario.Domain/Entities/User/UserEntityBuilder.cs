@@ -10,6 +10,7 @@ public class UserEntityBuilder
     private string _name = string.Empty;
     private Email _email = null!;
     private CPF _cpf = null!;
+    private Positions _position = null!;
     private string _password = string.Empty;
     private bool _firstAccess = false;
     private bool _active = true;
@@ -37,6 +38,12 @@ public class UserEntityBuilder
     public UserEntityBuilder WithCpf(CPF cpf)
     {
         _cpf = cpf;
+        return this;
+    }
+
+    public UserEntityBuilder WithPosition(Positions position)
+    {
+        _position = position;
         return this;
     }
 
@@ -71,6 +78,6 @@ public class UserEntityBuilder
     }
     public UserEntity Build()
     {
-        return new UserEntity(_id, _name, _email, _cpf, _password, _firstAccess, _active, _profile, _accessCode);
+        return new UserEntity(_id, _name, _email, _cpf, _position, _password, _firstAccess, _active, _profile, _accessCode);
     }
 }

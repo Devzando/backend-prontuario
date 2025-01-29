@@ -6,5 +6,6 @@ public record CreateUserDTO(
     string Name,
     string Email,
     string Cpf,
+    string Position,
     ProfileDTO Profile
     );

@@ -8,6 +8,7 @@ namespace prontuario.Domain.Dtos.User
         string Name,
         string Email,
         string Cpf,
+        string Position,
         string Password,
         bool FirstAccess,
         bool Active,

@@ -2,6 +2,7 @@
 using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.Auth;
 using prontuario.Application.Usecases.MedicalRecord;
+using prontuario.Application.Usecases.Notes;
 using prontuario.Application.Usecases.Patient;
 using prontuario.Application.Usecases.PatientExam;
 using prontuario.Application.Usecases.PatientMonitoring;
@@ -54,6 +55,12 @@ namespace prontuario.WebApi.Config
             services.AddScoped<INursingGateway, NursingRepositoryGateway>();
             services.AddScoped<CreateNursingNoteUseCase>();
             services.AddScoped<FindAllNursingNoteUseCase>();
+
+            // Notes
+            services.AddScoped<INotesGateway, NotesRepositoryGateway>();
+            services.AddScoped<CreateNoteUseCase>();
+            services.AddScoped<GetNotesUseCase>();
+            services.AddScoped<GetNotesCountUseCase>();
 
             // Outros serviços
             services.AddScoped<IBcryptGateway, BcryptServiceGateway>();

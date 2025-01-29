@@ -13,6 +13,14 @@ public class UserRepositoryGateway(ProntuarioDbContext context) : IUserGateway
         await context.SaveChangesAsync();
     }
 
+    public async Task<UserEntity?> FindUserById(long userId)
+    {
+        var user = await context.Users
+            .Include(u => u.Profile)
+            .Include(u => u.AccessCode)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+        return user;
+    }
 
     public async Task<UserEntity?> FindUserByEmail(string userEmail)
     {
