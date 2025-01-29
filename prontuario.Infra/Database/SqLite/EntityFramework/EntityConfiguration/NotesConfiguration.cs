@@ -25,12 +25,12 @@ public class NotesConfiguration : IEntityTypeConfiguration<NotesEntity>
             .IsRequired();
         
         // Configuração da chave estrangeira
-        builder.HasOne<PatientEntity>()
+        builder.HasOne(p => p.Patient)
             .WithMany(p => p.NotesEntity)
             .HasForeignKey(n => n.PatientId)
             .OnDelete(DeleteBehavior.Cascade); // Cascata para deletar a nota quando o paciente for deletado
         
-        builder.HasOne<UserEntity>()
+        builder.HasOne(u => u.User)
             .WithMany(u => u.NotesEntity)
             .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade); // Cascata para deletar a nota quando o usuário for deletado
