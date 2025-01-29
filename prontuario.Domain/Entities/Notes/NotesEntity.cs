@@ -14,10 +14,12 @@ public class NotesEntity
     public PatientEntity Patient { get; private set; }
     public UserEntity User { get; private set; }
     public NotesEntity() { }
-    public NotesEntity(long id, string description, DateTime createdAt)
+    public NotesEntity(long id, string description, DateTime createdAt, PatientEntity patient, UserEntity user)
     {
         this.Id = id;
         this.Description = description;
         this.CreatedAt = createdAt;
+        this.Patient = patient;
+        this.User = user;
     }
 }
