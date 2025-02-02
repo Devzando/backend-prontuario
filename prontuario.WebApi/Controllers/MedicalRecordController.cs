@@ -105,10 +105,12 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<MessageSuccessResponseModel>> AddExamToPatient([FromBody] CreatePatientExamDTO data, [FromServices] AddPatientExamUseCase addPatientExamUseCase)
+    public async Task<ActionResult<MessageSuccessResponseModel>> AddExamToPatient([FromBody] List<CreatePatientExamDTO> data, [FromServices] AddPatientExamUseCase addPatientExamUseCase)
     {
-        var validator = new CreatePatientExamValidator();
-        var validationResult = await validator.ValidateAsync(data);
+        var validatorLista = new CreatePatientExamListValidator();
+        //var validator = new CreatePatientExamValidator();
+
+        var validationResult = await validatorLista.ValidateAsync(data);
         if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.ToString());

@@ -15,24 +15,31 @@ namespace prontuario.Application.Usecases.PatientExam
 {
     public class AddPatientExamUseCase(IMedicalRecordGateway medicalRecordGateway, IServiceGateway serviceGateway)
     {
-        public async Task<ResultPattern<string>> Execute(CreatePatientExamDTO data)
+        public async Task<ResultPattern<string>> Execute(List<CreatePatientExamDTO> data)
         {
-            var medicalRecord = await medicalRecordGateway.FindById(data.MedicalRecordId);
-            if (medicalRecord is null)
-                return ResultPattern<string>.FailureResult("Erro ao adicionar exame, ficha medica não encontrada", 404);
+            if (data == null || data.Count == 0)
+                return ResultPattern<string>.FailureResult("Nenhum exame fornecido", 400);
 
-            // Criar a entidade de exame do paciente
-            var exam = PatientExamsFactory.CreatePatientExamsEntity(data);
-            exam.MedicalRecord = medicalRecord;
+            var groupedByMedicalRecord = data.GroupBy(d => d.MedicalRecordId);
 
-            // Inicializar a lista se for nula
-            medicalRecord.PatientExams ??= new List<PatientExamsEntity>();
+            foreach (var group in groupedByMedicalRecord)
+            {
+                var medicalRecordId = group.Key;
+                var medicalRecord = await medicalRecordGateway.FindById(medicalRecordId);
+                if (medicalRecord is null)
+                    return ResultPattern<string>.FailureResult($"Erro ao adicionar exames, ficha médica {medicalRecordId} não encontrada", 404);
 
-            // Adicionar o exame à coleção
-            medicalRecord.PatientExams.Add(exam);
+                medicalRecord.PatientExams ??= new List<PatientExamsEntity>();
 
-            // Salvar as alterações no banco
-            await medicalRecordGateway.Save(medicalRecord);
+                foreach (var examDto in group)
+                {
+                    var exam = PatientExamsFactory.CreatePatientExamsEntity(examDto);
+                    exam.MedicalRecord = medicalRecord;
+                    medicalRecord.PatientExams.Add(exam);
+                }
+
+                await medicalRecordGateway.Save(medicalRecord);
+            }
 
             return ResultPattern<string>.SuccessResult();
         }
