@@ -38,6 +38,9 @@ namespace prontuario.Infra.Gateways
                 .Include(p => p.ServicesEntity)
                     !.ThenInclude(s => s.MedicalRecordEntity)
                     .ThenInclude(mr => mr!.PatientExams.OrderBy(pe => pe.PrescriptionDate))
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalRecordEntity)
+                    .ThenInclude(mr => mr!.PatientMedications.OrderBy(pm => pm.PrescriptionDate))
                 .Where(p =>
                     (p.Cpf.Value == filter) ||
                     (p.Sus.Value == filter) ||
