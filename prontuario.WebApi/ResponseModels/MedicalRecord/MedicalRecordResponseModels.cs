@@ -20,6 +20,7 @@ public class MedicalRecordResponseModels
         var medicalRecordResponse = new MedicalRecordResponseBuilder()
             .WithId(medicalRecordEntity.Id)
             .WithStatus(medicalRecordEntity.Status.Value)
+            .WithStatusInCaseOfAdmission(medicalRecordEntity.StatusInCaseOfAdmission.Value)
             .WithAnamnese(medicalRecordEntity.Anamnese == null ? null : AnamneseResponseModels.CreateCompleteAnamneseReponse(medicalRecordEntity.Anamnese!))
             .WithPatientExams(patientExamsResponse)
             .WithPatientMonitoring(patientmonitoringResponse)

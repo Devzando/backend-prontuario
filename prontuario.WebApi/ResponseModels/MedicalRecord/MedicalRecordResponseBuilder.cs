@@ -8,6 +8,7 @@ public class MedicalRecordResponseBuilder
 {
     private long _id;
     private string? _status;
+    private string? _statusInCaseOfAdmission;
     private AnamneseResponse? _anamnese;
     private List<PatientExamsResponse>? _patientExams;
     private List<PatientMonitoringResponse>? _patientMonitoring;
@@ -21,6 +22,12 @@ public class MedicalRecordResponseBuilder
     public MedicalRecordResponseBuilder WithStatus(string? status)
     {
         _status = status;
+        return this;
+    }
+
+    public MedicalRecordResponseBuilder WithStatusInCaseOfAdmission(string? statusInCaseOfAdmission)
+    {
+        _statusInCaseOfAdmission = statusInCaseOfAdmission;
         return this;
     }
 
@@ -47,6 +54,7 @@ public class MedicalRecordResponseBuilder
         return new MedicalRecordResponse(
             _id,
             _status,
+            _statusInCaseOfAdmission,
             _anamnese,
             _patientMonitoring,
             _patientExams
