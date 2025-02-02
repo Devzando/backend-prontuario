@@ -1,5 +1,6 @@
 using prontuario.WebApi.ResponseModels.Anamnese;
 using prontuario.WebApi.ResponseModels.PatientExams;
+using prontuario.WebApi.ResponseModels.PatientMedications;
 using prontuario.WebApi.ResponseModels.PatientMonitoring;
 
 namespace prontuario.WebApi.ResponseModels.MedicalRecord;
@@ -12,6 +13,7 @@ public class MedicalRecordResponseBuilder
     private AnamneseResponse? _anamnese;
     private List<PatientExamsResponse>? _patientExams;
     private List<PatientMonitoringResponse>? _patientMonitoring;
+    private List<PatientMedicationResponse>? _patientMedications;
 
     public MedicalRecordResponseBuilder WithId(long id)
     {
@@ -43,6 +45,12 @@ public class MedicalRecordResponseBuilder
         return this;
     }
 
+    public MedicalRecordResponseBuilder WithPatientMedications(List<PatientMedicationResponse>? patientMedications)
+    {
+        _patientMedications = patientMedications;
+        return this;
+    }
+
     public MedicalRecordResponseBuilder WithPatientMonitoring(List<PatientMonitoringResponse>? patientMonitoring)
     {
         _patientMonitoring = patientMonitoring;
@@ -57,7 +65,8 @@ public class MedicalRecordResponseBuilder
             _statusInCaseOfAdmission,
             _anamnese,
             _patientMonitoring,
-            _patientExams
+            _patientExams,
+            _patientMedications
         );
     }
 }
