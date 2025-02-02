@@ -8,6 +8,7 @@ using prontuario.Domain.Entities.Notes;
 using prontuario.Domain.Entities.Nursing;
 using prontuario.Domain.Entities.Patient;
 using prontuario.Domain.Entities.PatientExams;
+using prontuario.Domain.Entities.PatientMedication;
 using prontuario.Domain.Entities.PatientMonitoring;
 using prontuario.Domain.Entities.Profile;
 using prontuario.Domain.Entities.Service;
@@ -31,8 +32,10 @@ namespace prontuario.Infra.Database
         public DbSet<NursingEntity> Nursing { get; private set; }
         public DbSet<PatientMonitoringEntity> PatientMonitorings { get; private set; }
         public DbSet<PatientExamsEntity> PatientExams { get; private set; }
+        public DbSet<PatientMedicationEntity> PatientMedications { get; private set; }
 
         public DbSet<NotesEntity> Notes { get; private set; }
+
 
         public ProntuarioDbContext(DbContextOptions<ProntuarioDbContext> options) : base(options)
         {
