@@ -46,7 +46,9 @@ namespace prontuario.WebApi.Config
             services.AddScoped<AddPatientExamUseCase>();
             services.AddScoped<FinalizePatientExamUseCase>();
             services.AddScoped<FindMedicalRecordByIdUseCase>();
-            
+            services.AddScoped<FinalizePatientMedicationUseCase>();
+            services.AddScoped<AddPatientMedicationUseCase>();
+
             // Auth
             services.AddScoped<Login>();
             
@@ -67,6 +69,10 @@ namespace prontuario.WebApi.Config
 
             //PatientExams
             services.AddScoped<IPatientExamGateway, PatientExamRepositoryGateway>();
+
+            //PatientMedications
+            services.AddScoped<IPatientMedicationGateway, PatientMedicationRepositoryGateway>();
+
         }
     }
 }

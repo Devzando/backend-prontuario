@@ -50,5 +50,11 @@ public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord
             .WithOne(pe => pe.MedicalRecord)    // Cada PatientExam pertence a um MedicalRecord
             .HasForeignKey(pe => pe.MedicalRecordId)
             .OnDelete(DeleteBehavior.Cascade);  // Cascade delete para manter a integridade dos dados
+
+        // Configuração do relacionamento com PatientExams
+        builder.HasMany(mr => mr.PatientMedications)  // Um MedicalRecord pode ter muitos PatientExams
+            .WithOne(pm => pm.MedicalRecord)    // Cada PatientExam pertence a um MedicalRecord
+            .HasForeignKey(pm => pm.MedicalRecordId)
+            .OnDelete(DeleteBehavior.Cascade);  // Cascade delete para manter a integridade dos dados
     }
 }

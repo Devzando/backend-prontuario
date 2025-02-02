@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace prontuario.Domain.Entities.PatientMedication
 {
-    public class PatientMedication
+    public class PatientMedicationEntity
     {
         public long Id { get; private set; }
         public DateTime PrescriptionDate { get; private set; }
@@ -16,10 +16,11 @@ namespace prontuario.Domain.Entities.PatientMedication
         public long MedicalRecordId { get; private set; }
         public MedicalRecordEntity MedicalRecord { get; set; } = null!;
 
-        public PatientMedication(long id, DateTime prescriptionDate, string description, long medicalRecordId)
+        public PatientMedicationEntity(long id, DateTime prescriptionDate, DateTime? executionDate, string description, long medicalRecordId)
         {
             Id = id;
             PrescriptionDate = prescriptionDate;
+            ExecutionDate = executionDate;
             Description = description;
             MedicalRecordId = medicalRecordId;
         }

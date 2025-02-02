@@ -11,6 +11,8 @@ using prontuario.WebApi.Validators.Nursing;
 using prontuario.WebApi.Validators.PatientExam;
 using prontuario.WebApi.Validators.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
+using prontuario.Domain.Dtos.PatientMedication;
+using prontuario.WebApi.Validators.PatientMedication;
 
 namespace prontuario.WebApi.Controllers;
 
@@ -172,7 +174,80 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
         _logger.LogInformation("Data de realizacao adicionada com sucesso");
         return Ok(new MessageSuccessResponseModel("Data de realização adicionada com sucesso"));
     }
-    
+
+    [HttpPost("AddPatientMedication")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> AddMedicationToPatient([FromBody] List<CreatePatientMedicationDTO> data, [FromServices] AddPatientMedicationUseCase addPatientMedicationUseCase)
+    {
+        var validatorLista = new CreatePatientMedicationListValidator();
+
+        var validationResult = await validatorLista.ValidateAsync(data);
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.ToString());
+        }
+
+        var result = await addPatientMedicationUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Medicação adicionada com sucesso");
+        return Ok(new MessageSuccessResponseModel("Medicação adicionada com sucesso"));
+    }
+
+    /// <summary>
+    /// Adicionar data de administração da medicação do paciente
+    /// </summary>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <remarks>Enviar no corpo o id da medicação</remarks>
+    /// <response code="200">Medicação finalizada com sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Erro ao finalizar medicação</response>
+    [HttpPost("FinalizePatientMedication")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> FinalizePatientMedication([FromBody] FinalizePatientMedicationDTO data, [FromServices] FinalizePatientMedicationUseCase finalizePatientMedicationUseCase)
+    {
+        var validator = new FinalizePatientMedicationValidator();
+        var validationResult = await validator.ValidateAsync(data);
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.ToString());
+        }
+
+        var result = await finalizePatientMedicationUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Data de administração adicionada com sucesso");
+        return Ok(new MessageSuccessResponseModel("Data de administração adicionada com sucesso"));
+    }
+
+
     /// <summary>
     /// Buscar um prontuário pelo id
     /// </summary>
