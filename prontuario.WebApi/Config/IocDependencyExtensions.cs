@@ -34,7 +34,6 @@ namespace prontuario.WebApi.Config
             // Services
             services.AddScoped<IServiceGateway, ServiceRepositoryGateway>();
             services.AddScoped<InitializeServiceUseCase>();
-            services.AddScoped<InitializeScreeningUseCase>();
             services.AddScoped<FindAllServicesByPatientIdUseCase>();
             
             // Profiles

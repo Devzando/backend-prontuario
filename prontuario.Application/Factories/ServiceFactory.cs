@@ -9,7 +9,7 @@ namespace prontuario.Application.Factories;
 
 public class ServiceFactory
 {
-    public static ServiceEntity CreateServiceToInitializeService(PatientEntity patient)
+    public static ServiceEntity CreateServiceToInitializeService(PatientEntity patient, MedicalRecordEntity medicalRecord)
     {
         patient.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
         
@@ -17,12 +17,7 @@ public class ServiceFactory
             .WithServiceDate(DateTime.Now)
             .WithPatient(patient)
             .WithServiceStatus(null)
+            .WithMedicalRecordEntity(medicalRecord)
             .Build();
-    }
-
-    public static ServiceEntity CreateServiceToInitializeScreening(ServiceEntity service, MedicalRecordEntity medicalRecord)
-    {
-        service.MedicalRecordEntity = medicalRecord;
-        return service;
     }
 }

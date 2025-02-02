@@ -13,7 +13,8 @@ public class InitializeServiceUseCase(IGatewayPatient gatewayPatient, IServiceGa
         if(patient is null)
             return ResultPattern<ServiceEntity>.FailureResult("Erro ao iniciar atendimento", 404);
         
-        var service = ServiceFactory.CreateServiceToInitializeService(patient);
+        var medicalRecord = MedicalRecordFactory.CreateMedicalRecordToInitScreening();
+        var service = ServiceFactory.CreateServiceToInitializeService(patient, medicalRecord);
         await serviceGateway.Init(service);
         
         return ResultPattern<ServiceEntity>.SuccessResult();
