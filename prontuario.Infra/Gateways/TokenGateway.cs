@@ -23,6 +23,7 @@ public class TokenGateway : ITokenGateway
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.Profile.Role.Value),
                 new Claim(ClaimTypes.Email, user.Email.Value),
+                new Claim("position", user.Position.Value),
                 new Claim("firstAccess", user.FirstAccess.ToString()),
                 new Claim("active", user.Active.ToString()),
             }),
