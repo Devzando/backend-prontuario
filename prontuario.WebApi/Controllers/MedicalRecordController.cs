@@ -12,6 +12,7 @@ using prontuario.WebApi.Validators.PatientExam;
 using prontuario.WebApi.Validators.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
 using prontuario.Domain.Dtos.PatientMedication;
+using prontuario.Domain.Dtos.MedicalRecord;
 using prontuario.WebApi.Validators.PatientMedication;
 
 namespace prontuario.WebApi.Controllers;
@@ -279,5 +280,39 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
 
         _logger.LogInformation("Prontuário retornado com sucesso");
         return Ok(MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(result.Data));
+    }
+
+    /// <summary>
+    /// Mudar status do prontuário
+    /// </summary>
+    /// <remarks>Enviar no corpo o id do prontuário e o status</remarks>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <response code="200">Status alterado com Sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Erro ao mudar status do prontuário</response>
+    /// 
+    [HttpPost("ChangeStatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> ChangeStatus([FromBody] ChangeMedicalRecordStatusDTO data, [FromServices] ChangeMedicalRecordStatusUseCase changeMedicalRecordStatusUseCase)
+    {
+        var result = await changeMedicalRecordStatusUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Status alterado com sucesso");
+        return Ok(new MessageSuccessResponseModel("Status alterado com sucesso"));
     }
 }
