@@ -3,6 +3,7 @@ using prontuario.Domain.Entities.AccessCode;
 using prontuario.Domain.Entities.Address;
 using prontuario.Domain.Entities.Anamnese;
 using prontuario.Domain.Entities.EmergencyContactDetails;
+using prontuario.Domain.Entities.MedicalCare;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.Entities.Notes;
 using prontuario.Domain.Entities.Nursing;
@@ -24,6 +25,7 @@ namespace prontuario.Infra.Database
 
         public DbSet<ServiceEntity> Services { get; private set; }
         public DbSet<MedicalRecordEntity> MedicalRecords { get; private set; }
+        public DbSet<MedicalCareEntity> MedicalCares { get; private set; }
         public DbSet<AnamneseEntity> Anamneses { get; private set; }
 
         public DbSet<UserEntity> Users { get; private set; }

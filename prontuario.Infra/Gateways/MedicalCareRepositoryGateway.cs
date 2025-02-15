@@ -12,24 +12,24 @@ namespace prontuario.Infra.Gateways
     {
         public async Task Save(MedicalCareEntity MedicalCareEntity)
         {
-            context.MedicalCare.Add(MedicalCareEntity);
+            context.MedicalCares.Add(MedicalCareEntity);
             await context.SaveChangesAsync();
         }
 
         public async Task<PagedResult<List<MedicalCareEntity>?>> GetByFilterList(int pageNumber, int pageSize)
         {
-            var totalRecords = await context.MedicalCare.CountAsync();
+            var totalRecords = await context.MedicalCares.CountAsync();
             
-            // var nursingNotes = await context.Nursing
-            //     .Skip((pageNumber - 1) * pageSize)
-            //     .Take(pageSize)
-            //     .ToListAsync();
+            var medicalCares = await context.MedicalCares
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
-            // return new PagedResult<List<NursingEntity>?>
-            // {
-            //     Pages = nursingNotes,
-            //     TotalRecords = totalRecords
-            // };
+            return new PagedResult<List<MedicalCareEntity>?>
+            {
+                Pages = medicalCares,
+                TotalRecords = totalRecords
+            };
 
         }
     }

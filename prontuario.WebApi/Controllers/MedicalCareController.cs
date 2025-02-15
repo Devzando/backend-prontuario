@@ -19,7 +19,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="200">Prescrição criada com Sucesso</response>
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response> 
-        [HttpPost]
+        [HttpPost("ExamPrescription")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -47,7 +47,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// 
-        [HttpPost]
+        [HttpPost("MedicalPrescription")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -75,7 +75,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// 
-        [HttpPost]
+        [HttpPost("MedicalHypothesis")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -103,7 +103,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// 
-        [HttpPost]
+        [HttpPost("PsychobiologicalNeeds")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -131,7 +131,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// 
-        [HttpPost]
+        [HttpPost("NeurologicalInformation")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -159,7 +159,7 @@ namespace prontuario.WebApi.Controllers
         /// <response code="400">Erro na operação</response>
         /// <response code="401">Acesso não autorizado</response>
         /// 
-        [HttpPost]
+        [HttpPost("CardiologicalInformation")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -178,13 +178,5 @@ namespace prontuario.WebApi.Controllers
 
             return Ok(new MessageSuccessResponseModel(result.Message));
         }
-    }
-
-    public class CreateNeuroUseCase
-    {
-    }
-
-    public class CreateCardioUseCase
-    {
     }
 }
