@@ -15,7 +15,7 @@ namespace prontuario.Domain.ValuesObjects
         {
             if(!string.IsNullOrEmpty(relationship))
                 if(!Enum.IsDefined(typeof(TypeRelationship), relationship))
-                    throw new DomainException("O campo de relacionamento precisa ser um dos seguintes valores: FATHER, MOTHER, SON.");
+                    throw new DomainException("O campo de relacionamento precisa ser um dos seguintes valores: FATHER, MOTHER, SON, SIBLING, SPOUSE, OUTHER");
         }
     }
 }

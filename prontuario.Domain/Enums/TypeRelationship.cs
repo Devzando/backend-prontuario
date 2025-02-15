@@ -4,6 +4,9 @@
     {
         FATHER,
         MOTHER,
-        SON
+        SON,
+        SIBLING,
+        SPOUSE,
+        OUTHER
     }
 }
