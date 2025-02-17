@@ -11,7 +11,7 @@ public class MedicalRecordEntity
 {
     public long Id { get; private set; }
     public MedicalRecordStatus Status { get; set; } = null!;
-    public MedicalRecordStatus StatusInCaseOfAdmission { get; private set; }
+    public MedicalRecordStatus StatusInCaseOfAdmission { get; set; }
     public AnamneseEntity? Anamnese { get; set; }
     public ICollection<PatientMonitoringEntity> PatientMonitoring { get; set; } = new List<PatientMonitoringEntity>();
     public ICollection<PatientExamsEntity> PatientExams { get; set; } = new List<PatientExamsEntity>();

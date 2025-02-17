@@ -2,8 +2,8 @@ namespace prontuario.WebApi.ResponseModels.MedicalCare;
 
 public record MedicalCareResponse(
     long Id, 
-    string? ExamPrescription,
-    string? MedicalPrescription,
+    string[]? ExamPrescription,
+    string[]? MedicalPrescription,
     string? MedicalHypothesis,
     long PatiendId,
     string? BreathingPattern,

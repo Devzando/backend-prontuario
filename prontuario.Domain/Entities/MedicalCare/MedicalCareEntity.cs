@@ -5,9 +5,9 @@ namespace prontuario.Domain.Entities.MedicalCare;
 public class MedicalCareEntity
 {
     public long Id { get; private set; }
-    public string? ExamPrescription { get; private set; }
+    public string[]? ExamPrescription { get; private set; }
     public string? MedicalHypothesis { get; private set; }
-    public string? MedicalPrescription { get; private set; }
+    public string[]? MedicalPrescription { get; private set; }
     public long PatientId { get; private set; }
     public BreathingPatternStatus BreathingPattern { get; set; } = null!;
     public PulmonarStatus Pulmonar { get; set; } = null!;
@@ -25,9 +25,9 @@ public class MedicalCareEntity
     public MedicalCareEntity() { }
     
     public MedicalCareEntity(long id, 
-        string? examPrescription, 
+        string[]? examPrescription, 
         string? medicalHypothesis, 
-        string? medicalPrescription, 
+        string[]? medicalPrescription, 
         long patient,
         BreathingPatternStatus breathingPattern,
         PulmonarStatus pulmonar,

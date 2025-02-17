@@ -8,8 +8,8 @@ public class MedicalCareEntityBuilder
 {
     private long _id;
     private string? _medicalHypothesis;
-    private string? _examPrescription;
-    private string? _medicalPrescription;
+    private string[]? _examPrescription;
+    private string[]? _medicalPrescription;
     private long _patientId;
     private BreathingPatternStatus _breathingPattern = null!;
     private PulmonarStatus _pulmonar = null!;
@@ -33,13 +33,13 @@ public class MedicalCareEntityBuilder
         return this;
     }
 
-    public MedicalCareEntityBuilder WithExamPrescription(string? examPrescription) 
+    public MedicalCareEntityBuilder WithExamPrescription(string[]? examPrescription) 
     {
         _examPrescription = examPrescription;
         return this;
     }
 
-    public MedicalCareEntityBuilder WithMedicalPrescription(string? medicalPrescription) 
+    public MedicalCareEntityBuilder WithMedicalPrescription(string[] medicalPrescription) 
     {
         _medicalPrescription = medicalPrescription;
         return this;
@@ -54,8 +54,8 @@ public class MedicalCareEntityBuilder
     public MedicalCareEntity Build() 
     {
         return new MedicalCareEntity(_id, 
+            _examPrescription,
             _medicalHypothesis, 
-            _examPrescription, 
             _medicalPrescription, 
             _patientId, 
             _breathingPattern, 

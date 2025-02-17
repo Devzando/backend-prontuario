@@ -1,4 +1,5 @@
 using prontuario.WebApi.ResponseModels.Anamnese;
+using prontuario.WebApi.ResponseModels.MedicalCare;
 using prontuario.WebApi.ResponseModels.PatientExams;
 using prontuario.WebApi.ResponseModels.PatientMedications;
 using prontuario.WebApi.ResponseModels.PatientMonitoring;
@@ -10,6 +11,7 @@ public class MedicalRecordResponseBuilder
     private long _id;
     private string? _status;
     private string? _statusInCaseOfAdmission;
+    private MedicalCareResponse? _medicalCareResponse { get; set; }
     private AnamneseResponse? _anamnese;
     private List<PatientExamsResponse>? _patientExams;
     private List<PatientMonitoringResponse>? _patientMonitoring;
@@ -54,6 +56,12 @@ public class MedicalRecordResponseBuilder
     public MedicalRecordResponseBuilder WithPatientMonitoring(List<PatientMonitoringResponse>? patientMonitoring)
     {
         _patientMonitoring = patientMonitoring;
+        return this;
+    }
+
+    public MedicalRecordResponseBuilder WithMedicalCareResponse(MedicalCareResponse? medicalCareResponse)
+    {
+        _medicalCareResponse = medicalCareResponse;
         return this;
     }
 

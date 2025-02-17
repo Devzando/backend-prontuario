@@ -1,6 +1,6 @@
 namespace prontuario.Domain.Dtos.MedicalCare
 {
-    public record CreateExamPrescriptionDTO(string ExamPrescription, long PatientId)
+    public record CreateExamPrescriptionDTO(string[] ExamPrescription, long PatientId)
     {
     }
 }
