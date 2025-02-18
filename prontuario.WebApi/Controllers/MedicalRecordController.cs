@@ -13,6 +13,8 @@ using prontuario.WebApi.Validators.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
 using prontuario.Domain.Dtos.PatientMedication;
 using prontuario.WebApi.Validators.PatientMedication;
+using prontuario.Application.Usecases.HealthAndDisease;
+using prontuario.Domain.Dtos.HealthAndDisease;
 
 namespace prontuario.WebApi.Controllers;
 
@@ -280,4 +282,39 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
         _logger.LogInformation("Prontuário retornado com sucesso");
         return Ok(MedicalRecordResponseModels.CreateCompleteMedicalRecordResponse(result.Data));
     }
+
+    /// <summary>
+    /// Adicionar antecedentes de saúde a uma ficha médica
+    /// </summary>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <remarks>Enviar no corpo o id da ficha médica junto com os antecedentes</remarks>
+    /// <response code="200">Antecedentes adicionados com sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Ficha médica não encontrada</response>
+    [HttpPost("HealthAndDisease")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> AddHealthAndDisease(
+        [FromBody] CreateHealthAndDiseaseDTO data,
+        [FromServices] AddHealthAndDiseaseUseCase addHealthAndDiseaseUseCase)
+    {
+        var result = await addHealthAndDiseaseUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Antecedentes adicionados com sucesso");
+        return Ok(new MessageSuccessResponseModel("Antecedentes adicionados com sucesso"));
+    }
+
 }

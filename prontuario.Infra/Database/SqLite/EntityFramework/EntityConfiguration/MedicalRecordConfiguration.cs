@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using prontuario.Domain.Entities.Anamnese;
+using prontuario.Domain.Entities.HealthAndDisease;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.Entities.PatientMonitoring;
 using prontuario.Domain.Entities.Service;
@@ -56,5 +57,10 @@ public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord
             .WithOne(pm => pm.MedicalRecord)    // Cada PatientExam pertence a um MedicalRecord
             .HasForeignKey(pm => pm.MedicalRecordId)
             .OnDelete(DeleteBehavior.Cascade);  // Cascade delete para manter a integridade dos dados
+
+        builder.HasOne(mr => mr.HealthAndDisease)
+                .WithOne(hd => hd.MedicalRecord)
+                .HasForeignKey<HealthAndDiseaseEntity>(hd => hd.MedicalRecordId)
+                .OnDelete(DeleteBehavior.Cascade);
     }
 }

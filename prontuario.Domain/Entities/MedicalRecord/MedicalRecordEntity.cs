@@ -4,6 +4,7 @@ using prontuario.Domain.ValuesObjects;
 using prontuario.Domain.Entities.PatientMonitoring;
 using prontuario.Domain.Entities.PatientExams;
 using prontuario.Domain.Entities.PatientMedication;
+using prontuario.Domain.Entities.HealthAndDisease;
 
 namespace prontuario.Domain.Entities.MedicalRecord;
 
@@ -16,6 +17,7 @@ public class MedicalRecordEntity
     public ICollection<PatientMonitoringEntity> PatientMonitoring { get; set; } = new List<PatientMonitoringEntity>();
     public ICollection<PatientExamsEntity> PatientExams { get; set; } = new List<PatientExamsEntity>();
     public ICollection<PatientMedicationEntity> PatientMedications { get; set; } = new List<PatientMedicationEntity>();
+    public HealthAndDiseaseEntity HealthAndDisease { get; private set; } = null!;
     public long ServiceId { get; private set; }
     public ServiceEntity Service { get; private set; } = null!;
     
@@ -27,5 +29,9 @@ public class MedicalRecordEntity
         this.Status = status;
         this.StatusInCaseOfAdmission = statusInCaseOfAdmission;
         this.Anamnese = anamnese;
+    }
+    public void SetHealthAndDisease(HealthAndDiseaseEntity healthAndDisease)
+    {
+        HealthAndDisease = healthAndDisease;
     }
 }

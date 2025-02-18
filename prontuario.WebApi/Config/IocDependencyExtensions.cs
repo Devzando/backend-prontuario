@@ -1,6 +1,7 @@
 ﻿using prontuario.Application.Gateways;
 using prontuario.Application.Usecases.AccessCode;
 using prontuario.Application.Usecases.Auth;
+using prontuario.Application.Usecases.HealthAndDisease;
 using prontuario.Application.Usecases.MedicalRecord;
 using prontuario.Application.Usecases.Notes;
 using prontuario.Application.Usecases.Patient;
@@ -48,6 +49,7 @@ namespace prontuario.WebApi.Config
             services.AddScoped<FindMedicalRecordByIdUseCase>();
             services.AddScoped<FinalizePatientMedicationUseCase>();
             services.AddScoped<AddPatientMedicationUseCase>();
+            services.AddScoped<AddHealthAndDiseaseUseCase>();
 
             // Auth
             services.AddScoped<Login>();
