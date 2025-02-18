@@ -1,5 +1,6 @@
 using prontuario.WebApi.ResponseModels.Anamnese;
 using prontuario.WebApi.ResponseModels.HealthAndDisease;
+using prontuario.WebApi.ResponseModels.MedicalCare;
 using prontuario.WebApi.ResponseModels.PatientExams;
 using prontuario.WebApi.ResponseModels.PatientMedications;
 using prontuario.WebApi.ResponseModels.PatientMonitoring;
@@ -14,5 +15,6 @@ public record MedicalRecordResponse(
     HealthAndDiseaseResponse? HealthAndDisease,
     List<PatientMonitoringResponse>? PatientMonitorings,
     List<PatientExamsResponse>? PatientExams,
-    List<PatientMedicationResponse>? PatientMedications
+    List<PatientMedicationResponse>? PatientMedications,
+    MedicalCareResponse? MedicalCare
 );

@@ -1,6 +1,7 @@
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.WebApi.ResponseModels.Anamnese;
 using prontuario.WebApi.ResponseModels.HealthAndDisease;
+using prontuario.WebApi.ResponseModels.MedicalCare;
 using prontuario.WebApi.ResponseModels.PatientExams;
 using prontuario.WebApi.ResponseModels.PatientMedications;
 using prontuario.WebApi.ResponseModels.PatientMonitoring;
@@ -36,6 +37,9 @@ public class MedicalRecordResponseModels
             .WithPatientExams(patientExamsResponse)
             .WithPatientMedications(patientMedicationsResponse)
             .WithPatientMonitoring(patientMonitoringResponse)
+            .WithMedicalCareResponse(medicalRecordEntity.Service.MedicalCareEntity == null 
+                ? null 
+                : MedicalCareResponseModel.CreateCompleteMedicalCareResponse(medicalRecordEntity.Service.MedicalCareEntity!))
             .Build();
 
         return medicalRecordResponse;

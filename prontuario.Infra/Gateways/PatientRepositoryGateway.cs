@@ -44,6 +44,8 @@ namespace prontuario.Infra.Gateways
                 .Include(p => p.ServicesEntity)
                     !.ThenInclude(s => s.MedicalRecordEntity)
                     .ThenInclude(mr => mr!.HealthAndDisease)
+                .Include(p => p.ServicesEntity)
+                    !.ThenInclude(s => s.MedicalCareEntity)
                 .Where(p =>
                     (p.Cpf.Value == filter) ||
                     (p.Sus.Value == filter) ||

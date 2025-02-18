@@ -24,7 +24,7 @@ public class AnamneseEntity
     public string AllergiesType { get; private set; } = string.Empty;
     public string AntecPathologicalType { get; private set; } = string.Empty;
     public string MedicationInUseType { get; private set; } = string.Empty;
-    public string MedicalHypothesis { get; private set; } = string.Empty;
+    public string MedicalHypothesis { get; set; } = string.Empty;
     public string PreviousSurgeries { get; private set; } = string.Empty;
     public string SignsAndSymptoms { get; private set; } = string.Empty;
     public ClassificationStatus ClassificationStatus { get; private set; }

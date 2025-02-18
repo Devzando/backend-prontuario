@@ -12,6 +12,7 @@ using prontuario.WebApi.Validators.PatientExam;
 using prontuario.WebApi.Validators.PatientMonitoring;
 using prontuario.WebApi.ResponseModels.MedicalRecord;
 using prontuario.Domain.Dtos.PatientMedication;
+using prontuario.Domain.Dtos.MedicalRecord;
 using prontuario.WebApi.Validators.PatientMedication;
 using prontuario.Application.Usecases.HealthAndDisease;
 using prontuario.Domain.Dtos.HealthAndDisease;
@@ -293,10 +294,6 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     /// <response code="401">Acesso não autorizado</response>
     /// <response code="404">Ficha médica não encontrada</response>
     [HttpPost("HealthAndDisease")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MessageSuccessResponseModel>> AddHealthAndDisease(
         [FromBody] CreateHealthAndDiseaseDTO data,
         [FromServices] AddHealthAndDiseaseUseCase addHealthAndDiseaseUseCase)
@@ -305,6 +302,41 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
 
         if (result.IsFailure)
         {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+
+        }
+        _logger.LogInformation("Antecedentes adicionados com sucesso");
+        return Ok(new MessageSuccessResponseModel("Antecedentes adicionados com sucesso"));
+    }
+    
+    /// <summary>
+    /// Mudar status do prontuário
+    /// </summary>
+    /// <remarks>Enviar no corpo o id do prontuário e o status</remarks>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <response code="200">Status alterado com Sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Erro ao mudar status do prontuário</response>
+    /// 
+    [HttpPost("ChangeStatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> ChangeStatus([FromBody] ChangeMedicalRecordStatusDTO data, [FromServices] ChangeMedicalRecordStatusUseCase changeMedicalRecordStatusUseCase)
+    {
+        var result = await changeMedicalRecordStatusUseCase.Execute(data);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
             var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
             result.ErrorDetails!.Type = endpointUrl;
 
@@ -313,8 +345,40 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
                 : BadRequest();
         }
 
-        _logger.LogInformation("Antecedentes adicionados com sucesso");
-        return Ok(new MessageSuccessResponseModel("Antecedentes adicionados com sucesso"));
+        _logger.LogInformation("Status alterado com sucesso");
+        return Ok(new MessageSuccessResponseModel("Status alterado com sucesso"));
     }
 
+    /// <summary>
+    /// Mudar Hipótese médica
+    /// </summary>
+    /// <returns>Mensagem de sucesso na operação</returns>
+    /// <response code="200">Hipótese alterado com Sucesso</response>
+    /// <response code="400">Erro na operação</response>
+    /// <response code="401">Acesso não autorizado</response>
+    /// <response code="404">Erro ao mudar Hipótese do prontuário</response>
+    /// 
+    [HttpPut("ChangeMedicalHypothesis/{medicalRecordId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MessageSuccessResponseModel>> ChangeMedicalHypothesis([FromBody] string medicalHypothesis, [FromRoute] long medicalRecordId, [FromServices] ChangeMedicalHypothesisUseCase changeMedicalHypothesisUseCase)
+    {
+        var result = await changeMedicalHypothesisUseCase.Execute(medicalRecordId, medicalHypothesis);
+
+        if (result.IsFailure)
+        {
+            // Construindo a URL dinamicamente
+            var endpointUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+            result.ErrorDetails!.Type = endpointUrl;
+
+            return result.ErrorDetails?.Status == 404
+                ? NotFound(result.ErrorDetails)
+                : BadRequest();
+        }
+
+        _logger.LogInformation("Hipótese alterada com sucesso");
+        return Ok(new MessageSuccessResponseModel("Hipótese alterada com sucesso"));
+    }
 }

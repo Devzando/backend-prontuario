@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prontuario.Infra.Database;
 
@@ -11,9 +12,11 @@ using prontuario.Infra.Database;
 namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 {
     [DbContext(typeof(ProntuarioDbContext))]
-    partial class ProntuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250218014922_AddMedicalCare")]
+    partial class AddMedicalCare
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -246,57 +249,111 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.ToTable("EmergencyContactDetails", (string)null);
                 });
 
-            modelBuilder.Entity("prontuario.Domain.Entities.HealthAndDisease.HealthAndDiseaseEntity", b =>
+            modelBuilder.Entity("prontuario.Domain.Entities.MedicalCare.MedicalCareEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("FamilyAVC")
+                    b.Property<long>("ServiceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("FamilyAlzheimer")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("BreathingPattern", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.BreathingPattern#BreathingPatternStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<bool>("FamilyCA")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
-                    b.Property<bool>("FamilyDM")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("Bulhas", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Bulhas#BulhasStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<bool>("FamilyHAS")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
-                    b.Property<bool>("FamilyIAM")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("ColoracaoPele", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.ColoracaoPele#ColoracaoPeleStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<long>("MedicalRecordId")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
-                    b.Property<bool>("OwnAVC")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("Fala", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Fala#FalaStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<bool>("OwnAlzheimer")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
-                    b.Property<bool>("OwnCA")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("NivelDeConsciencia", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.NivelDeConsciencia#NivelDeConscienciaStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<bool>("OwnDM")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
-                    b.Property<bool>("OwnHAS")
-                        .HasColumnType("INTEGER");
+                    b.ComplexProperty<Dictionary<string, object>>("Pulmonar", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Pulmonar#PulmonarStatus", b1 =>
+                        {
+                            b1.IsRequired();
 
-                    b.Property<bool>("OwnIAM")
-                        .HasColumnType("INTEGER");
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
+
+                    b.ComplexProperty<Dictionary<string, object>>("Pulso", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Pulso#PulsoStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
+
+                    b.ComplexProperty<Dictionary<string, object>>("Pupila", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Pupila#PupilaStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
+
+                    b.ComplexProperty<Dictionary<string, object>>("RespostaMotora", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.RespostaMotora#RespostaMotoraStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
+
+                    b.ComplexProperty<Dictionary<string, object>>("Ritmo", "prontuario.Domain.Entities.MedicalCare.MedicalCareEntity.Ritmo#RitmoStatus", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+                        });
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicalRecordId")
+                    b.HasIndex("ServiceId")
                         .IsUnique();
 
-                    b.ToTable("HealthAndDiseaseEntity");
+                    b.ToTable("MedicalCares", (string)null);
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", b =>
@@ -702,15 +759,15 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("prontuario.Domain.Entities.HealthAndDisease.HealthAndDiseaseEntity", b =>
+            modelBuilder.Entity("prontuario.Domain.Entities.MedicalCare.MedicalCareEntity", b =>
                 {
-                    b.HasOne("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", "MedicalRecord")
-                        .WithOne("HealthAndDisease")
-                        .HasForeignKey("prontuario.Domain.Entities.HealthAndDisease.HealthAndDiseaseEntity", "MedicalRecordId")
+                    b.HasOne("prontuario.Domain.Entities.Service.ServiceEntity", "Service")
+                        .WithOne("MedicalCareEntity")
+                        .HasForeignKey("prontuario.Domain.Entities.MedicalCare.MedicalCareEntity", "ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MedicalRecord");
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("prontuario.Domain.Entities.MedicalRecord.MedicalRecordEntity", b =>
@@ -801,9 +858,6 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
                 {
                     b.Navigation("Anamnese");
 
-                    b.Navigation("HealthAndDisease")
-                        .IsRequired();
-
                     b.Navigation("PatientExams");
 
                     b.Navigation("PatientMedications");
@@ -830,6 +884,8 @@ namespace prontuario.Infra.Database.SqLite.EntityFramework.Migrations
 
             modelBuilder.Entity("prontuario.Domain.Entities.Service.ServiceEntity", b =>
                 {
+                    b.Navigation("MedicalCareEntity");
+
                     b.Navigation("MedicalRecordEntity");
                 });
 

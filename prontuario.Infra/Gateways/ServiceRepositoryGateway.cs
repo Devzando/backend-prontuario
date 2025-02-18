@@ -50,4 +50,10 @@ public class ServiceRepositoryGateway(ProntuarioDbContext context) : IServiceGat
         context.Update(medicalRecordEntity);
         await context.SaveChangesAsync();
     }
+
+    public async Task Update(ServiceEntity serviceEntity)
+    {
+        context.Update(serviceEntity);
+        await context.SaveChangesAsync();
+    }
 }

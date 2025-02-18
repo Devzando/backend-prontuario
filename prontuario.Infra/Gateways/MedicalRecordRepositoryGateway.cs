@@ -21,9 +21,16 @@ public class MedicalRecordRepositoryGateway(ProntuarioDbContext context) : IMedi
                 .Include(m => m.PatientExams)
                 .Include(m => m.PatientMedications)
                 .Include(m => m.HealthAndDisease)
+                .Include(m => m.Service).ThenInclude(s => s.MedicalCareEntity)
                 .Where(m => m.Id == medicalRecordId)
                 .FirstOrDefaultAsync();
 
         return medicalRecord;
+    }
+
+    public async Task Update(MedicalRecordEntity medicalRecord)
+    {
+        context.Update(medicalRecord);
+        await context.SaveChangesAsync();
     }
 }

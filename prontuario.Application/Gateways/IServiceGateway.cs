@@ -11,4 +11,5 @@ public interface IServiceGateway
     Task<ServiceEntity?> FindById(long serviceId);
     Task<PagedResult<List<ServiceEntity>?>> FindAllByPatientId(long patientId, int pageNumber, int pageSize);
     Task InitScreening(MedicalRecordEntity medicalRecordEntity, long serviceId);
+    Task Update (ServiceEntity serviceEntity);
 }

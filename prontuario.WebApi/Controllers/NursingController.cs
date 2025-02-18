@@ -73,6 +73,5 @@ namespace prontuario.WebApi.Controllers
             _logger.LogInformation("Anotações de enfermagem recuperadas com sucesso");
             return Ok(UtilsResponseModel.CreateFindAllListNursingPagedResponse(result.Data, pageNumber, pageSize));
         }
-        
     }
 }
