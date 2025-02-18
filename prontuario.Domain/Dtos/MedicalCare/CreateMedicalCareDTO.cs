@@ -1,7 +1,6 @@
-namespace prontuario.WebApi.ResponseModels.MedicalCare;
+namespace prontuario.Domain.Dtos.MedicalCare;
 
-public record MedicalCareResponse(
-    long Id, 
+public record CreateMedicalCareDTO(
     string? BreathingPattern,
     string? Pulmonar,
     string? ColoracaoPele,
@@ -11,5 +10,6 @@ public record MedicalCareResponse(
     string? RespostaMotora,
     string? Bulhas,
     string? Ritmo,
-    string? Pulso
-);
+    string? Pulso,
+    long serviceId
+    );

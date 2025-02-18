@@ -1,3 +1,4 @@
+using prontuario.Domain.Enums;
 using prontuario.Domain.Exceptions;
 
 namespace prontuario.Domain.ValuesObjects;
@@ -10,7 +11,7 @@ public class BreathingPatternStatus
     {
         if(!string.IsNullOrEmpty(value))
             if (!Enum.IsDefined(typeof(Enums.BreathingPatternStatusType), value))
-                throw new DomainException("O status respiratório do paciente tem que ser um dos seguintes valores: " +
+                throw new DomainException("O BreathingPatternStatus do paciente tem que ser um dos seguintes valores: " +
                                       "EUPNEICO, " +
                                       "DISPNEICO, " +
                                       "TAQUIPNEICO, " +

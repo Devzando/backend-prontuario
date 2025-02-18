@@ -8,18 +8,16 @@ namespace prontuario.WebApi.ResponseModels.MedicalCare
         {
             var medicalCareResponse = new MedicalCareResponseBuilder()
             .WithId(medicalCareEntity.Id)
-            .WithBreathingPattern(medicalCareEntity.BreathingPattern.ToString())
-            .WithBulhas(medicalCareEntity.Bulhas.ToString())
-            .WithColoracaoPele(medicalCareEntity.ColoracaoPele.ToString())
-            .WithFala(medicalCareEntity.Fala.ToString())
-            .WithMedicalHypothesis(medicalCareEntity.MedicalHypothesis)
-            .WithNivelDeConsciencia(medicalCareEntity.NivelDeConsciencia.ToString())
-            .WithPatientId(medicalCareEntity.PatientId)
-            .WithPulmonar(medicalCareEntity.Pulmonar.ToString())
-            .WithPulso(medicalCareEntity.Pulso.ToString())
-            .WithPupila(medicalCareEntity.Pupila.ToString())
-            .WithRespostaMotora(medicalCareEntity.RespostaMotora.ToString())
-            .WithRitmo(medicalCareEntity.Ritmo.ToString())  
+            .WithBreathingPattern(medicalCareEntity.BreathingPattern.Value)
+            .WithBulhas(medicalCareEntity.Bulhas.Value)
+            .WithColoracaoPele(medicalCareEntity.ColoracaoPele.Value)
+            .WithFala(medicalCareEntity.Fala.Value)
+            .WithNivelDeConsciencia(medicalCareEntity.NivelDeConsciencia.Value)
+            .WithPulmonar(medicalCareEntity.Pulmonar.Value)
+            .WithPulso(medicalCareEntity.Pulso.Value)
+            .WithPupila(medicalCareEntity.Pupila.Value)
+            .WithRespostaMotora(medicalCareEntity.RespostaMotora.Value)
+            .WithRitmo(medicalCareEntity.Ritmo.Value)  
             .Build();
 
             return medicalCareResponse;

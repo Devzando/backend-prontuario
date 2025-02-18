@@ -10,7 +10,7 @@ public class RitmoStatus
     {
         if(!string.IsNullOrEmpty(value))
             if (!Enum.IsDefined(typeof(Enums.RitmoStatusType), value))
-                throw new DomainException("O status respiratório do paciente tem que ser um dos seguintes valores: " +
+                throw new DomainException("O Ritmo do paciente tem que ser um dos seguintes valores: " +
                                       "SINUSAL, " +
                                       "TAQUICARDIA, " +
                                       "BRADICARDIA, ");

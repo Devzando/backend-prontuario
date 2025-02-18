@@ -10,7 +10,7 @@ public class PulsoStatus
     {
         if(!string.IsNullOrEmpty(value))
             if (!Enum.IsDefined(typeof(Enums.PulsoStatusType), value))
-                throw new DomainException("O status respiratório do paciente tem que ser um dos seguintes valores: " +
+                throw new DomainException("O Pulso do paciente tem que ser um dos seguintes valores: " +
                                       "FILIFORME, " +
                                       "NORMOESFIGMICO, " +
                                       "TAQUIEAFIGMICO, " +

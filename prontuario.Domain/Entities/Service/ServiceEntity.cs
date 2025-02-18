@@ -12,7 +12,6 @@ namespace prontuario.Domain.Entities.Service
         public DateTime ServiceDate { get; private set; }
         public MedicalRecordEntity? MedicalRecordEntity { get; set; }
         public MedicalCareEntity? MedicalCareEntity { get; set; }
-
         public PatientEntity PatientEntity { get; set; } = null!;
         public long PatientId { get; private set; }
         public ServiceEntity() { }

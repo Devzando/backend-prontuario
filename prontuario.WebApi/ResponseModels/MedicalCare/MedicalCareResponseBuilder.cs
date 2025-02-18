@@ -8,10 +8,6 @@ namespace prontuario.WebApi.ResponseModels.MedicalCare;
 public class MedicalCareResponseBuilder
 {
     long _id;
-    string? _examPrescription;
-    string? _medicalPrescription;
-    string? _medicalHypothesis;
-    long _patiendId;
     string? _breathingPattern;
     string? _pulmonar;
     string? _coloracaoPele;
@@ -27,30 +23,6 @@ public class MedicalCareResponseBuilder
     public MedicalCareResponseBuilder WithId(long id)
     {
         _id = id;
-        return this;
-    }
-
-    public MedicalCareResponseBuilder WithExamPrescription(string? examPrescription)
-    {
-        _examPrescription = examPrescription;
-        return this;
-    }
-
-    public MedicalCareResponseBuilder WithMedicalPrescription(string? medicalPrescription)
-    {
-        _medicalPrescription = medicalPrescription;
-        return this;
-    }
-
-    public MedicalCareResponseBuilder WithMedicalHypothesis(string? medicalHypothesis)
-    {
-        _medicalHypothesis = medicalHypothesis;
-        return this;
-    }
-
-    public MedicalCareResponseBuilder WithPatientId(long patientId)
-    {
-        _patiendId = patientId;
         return this;
     }
 
@@ -119,10 +91,6 @@ public class MedicalCareResponseBuilder
     {
         return new MedicalCareResponse(
             _id,
-            _examPrescription,
-            _medicalPrescription,
-            _medicalHypothesis,
-            _patiendId,
             _breathingPattern,
             _pulmonar,
             _coloracaoPele,

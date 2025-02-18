@@ -1,3 +1,4 @@
+using prontuario.Domain.Entities.Service;
 using prontuario.Domain.ValuesObjects;
 
 namespace prontuario.Domain.Entities.MedicalCare;
@@ -5,10 +6,6 @@ namespace prontuario.Domain.Entities.MedicalCare;
 public class MedicalCareEntity
 {
     public long Id { get; private set; }
-    public string[]? ExamPrescription { get; private set; }
-    public string? MedicalHypothesis { get; private set; }
-    public string[]? MedicalPrescription { get; private set; }
-    public long PatientId { get; private set; }
     public BreathingPatternStatus BreathingPattern { get; set; } = null!;
     public PulmonarStatus Pulmonar { get; set; } = null!;
     public ColoracaoPeleStatus ColoracaoPele { get; set; } = null!;
@@ -19,16 +16,12 @@ public class MedicalCareEntity
     public BulhasStatus Bulhas { get; set; } = null!;
     public RitmoStatus Ritmo { get; set; } = null!;
     public PulsoStatus Pulso { get; set; } = null!;
-
-
+    public ServiceEntity Service { get; set; } = null!;
+    public long ServiceId { get; private set; }
     
     public MedicalCareEntity() { }
     
     public MedicalCareEntity(long id, 
-        string[]? examPrescription, 
-        string? medicalHypothesis, 
-        string[]? medicalPrescription, 
-        long patient,
         BreathingPatternStatus breathingPattern,
         PulmonarStatus pulmonar,
         ColoracaoPeleStatus coloracaoPele,
@@ -38,14 +31,11 @@ public class MedicalCareEntity
         RespostaMotoraStatus respostaMotora,
         BulhasStatus bulhas,
         RitmoStatus ritmo,
-        PulsoStatus pulso
+        PulsoStatus pulso,
+        ServiceEntity service
         )
     {
         this.Id = id;
-        this.ExamPrescription = examPrescription;
-        this.MedicalHypothesis = medicalHypothesis;
-        this.MedicalPrescription = medicalPrescription;
-        this.PatientId = patient;
         this.BreathingPattern = breathingPattern;
         this.Pulmonar = pulmonar;
         this.ColoracaoPele = coloracaoPele;
@@ -56,6 +46,7 @@ public class MedicalCareEntity
         this.Bulhas = bulhas;
         this.Ritmo = ritmo;
         this.Pulso = pulso;
+        this.Service = service;
 
     }
 }

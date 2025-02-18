@@ -9,14 +9,14 @@ public class ChangeMedicalRecordStatusUseCase(IServiceGateway serviceGateway)
 {
     public async Task<ResultPattern<string>> Execute(ChangeMedicalRecordStatusDTO data)
         {
-            var service = await serviceGateway.FindById(data.Id);
-            if (service == null)
+            var serviceEntity = await serviceGateway.FindById(data.Id);
+            if (serviceEntity == null)
             {
                 return ResultPattern<string>.FailureResult("Service not found", 404, "Not Found");
             }
 
-            var MedicalRecordEntity = MedicalRecordFactory.ChangeMedicalRecordStatus(data, service);
-            await serviceGateway.Update(MedicalRecordEntity);
+            var service = MedicalRecordFactory.ChangeMedicalRecordStatus(data, serviceEntity);
+            await serviceGateway.Update(service);
             return ResultPattern<string>.SuccessResult();
         }
 }

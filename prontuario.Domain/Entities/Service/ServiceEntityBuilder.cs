@@ -1,3 +1,4 @@
+using prontuario.Domain.Entities.MedicalCare;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.Entities.Patient;
 using prontuario.Domain.ValuesObjects;
@@ -11,6 +12,7 @@ public class ServiceEntityBuilder
     private DateTime _serviceDate;
     private PatientEntity _patient = null!;
     private MedicalRecordEntity? _medicalRecordEntity;
+    private MedicalCareEntity _medicalCareEntity = null!;
 
     public ServiceEntityBuilder WithId(long id)
     {
@@ -42,9 +44,15 @@ public class ServiceEntityBuilder
         return this;
     }
 
+    public ServiceEntityBuilder WithMedicalCareEntity(MedicalCareEntity medicalCareEntity)
+    {
+        _medicalCareEntity = medicalCareEntity;
+        return this;
+    }
+
     public ServiceEntity Build()
     {
-        return new ServiceEntity(_id, _serviceStatus, _serviceDate, _patient, _medicalRecordEntity);
+        return new ServiceEntity(_id, _serviceStatus, _serviceDate, _patient, _medicalRecordEntity, _medicalCareEntity);
     }
 
 }

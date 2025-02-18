@@ -11,7 +11,7 @@ public class MedicalRecordResponseBuilder
     private long _id;
     private string? _status;
     private string? _statusInCaseOfAdmission;
-    private MedicalCareResponse? _medicalCareResponse { get; set; }
+    private MedicalCareResponse? _medicalCare { get; set; }
     private AnamneseResponse? _anamnese;
     private List<PatientExamsResponse>? _patientExams;
     private List<PatientMonitoringResponse>? _patientMonitoring;
@@ -59,9 +59,9 @@ public class MedicalRecordResponseBuilder
         return this;
     }
 
-    public MedicalRecordResponseBuilder WithMedicalCareResponse(MedicalCareResponse? medicalCareResponse)
+    public MedicalRecordResponseBuilder WithMedicalCareResponse(MedicalCareResponse? medicalCare)
     {
-        _medicalCareResponse = medicalCareResponse;
+        _medicalCare = medicalCare;
         return this;
     }
 
@@ -74,7 +74,8 @@ public class MedicalRecordResponseBuilder
             _anamnese,
             _patientMonitoring,
             _patientExams,
-            _patientMedications
+            _patientMedications,
+            _medicalCare
         );
     }
 }

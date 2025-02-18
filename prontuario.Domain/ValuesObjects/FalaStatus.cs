@@ -10,7 +10,7 @@ public class FalaStatus
     {
         if(!string.IsNullOrEmpty(value))
             if (!Enum.IsDefined(typeof(Enums.FalaStatusType), value))
-                throw new DomainException("O status respiratório do paciente tem que ser um dos seguintes valores: " +
+                throw new DomainException("A fala o do paciente tem que ser um dos seguintes valores: " +
                                       "AFASIA, " +
                                       "DISFASIA, " +
                                       "DISARTRIA, " );

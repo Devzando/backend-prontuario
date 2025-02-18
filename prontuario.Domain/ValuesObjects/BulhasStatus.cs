@@ -10,7 +10,7 @@ public class BulhasStatus
     {
         if(!string.IsNullOrEmpty(value))
             if (!Enum.IsDefined(typeof(Enums.BulhasStatusType), value))
-                throw new DomainException("O status respiratório do paciente tem que ser um dos seguintes valores: " +
+                throw new DomainException("A bulha do paciente tem que ser um dos seguintes valores: " +
                                       "NORMOFONETICAS, " +
                                       "HIPOFONETICAS, " +
                                       "HIPERFONETICAS, " +

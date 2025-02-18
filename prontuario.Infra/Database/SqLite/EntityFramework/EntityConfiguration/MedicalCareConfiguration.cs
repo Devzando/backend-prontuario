@@ -13,21 +13,6 @@ public class MedicalCareConfiguration : IEntityTypeConfiguration<MedicalCareEnti
 
         // Mapeamento da chave primária
         builder.HasKey(mc => mc.Id);
-
-        builder.Property(mc => mc.ExamPrescription)
-            .HasMaxLength(255)
-            .IsRequired(false);
-        
-        builder.Property(mc => mc.MedicalHypothesis)
-            .HasMaxLength(255)
-            .IsRequired(false);
-        
-        builder.Property(mc => mc.MedicalPrescription)
-            .HasMaxLength(255)
-            .IsRequired(false);
-        
-        builder.Property(mc => mc.PatientId)
-            .IsRequired();
         
         builder.ComplexProperty(mc => mc.BreathingPattern)
             .Property(bp => bp.Value)
@@ -68,5 +53,9 @@ public class MedicalCareConfiguration : IEntityTypeConfiguration<MedicalCareEnti
         builder.ComplexProperty(mc => mc.Pulso)
             .Property(p => p.Value)
             .IsRequired();
+
+        builder.HasOne(mc => mc.Service)
+            .WithOne(r => r.MedicalCareEntity)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
