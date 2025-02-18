@@ -3,7 +3,7 @@ using prontuario.Domain.Entities.Patient;
 
 namespace prontuario.Domain.Dtos.MedicalRecord
 {
-    public record ChangeMedicalRecordStatusDTO(long Id, String Status, String ServiceStatus)
+    public record ChangeMedicalRecordStatusDTO(long Id, String? Status, String? ServiceStatus)
     {
     }
 }

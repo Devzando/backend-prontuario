@@ -1,5 +1,6 @@
 using prontuario.Domain.Dtos.MedicalRecord;
 using prontuario.Domain.Entities.Anamnese;
+using prontuario.Domain.Entities.MedicalCare;
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.Domain.Entities.Patient;
 using prontuario.Domain.Entities.Service;
@@ -26,39 +27,29 @@ public class MedicalRecordFactory
 
     public static ServiceEntity ChangeMedicalRecordStatus(ChangeMedicalRecordStatusDTO data, ServiceEntity serviceEntity)
     {
-        if(data.Status == "alta")
+        if(data.Status == MedicalRecordStatusType.MEDICAL_DISCHARGE.ToString())
         {
-            serviceEntity.MedicalRecordEntity!.Status = new MedicalRecordStatus(MedicalRecordStatusType.NO_SERVICE.ToString());
+            serviceEntity.MedicalRecordEntity!.Status = new MedicalRecordStatus(MedicalRecordStatusType.MEDICAL_DISCHARGE.ToString());
             serviceEntity.PatientEntity.Status = new PatientStatus(PatientStatusType.NO_SERVICE.ToString());
-            serviceEntity.ServiceStatus = data.ServiceStatus;
-        } else if (data.Status == "lab")
-        {
-            if (serviceEntity.MedicalRecordEntity != null)
-            {
-                serviceEntity.MedicalRecordEntity.Status = new MedicalRecordStatus(MedicalRecordStatusType.SCREENING.ToString());
-            }
-            serviceEntity.PatientEntity.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
-        } else if (data.Status == "enfermagem")
+            serviceEntity.ServiceStatus = new ServiceStatus(data.ServiceStatus).Value;
+        } else if (data.Status == MedicalRecordStatusType.NURSING.ToString())
         {
             if (serviceEntity.MedicalRecordEntity != null)
             {
                 serviceEntity.MedicalRecordEntity.Status = new MedicalRecordStatus(MedicalRecordStatusType.NURSING.ToString());
             }
-            serviceEntity.PatientEntity.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
-        } else if (data.Status == "internacao")
+        } else if (data.Status == MedicalRecordStatusType.ADMISSION.ToString()) 
         {
             if (serviceEntity.MedicalRecordEntity != null)
             {
                 serviceEntity.MedicalRecordEntity.Status = new MedicalRecordStatus(MedicalRecordStatusType.ADMISSION.ToString());
                 serviceEntity.MedicalRecordEntity.StatusInCaseOfAdmission = new MedicalRecordStatus(MedicalRecordStatusType.ADMISSION.ToString());
             }
-            serviceEntity.PatientEntity.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
         } else {
             if (serviceEntity.MedicalRecordEntity != null)
             {
                 serviceEntity.MedicalRecordEntity.Status = new MedicalRecordStatus(MedicalRecordStatusType.MEDICAL_CARE.ToString());
             }
-            serviceEntity.PatientEntity.Status = new PatientStatus(PatientStatusType.IN_SERVICE.ToString());
         }
 
         return serviceEntity;
