@@ -318,7 +318,11 @@ public class MedicalRecordController(ILogger<MedicalRecordController> _logger) :
     /// <summary>
     /// Mudar status do prontuário
     /// </summary>
-    /// <remarks>Enviar no corpo o id do prontuário e o status</remarks>
+    /// <remarks>
+    /// Enviar no corpo o id do atendimento e o status que pode ser: SCREENING, MEDICAL_CARE, NURSING, ADMISSION, OBSERVATION, MEDICAL_DISCHARGE
+    /// O serviceStatus se refere-se ao motivo do alta, que pode ser: RESIDENCE, ON_REQUEST, DEATH.
+    /// Caso o status não seja MEDICAL_DISCHARGE, o serviceStatus pode ser null.
+    /// </remarks>
     /// <returns>Mensagem de sucesso na operação</returns>
     /// <response code="200">Status alterado com Sucesso</response>
     /// <response code="400">Erro na operação</response>
