@@ -20,6 +20,7 @@ public class MedicalRecordRepositoryGateway(ProntuarioDbContext context) : IMedi
                 .Include(m => m.PatientMonitoring)
                 .Include(m => m.PatientExams)
                 .Include(m => m.PatientMedications)
+                .Include(m => m.HealthAndDisease)
                 .Where(m => m.Id == medicalRecordId)
                 .FirstOrDefaultAsync();
 

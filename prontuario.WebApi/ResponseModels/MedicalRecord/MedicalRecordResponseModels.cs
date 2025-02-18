@@ -1,5 +1,6 @@
 using prontuario.Domain.Entities.MedicalRecord;
 using prontuario.WebApi.ResponseModels.Anamnese;
+using prontuario.WebApi.ResponseModels.HealthAndDisease;
 using prontuario.WebApi.ResponseModels.PatientExams;
 using prontuario.WebApi.ResponseModels.PatientMedications;
 using prontuario.WebApi.ResponseModels.PatientMonitoring;
@@ -14,7 +15,7 @@ public class MedicalRecordResponseModels
             PatientExamsResponseModels.CreatePatientExamsResponse(exam)
         ).ToList();
 
-        var patientmonitoringResponse = medicalRecordEntity.PatientMonitoring?.Select(monitoring =>
+        var patientMonitoringResponse = medicalRecordEntity.PatientMonitoring?.Select(monitoring =>
             PatientMonitoringResponseModels.CreatePatientmonitoringResponse(monitoring)
         ).ToList();
 
@@ -22,14 +23,19 @@ public class MedicalRecordResponseModels
             PatientMedicationResponseModels.CreatePatientExamsResponse(medication)
         ).ToList();
 
+        var healthAndDiseaseResponse = medicalRecordEntity.HealthAndDisease == null
+            ? null
+            : HealthAndDiseaseResponseModels.CreateHealthAndDiseaseResponse(medicalRecordEntity.HealthAndDisease);
+
         var medicalRecordResponse = new MedicalRecordResponseBuilder()
             .WithId(medicalRecordEntity.Id)
             .WithStatus(medicalRecordEntity.Status.Value)
             .WithStatusInCaseOfAdmission(medicalRecordEntity.StatusInCaseOfAdmission.Value)
             .WithAnamnese(medicalRecordEntity.Anamnese == null ? null : AnamneseResponseModels.CreateCompleteAnamneseReponse(medicalRecordEntity.Anamnese!))
+            .WithHealthAndDisease(healthAndDiseaseResponse)
             .WithPatientExams(patientExamsResponse)
             .WithPatientMedications(patientMedicationsResponse)
-            .WithPatientMonitoring(patientmonitoringResponse)
+            .WithPatientMonitoring(patientMonitoringResponse)
             .Build();
 
         return medicalRecordResponse;
